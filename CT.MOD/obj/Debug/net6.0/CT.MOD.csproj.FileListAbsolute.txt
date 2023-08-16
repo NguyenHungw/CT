@@ -1,0 +1,14 @@
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.deps.json
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.pdb
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfoInputs.cache
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfo.cs
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\refint\CT.MOD.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.pdb
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\ref\CT.MOD.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.runtimeconfig.json
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.genruntimeconfig.cache
