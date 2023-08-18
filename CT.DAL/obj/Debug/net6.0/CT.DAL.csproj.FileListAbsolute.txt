@@ -1,5 +1,4 @@
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\bin\Debug\net6.0\CT.DAL.deps.json
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\bin\Debug\net6.0\CT.DAL.runtimeconfig.json
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\bin\Debug\net6.0\CT.DAL.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\bin\Debug\net6.0\CT.DAL.pdb
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\bin\Debug\net6.0\CT.MOD.dll
@@ -13,5 +12,4 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\CT.DAL.csproj.C
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\CT.DAL.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\refint\CT.DAL.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\CT.DAL.pdb
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\CT.DAL.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.DAL\obj\Debug\net6.0\ref\CT.DAL.dll

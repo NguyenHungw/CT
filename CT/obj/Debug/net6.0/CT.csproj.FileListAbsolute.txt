@@ -108,3 +108,4 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\tr\Microsoft.CodeAn
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.resources.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.resources.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\CT.staticwebassets.runtime.json

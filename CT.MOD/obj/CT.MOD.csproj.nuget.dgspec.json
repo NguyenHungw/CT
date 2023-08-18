@@ -40,11 +40,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[5.0.17, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.10, )"
             },

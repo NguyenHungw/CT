@@ -51,7 +51,7 @@ namespace CT.DAL
 
             catch (Exception ex)
             {
-                // Handle specific exceptions here or log the error appropriately.
+                
                 throw;
             }
             return null;

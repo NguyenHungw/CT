@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CT",
-    "\\CT.DAL"
+    "\\CT.DAL",
+    "\\CT.MOD",
+    "\\CT\\Controllers"
   ],
-  "SelectedNode": "\\CT.sln",
+  "SelectedNode": "\\CT.MOD\\PasePagingParam.cs",
   "PreviewInSolutionExplorer": false
 }
