@@ -21,7 +21,7 @@ namespace CT.MOD
         public int PageNumber { get; set; } = 1;
 
         // Thuộc tính tính toán giá trị Offset dựa trên PageSize và PageNumber.
-        // Offset thường được sử dụng để tính vị trí bắt đầu lấy dữ liệu từ cơ sở dữ liệu.
+        // Offset được sử dụng để tính vị trí bắt đầu lấy dữ liệu từ cơ sở dữ liệu.
         public int Offset { get { return (PageSize == 0 ? 10 : PageSize) * ((PageNumber == 0 ? 1 : PageNumber) - 1); } }
 
         // Thuộc tính tính toán giá trị Limit dựa trên PageSize.

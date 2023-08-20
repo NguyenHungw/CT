@@ -14,9 +14,9 @@ namespace CT.Controllers
 
         public IActionResult Login([FromForm] TaiKhoanMOD login)
         {
-            if(Login == null ) return BadRequest();
+            if (Login == null) return BadRequest();
             var Result = new TaiKhoanBUS().DangNhap(login);
-            if(Result != null) return Ok(Result);
+            if (Result != null) return Ok(Result);
             else return BadRequest();
 
         }
@@ -25,8 +25,8 @@ namespace CT.Controllers
 
         public IActionResult Register([FromForm] DangKyTK item)
         {
-            if(item == null) return BadRequest();
-            var Result  = new TaiKhoanBUS().DangKyTaiKhoan(item);
+            if (item == null) return BadRequest();
+            var Result = new TaiKhoanBUS().DangKyTaiKhoan(item);
             if (Result != null) return Ok(Result);
             else return NotFound();
 
@@ -35,15 +35,40 @@ namespace CT.Controllers
         [Route("DanhSachTK")]
         public IActionResult DanhSachTK(int page)
         {
-            if(page <1) return BadRequest();
+            if (page < 1) return BadRequest();
             else
             {
                 var totalrows = 0;
                 var result = new TaiKhoanBUS().DanhSachTK(page);
                 result.TotalRow = totalrows;
-                if(result != null) return Ok(result);
+                if (result != null) return Ok(result);
                 else return NotFound();
             }
         }
+        [HttpPost]
+        [Route("DoiMK")]
+
+        public IActionResult DoiMK([FromBody] DoiMK item)
+        {
+            if (item == null) return BadRequest();
+            var Result = new TaiKhoanBUS().DoiMatKhau(item);
+            if (Result != null) return Ok(Result);
+            else return NotFound();
+
+
+        }
+        [HttpDelete]
+        [Route("XoaTK")]
+        public IActionResult XoaTK( string sdt)
+        {
+            if(sdt == null || sdt ==" ") return BadRequest();
+            var Result = new TaiKhoanBUS().XoaTK(sdt);
+            if (Result != null) return Ok(Result);
+            else return NotFound();
+            
+        }
+        
+
     }
+
 }

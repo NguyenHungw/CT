@@ -143,13 +143,48 @@ namespace CT.BUS
 
                 }
                 else
+
                 {
+                    Result.Status = 1;
+                    Result.Messeage = "xoa thanh cong";
                     return new SanPhamDAL().XoaSp(msp);
                 }
 
             }
             return Result;
         }
+        public BaseResultMOD XoaAllSP()
+        {
+            var Result = new BaseResultMOD();
+            /*   SanPhamDAL dsModel = new SanPhamDAL();*/
+            SanPhamDAL checkxoa = new SanPhamDAL();
+                var check = checkxoa.XoaAllSP(); // Lấy dữ liệu từ phương thức DSDAL của đối tượng dsModel
+            try
+            {
+
+          
+                if (check != null)
+                {
+                    // Xử lý dữ liệu và gán vào Result
+                    Result.Status = 1;
+                    Result.Messeage = "Xoa thanh cong";
+                   
+                }
+                else
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "Không tìm thấy dữ liệu.";
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Result;
+        }
+            
+        
         public BaseResultMOD DanhSachSP(int page)
 
 

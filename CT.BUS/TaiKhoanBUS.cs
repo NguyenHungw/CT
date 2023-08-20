@@ -3,6 +3,7 @@ using CT.MOD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,14 +38,14 @@ namespace CT.BUS
                     {
                        if(Userlogin.role == 1)
                         {
-                            Result.Status= 0;
+                            Result.Status= 1;
                             Result.Messeage = "Dang nhap thanh cong";
                             Result.Data = new TaiKhoanDAL().function(Userlogin.role);
 
                         }
                         if (Userlogin.role == 2)
                         {
-                            Result.Status = 0;
+                            Result.Status = 1;
                             Result.Messeage = "Dang nhap thanh cong";
                             Result.Data = new TaiKhoanDAL().function(Userlogin.role);
 
@@ -132,6 +133,71 @@ namespace CT.BUS
             return result;
 
         }
+       
+
+        public BaseResultMOD DoiMatKhau(DoiMK item)
+        {
+            var Result = new BaseResultMOD();
+           
+                if(item==null|| item.PhoneNumber == null || item.PhoneNumber ==" ")
+                {
+                    Result.Status=0;
+                    Result.Messeage = "SDT ko dc de trong";
+                }else if(item == null || item.Password == null || item.Password==" ")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "MK ko dc de trong";
+                }else if(item == null || item.RePassword == null|| item.RePassword == " ")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = " MK ko dc de trong";
+                }
+                else
+                {
+                    var checktk = new TaiKhoanDAL().inforTK(item.PhoneNumber);
+                    if(checktk != null && item.Password == item.RePassword )
+                    {
+                        return Result = new TaiKhoanDAL().DoiMatKhau(item);
+
+                    }
+                    else
+                    {
+                        Result.Status = -1;
+                        Result.Messeage = " SDT sai";
+                    }
+                }
+
+            return Result;
+        }
+        public BaseResultMOD XoaTK(string sdt)
+        {
+            var Result = new BaseResultMOD();
+            if(sdt ==null || sdt == "")
+            {
+                Result.Status = 0;
+                Result.Messeage = "SDT ko dc de trong";
+                return Result;
+
+
+            }
+            else
+            {
+                var thongtintk = new TaiKhoanDAL().inforTK(sdt);
+                if(thongtintk == null)
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "SDT ko ton tai";
+                    return Result;
+                }
+                else
+                {
+                    return new TaiKhoanDAL().XoaTK(sdt);
+                }
+
+            }
+        }
+            
+        }
         
     }
-}
+

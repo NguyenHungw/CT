@@ -49,7 +49,16 @@ namespace CT.Controllers
         {
             if(msp == null || msp =="") return BadRequest();
             var Result = new SanPhamBUS().XoaSP(msp);
-            if (Result != null) return Ok();
+            if (Result != null) return Ok(Result);
+            else return NotFound();
+        }
+        [HttpDelete]
+        [Route("XoaALLSP")]
+        public IActionResult XoaAllSP()
+        {
+         
+            var Result = new SanPhamBUS().XoaAllSP();
+            if (Result != null) return Ok(Result);
             else return NotFound();
         }
         [HttpGet]
@@ -65,7 +74,7 @@ namespace CT.Controllers
             }
         }
         [HttpGet]
-        [Route("DanhSachSP-ko-page")]
+        [Route("DanhSachSP-2-")]
         public IActionResult DanhSachSPKP(int page)
         {
             var result = new SanPhamBUS().DanhSachSPKP(page); 

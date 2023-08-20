@@ -44,7 +44,7 @@ namespace CT.DAL
                        
                        
                         Result.MSanPham = reader.GetString(0);
-                        Result.Picture = "localhost:7177/" + reader.GetString(1);
+                        Result.Picture = "https://localhost:7177/" + reader.GetString(1);
                         Result.TenSP = reader.GetString(2);
                         Result.LoaiSanPham = reader.GetString(3);
                         Result.SoLuong = reader.GetInt32(4);
@@ -95,7 +95,7 @@ namespace CT.DAL
                             {
                                 DanhSachSP item = new DanhSachSP();
                                 item.MSanPham = reader.GetString(0);
-                                item.Picture = "localhost:7177/" + reader.GetString(1);
+                                item.Picture = "https://localhost:7177" + reader.GetString(1);
                                 item.TenSP = reader.GetString(2);
                                 item.LoaiSanPham = reader.GetString(3);
                                 item.SoLuong = reader.GetInt32(4);
@@ -141,7 +141,7 @@ namespace CT.DAL
                         file.CopyTo(stream);
 
                     }
-                    Picture = "/upload " + file.FileName;
+                    Picture = "/upload/" + file.FileName;
 
                 }
                 else
@@ -276,6 +276,47 @@ namespace CT.DAL
             return Result;
 
         }
+
+        public BaseResultMOD XoaAllSP()
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if (SQLCon == null)
+                {
+                    SQLCon = new SqlConnection(strcon);
+                }
+                if (SQLCon.State == ConnectionState.Closed)
+                {
+                    SQLCon.Open();
+                }
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "DELETE FROM SanPham";
+                cmd.Connection = SQLCon;
+                cmd.ExecuteNonQuery();
+                if (SQLCon != null)
+                {
+                    Result.Status = 1;
+                    Result.Messeage = "xoa sp thanh cong";
+                }
+                else
+                {
+                    Result.Status = -1;
+                    Result.Messeage = "Ko co sp de xoa";
+
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Result;
+
+        }
+
+
         public SanPhamMOD ThongTinSp(string msp)
         {
             SanPhamMOD item = null;

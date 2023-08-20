@@ -8,6 +8,7 @@ namespace CT.MOD
 {
     public class TaiKhoanMOD
     {
+/*        public string Username { get; set; }*/
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
     }
@@ -34,5 +35,12 @@ namespace CT.MOD
         public string TenChucNang { get; set; }
 
         public int quyen { get; set; }
+    }
+    
+    public class DoiMK
+    {
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
+        public string RePassword { get;set;}
     }
 }

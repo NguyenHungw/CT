@@ -15,7 +15,7 @@ namespace CT.DAL
     public class TaiKhoanDAL
     {
         private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
-
+        SqlConnection SQLCon = null;
         public TaiKhoanModel LoginDAL(TaiKhoanMOD item)
         {
             try
@@ -36,14 +36,13 @@ namespace CT.DAL
                         if (BCrypt.Net.BCrypt.Verify(item.Password, hashedPasswordFromDB))
                         {
                             var Result = new TaiKhoanModel();
-                            Result.Username = reader.GetString(0);
+                           // Result.Username = reader.GetString(0);
                             Result.PhoneNumber = reader.GetString(1);
-                            Result.Email = reader.GetString(2);
-                            Result.role = reader.GetInt32(3);
+                           // Result.role = reader.GetInt32(3);
                             return Result;
                         }
                     }
-                    
+
                     reader.Close();
                 }
 
@@ -51,13 +50,13 @@ namespace CT.DAL
 
             catch (Exception ex)
             {
-                
+
                 throw;
             }
             return null;
         }
 
-        public BaseResultMOD RegisterDAL (DangKyTK item)
+        public BaseResultMOD RegisterDAL(DangKyTK item)
         {
             var Result = new BaseResultMOD();
             string salt = BCrypt.Net.BCrypt.GenerateSalt();
@@ -69,21 +68,19 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-
                     cmd.CommandText = "INSERT INTO TaiKhoan (UserName, PhoneNumber, Email, Password, role) VALUES ('" + item.Name + "', '" + item.PhoneNumber + "', '" + item.Email + "', '" + hash + "', 1)";
-
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
 
-                
+
                 }
 
                 Result.Status = 1;
                 Result.Messeage = "Dang ki thanh cong ";
-          
+
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
 
@@ -99,7 +96,7 @@ namespace CT.DAL
                 using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
-                    SqlCommand cmd = new  SqlCommand();
+                    SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "SELECT * FROM TaiKhoan WHERE phonenumber = @PhoneNumber";
                     cmd.Parameters.AddWithValue("@PhoneNumber", Phonenumber);
@@ -112,18 +109,18 @@ namespace CT.DAL
                         item = new DangKyTK();
                         item.PhoneNumber = reader.GetString(1);
                     }
-                    SQLCon.Close();
+                    
                     reader.Close();
                 }
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
             return item;
-            
+
         }
         public BaseResultMOD function(int quyen)
         {
@@ -131,31 +128,31 @@ namespace CT.DAL
             try
             {
                 List<DanhSachChucNang> dschucnang = new List<DanhSachChucNang>();
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "select Mchucnang,TenChucNang,quyen from phanquyen where quyen = @quyen ";
-                    cmd.Parameters.AddWithValue("@quyen",quyen);
-                    cmd.Connection=SQLCon;
+                    cmd.Parameters.AddWithValue("@quyen", quyen);
+                    cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         DanhSachChucNang item = new DanhSachChucNang();
-                        item.TenChucNang= reader.GetString(1);
+                        item.TenChucNang = reader.GetString(1);
                         dschucnang.Add(item);
 
                     }
-                    SQLCon.Close();
+              
                     reader.Close();
                 }
                 result.Status = 1;
                 result.Data = dschucnang;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
 
@@ -188,24 +185,97 @@ namespace CT.DAL
                         model.Email = reader.GetString(2);
                         ListAccounts.Add(model);
                     }
-                    
+
                     reader.Close();
-                    
+
 
                 }
                 result.Status = 1;
                 result.Data = ListAccounts;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
             return result;
 
         }
-         
-        
+      
+
+        public BaseResultMOD DoiMatKhau(DoiMK item)
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+               
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    string salt = BCrypt.Net.BCrypt.GenerateSalt();
+                    string hash = BCrypt.Net.BCrypt.HashPassword(item.Password, salt);
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = " UPDATE TaiKhoan SET password = @password WHERE phonenumber = @phonenumber";
+                    cmd.Parameters.AddWithValue("@phonenumber", item.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@password", hash);
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                }
+                Result.Status = 1;
+                Result.Messeage = "Doi mk thanh cong";
+
+            }
+            catch (Exception)
+            {
+                Result.Status = -1;
+                Result.Messeage = "doi mk that bai";
+                throw;
+            }
+            return Result;
+            
+        }
+
+        public BaseResultMOD XoaTK (string sdt)
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if(SQLCon == null)
+                {
+                    SQLCon = new SqlConnection(strcon);
+                }if(SQLCon.State == ConnectionState.Closed)
+                {
+                    SQLCon.Open();
+                }
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "DELETE FROM TaiKhoan WHERE phonenumber = @phonenumber";
+                cmd.Parameters.AddWithValue("@phonenumber",sdt);
+                cmd.Connection = SQLCon;
+                cmd.ExecuteNonQuery ();
+                if(SQLCon != null)
+                {
+                    Result.Status = 1;
+                    Result.Messeage = "xoa tk thanh cong";
+
+                }
+                else
+                {
+                    Result.Status = -1;
+                    Result.Messeage = "vui long kiem tra lai sdt";
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Result;
+           
+        }
 
     }
+
 }
+
+

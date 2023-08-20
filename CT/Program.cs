@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Cors; // Thêm namespace cors
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,7 +20,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); // Enable serving static files from wwwroot*/
+
 app.UseAuthorization();
+
+// them xu li cors
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 app.MapControllers();
 
