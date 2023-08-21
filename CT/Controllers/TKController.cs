@@ -2,6 +2,8 @@
 using CT.MOD;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.Runtime.Serialization;
 
 namespace CT.Controllers
 {
@@ -9,6 +11,19 @@ namespace CT.Controllers
     [ApiController]
     public class TKController : ControllerBase
     {
+
+        public enum Role
+        {
+            [EnumMember(Value = "Admin")]
+            Admin,
+            [EnumMember(Value = "QLSanpham")]
+            QLSP,
+            [EnumMember(Value = "QLDonhang")]
+            QLDH,
+            [EnumMember(Value = "User")]
+            User,
+        }
+
         [HttpPost]
         [Route("Login")]
 
@@ -52,6 +67,17 @@ namespace CT.Controllers
         {
             if (item == null) return BadRequest();
             var Result = new TaiKhoanBUS().DoiMatKhau(item);
+            if (Result != null) return Ok(Result);
+            else return NotFound();
+
+
+        }
+        [HttpPost]
+        [Route("DoiTen")]
+        public IActionResult DoiTen([FromForm] Rename item)
+        {
+            if (item == null) return BadRequest();
+            var Result = new TaiKhoanBUS().DoiTen(item);
             if (Result != null) return Ok(Result);
             else return NotFound();
 

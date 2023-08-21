@@ -173,16 +173,18 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "select username, phonenumber, email from TaiKhoan order by id offset " + startPage + " rows fetch next " + ProductPerPage + " rows only ";
+                    cmd.CommandText = "select username, phonenumber, email , role from TaiKhoan order by id offset " + startPage + " rows fetch next " + ProductPerPage + " rows only ";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         TaiKhoanModel model = new TaiKhoanModel();
-                        model.Username = reader.GetString(0);
-                        model.PhoneNumber = reader.GetString(1);
-                        model.Email = reader.GetString(2);
+                        model.Email = reader.GetString(0);
+                        model.Username = reader.GetString(1);
+                        model.PhoneNumber = reader.GetString(2);
+                       
+                        model.role = reader.GetInt32(3);
                         ListAccounts.Add(model);
                     }
 
@@ -234,6 +236,36 @@ namespace CT.DAL
             }
             return Result;
             
+        }
+        public BaseResultMOD DoiTen(Rename item)
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText="UPDATE TaiKhoan SET username = @username WHERE phonenumber = @phonenumber";
+                    cmd.Parameters.AddWithValue("@phonenumber", item.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@username", item.Username);
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                   
+                    
+                }
+                Result.Status = 1;
+                Result.Messeage = "Doi ten thanh cong";
+            }
+            catch (Exception)
+            {
+                Result.Status = -1;
+                Result.Messeage = "Doi ten that bai";
+                throw;
+            }
+            return Result;
         }
 
         public BaseResultMOD XoaTK (string sdt)

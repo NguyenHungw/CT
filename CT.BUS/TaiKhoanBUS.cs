@@ -169,6 +169,38 @@ namespace CT.BUS
 
             return Result;
         }
+        public BaseResultMOD DoiTen(Rename item)
+        {
+            var Result = new BaseResultMOD();
+            if(item == null || item.PhoneNumber == null || item.PhoneNumber == "")
+            {
+                Result.Status = 0;
+                Result.Messeage = "SDT ko dc de trong";
+
+            }
+            else if (item == null || item.Username == null || item.Username == ""){
+                Result.Status = 0;
+                Result.Messeage = "Username k dc de trong";
+
+            }
+            else
+            {
+                var checktk = new TaiKhoanDAL().inforTK(item.PhoneNumber);
+                if(checktk != null && item.Username != null)
+                {
+                    return Result = new TaiKhoanDAL().DoiTen(item);
+                }
+                else
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "Sdt sai";
+
+                }
+            }
+            return Result;
+
+
+        }
         public BaseResultMOD XoaTK(string sdt)
         {
             var Result = new BaseResultMOD();

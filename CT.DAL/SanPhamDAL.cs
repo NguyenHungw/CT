@@ -350,6 +350,47 @@ namespace CT.DAL
             return item;
 
         }
+        public ChiTietSP CTSP(string msp)
+        {
+            ChiTietSP item = null;
+            try
+            {
+                if(SQLCon == null)
+                {
+                    SQLCon = new SqlConnection(strcon);
+                }
+                if(SQLCon.State == ConnectionState.Closed)
+                {
+                    SQLCon.Open();
+                }
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = " SELECT * FROM SanPham WHERE MSanPham=@MSanPham  ";
+                cmd.Parameters.AddWithValue("@MSanPham",msp);
+                cmd.Connection = SQLCon;
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    item = new ChiTietSP();
+                    item.id = reader.GetInt32(0);
+                    item.MSanPham = msp;
+
+                    item.Picture = reader.GetString(2);
+                    item.TenSP = reader.GetString(3);
+                    item.LoaiSanPham = reader.GetString(4);
+                    item.SoLuong = reader.GetInt32(5);
+                    item.DonGia = (float)reader.GetDecimal(6);
+                }
+                reader.Close();
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return item;
+        }
 
         public TimSp TBNM( string name)
         {
@@ -413,6 +454,7 @@ namespace CT.DAL
                     {
                         Result.MSanPham = reader.GetString(0);
                         Result.Picture = reader.GetString(1);
+                        Result.TenSP = name;
                         Result.LoaiSanPham = reader.GetString(2);
                         Result.SoLuong = reader.GetInt32(3);
                         Result.DonGia = (float)reader.GetDecimal(4);

@@ -296,8 +296,7 @@ namespace CT.BUS
                 }
                 else
                 {
-                   
-                   
+  
                             var checksp = new SanPhamDAL().SearchByName(name);
                             if (checksp == null)
                             {
@@ -322,6 +321,41 @@ namespace CT.BUS
             return item;
 
         }
+        public ChiTietSP ChiTSP(string msp)
+        {
+            var item = new  ChiTietSP();
+            var Result = new BaseResultMOD();
+            try
+            {
+                if(msp == null|| msp == "")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "MSP ko dc de trong";
+
+                }
+                else
+                {
+                    var checksp = new SanPhamDAL().CTSP(msp);
+                        if(checksp == null)
+                        {
+                            Result.Status = 0;
+                            Result.Messeage = "SP ko ton tai";
+                        }
+                        else
+                        {
+                            return checksp;
+                        }
+                    }
+                
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
+            return item;
+        }
+
         public BaseResultMOD PhanLoaiSP(string loaisp, int page)
         {
             var Result = new BaseResultMOD();

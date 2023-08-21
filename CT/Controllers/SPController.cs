@@ -112,6 +112,17 @@ namespace CT.Controllers
             if (Result != null) return Ok(Result);
             else return NotFound();
         }
+
+        [HttpPost]
+        [Route("ChiTietSp")]
+        public IActionResult ChiTietSP(string msp)
+        {
+            if (msp == null || msp == " ") return BadRequest();
+            var Result = new SanPhamBUS().ChiTSP(msp);
+            if (Result != null) return Ok(Result);
+            else return NotFound();
+        }
+
         [HttpPost]
         [Route("PhanLoaiSP")]
         public IActionResult PhanLoaiSP(string loaisp, int page)
