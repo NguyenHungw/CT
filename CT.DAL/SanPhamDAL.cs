@@ -196,7 +196,7 @@ namespace CT.DAL
                             file.CopyTo(stream); 
 
                         }
-                        Picture = "/upload" + file.FileName;
+                        Picture = "/upload/" + file.FileName;
 
                     }
                     else
