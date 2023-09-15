@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\CT",
+    "\\CT.BUS",
     "\\CT.DAL",
     "\\CT.MOD",
     "\\CT\\Controllers"

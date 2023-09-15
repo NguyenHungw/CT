@@ -1,9 +1,14 @@
 ﻿using CT.BUS;
 using CT.MOD;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.Serialization;
+using System.Security.Claims;
+using System.Text;
 
 namespace CT.Controllers
 {
@@ -12,22 +17,16 @@ namespace CT.Controllers
     public class TKController : ControllerBase
     {
 
-        public enum Role
-        {
-            [EnumMember(Value = "Admin")]
-            Admin,
-            [EnumMember(Value = "QLSanpham")]
-            QLSP,
-            [EnumMember(Value = "QLDonhang")]
-            QLDH,
-            [EnumMember(Value = "User")]
-            User,
-        }
+      
+
+
+        //
+       
 
         [HttpPost]
         [Route("Login")]
 
-        public IActionResult Login([FromForm] TaiKhoanMOD login)
+        public IActionResult Login([FromBody] TaiKhoanMOD login)
         {
             if (Login == null) return BadRequest();
             var Result = new TaiKhoanBUS().DangNhap(login);
@@ -38,7 +37,7 @@ namespace CT.Controllers
         [HttpPost]
         [Route("Register")]
 
-        public IActionResult Register([FromForm] DangKyTK item)
+        public IActionResult Register([FromBody] DangKyTK item)
         {
             if (item == null) return BadRequest();
             var Result = new TaiKhoanBUS().DangKyTaiKhoan(item);

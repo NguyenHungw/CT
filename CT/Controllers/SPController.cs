@@ -3,6 +3,7 @@ using CT.DAL;
 using CT.MOD;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace CT.Controllers
 {
@@ -18,7 +19,11 @@ namespace CT.Controllers
             if (file.Length > 0)
             {
                 var Result = new SanPhamBUS().ThemSP(item, file);
-                if(Result != null) return Ok(Result);
+                if (Result != null)
+                {
+                    
+                    return Ok(Result);
+                }
                 else return NotFound();
 
             }
@@ -27,6 +32,46 @@ namespace CT.Controllers
                 return NotFound();
             }
         }
+
+        private string ConvertIFormFileToBase64(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.CopyTo(memoryStream);
+                    byte[] imageBytes = memoryStream.ToArray();
+                    return Convert.ToBase64String(imageBytes);
+                }
+            }
+            return "";
+        }
+
+        [HttpPost]
+        [Route("ThemSPBase64")]
+        public IActionResult ThemSPBase64( IFormFile file, [FromForm] SanPhamMOD item )
+        {
+            if (item == null) return BadRequest();
+            if (file != null && file.Length > 0)
+            {
+                var Result = new SanPhamBUS().ThemSPBase64(item, file);
+                if (Result != null)
+                {
+
+                    return Ok(Result);
+                }
+                else return NotFound();
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+
+
+
         [HttpPut]
         [Route("SuaSP")]
         public IActionResult SuaSP(IFormFile file, [FromForm] SanPhamMOD item)

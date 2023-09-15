@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FAg6l/Au7jYdFPdMF8oH4DxKs5W7PBS4mlbAARbDctw=",
+  "Hash": "nANtPzxYJ7wzYgZgccjIZ6/QTJwggr0S56xoK7h8LQg=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -440,6 +440,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\meomeo.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/temp/a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif"
     }
   ]
 }

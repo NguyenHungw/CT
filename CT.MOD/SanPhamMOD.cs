@@ -32,6 +32,10 @@ namespace CT.MOD
         public IFormFile file;
 
     }
+    public class SanPhamMOD2 : SanPhamMOD
+    {
+        public string Picture { set; get; }
+    }
     public class DanhSachSP
     {
         public string MSanPham { get; set; }

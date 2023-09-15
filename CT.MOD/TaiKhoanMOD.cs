@@ -9,10 +9,28 @@ namespace CT.MOD
     public class TaiKhoanMOD
     {
 /*        public string Username { get; set; }*/
+
+        //public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
+
     }
 
+  
+    public class TKModel
+    {
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+    }
+/*    public class UserConstants
+    {
+        public static List<TKModel> Users = new()
+            {
+                    new TKModel(){ PhoneNumber="naeem",Password="naeem_admin",Role="Admin"}
+            };
+    }
+*/
     public class DangKyTK
     {
         public string Email { get; set; }
@@ -22,20 +40,23 @@ namespace CT.MOD
     }
     public class TaiKhoanModel
     {
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-
+        public int id { get; set; }
         public string Username { get; set; }
-
-        public int role { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public int isActive {get; set; }
     }
 
     public class DanhSachChucNang
     {
-        public int MChucNang { get; set; }
+        /*public int MChucNang { get; set; }
         public string TenChucNang { get; set; }
 
-        public int quyen { get; set; }
+        public int quyen { get; set; }*/
+
+        public int idChucNang { get; set; }
+        public string TenChucNang { get; set; }
     }
     
     public class DoiMK

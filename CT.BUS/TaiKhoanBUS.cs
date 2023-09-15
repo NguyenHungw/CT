@@ -12,15 +12,16 @@ namespace CT.BUS
     public class TaiKhoanBUS
 
     {
+
         public BaseResultMOD DangNhap(TaiKhoanMOD login)
         {
             var Result = new BaseResultMOD();
             try
             {
-                if (login.PhoneNumber == null || login.PhoneNumber == "")
+                if (login.PhoneNumber == null || login.PhoneNumber == "") 
                 {
                     Result.Status = 0;
-                    Result.Messeage = "sdt ko dc de trong";
+                    Result.Messeage = "SDT hoặc Email không được để trống";
                     return Result;
 
                 } else if (login.Password == null || login.Password == "")
@@ -33,28 +34,29 @@ namespace CT.BUS
                 else
                 {
                     var Userlogin = new TaiKhoanDAL().LoginDAL(login);
-                    var quyen = new TaiKhoanDAL().function;
+                   // var quyen = new TaiKhoanDAL().CheckRoles;
                     if(Userlogin != null)
                     {
-                       if(Userlogin.role == 1)
+                        //check role + isActive
+                       if( Userlogin.isActive == 1 )
                         {
                             Result.Status= 1;
                             Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().function(Userlogin.role);
+                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
 
                         }
-                        if (Userlogin.role == 2)
+                        if ( Userlogin.isActive == 1)
                         {
                             Result.Status = 1;
                             Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().function(Userlogin.role);
+                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
 
                         }
-                        if (Userlogin.role == 3)
+                        if ( Userlogin.isActive == 1)
                         {
                             Result.Status = 1;
                             Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().function(Userlogin.role);
+                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
 
                         }
 
@@ -67,8 +69,9 @@ namespace CT.BUS
                     return Result;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Console.WriteLine("Caught exception: " + ex.Message);
                 throw;
             }
 
@@ -104,7 +107,7 @@ namespace CT.BUS
             catch(Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = " dien du moi thong tin";
+                Result.Messeage = " Lỗi hệ thống ";
                 throw;
 
             }
@@ -119,13 +122,13 @@ namespace CT.BUS
                 else
                 {
                     result.Status = 0;
-                    result.Messeage = "loi page";
+                    result.Messeage = "lỗi page";
                 }
             }
             catch (Exception)
             {
                 result.Status = -1;
-                result.Messeage = "loi he thong";
+                result.Messeage = " Lỗi hệ thống ";
                 result.Data = null;
                 throw;
 
@@ -142,15 +145,15 @@ namespace CT.BUS
                 if(item==null|| item.PhoneNumber == null || item.PhoneNumber ==" ")
                 {
                     Result.Status=0;
-                    Result.Messeage = "SDT ko dc de trong";
+                    Result.Messeage = "SDT Không được để trống";
                 }else if(item == null || item.Password == null || item.Password==" ")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "MK ko dc de trong";
+                    Result.Messeage = "MK không được để trống";
                 }else if(item == null || item.RePassword == null|| item.RePassword == " ")
                 {
                     Result.Status = 0;
-                    Result.Messeage = " MK ko dc de trong";
+                    Result.Messeage = " MK không được để trống";
                 }
                 else
                 {

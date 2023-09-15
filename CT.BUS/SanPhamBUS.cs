@@ -1,4 +1,5 @@
-﻿using CT.DAL;
+﻿using 
+    CT.DAL;
 using CT.MOD;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
@@ -67,6 +68,64 @@ namespace CT.BUS
             return Result;
 
         }
+        public BaseResultMOD ThemSPBase64(SanPhamMOD item, IFormFile file)
+        {
+            var Result = new BaseResultMOD();
+
+            try
+            {
+
+                // Kiểm tra các điều kiện
+                if (item == null || item.MSanPham == null || item.MSanPham == "")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "ma sp k dc de trong";
+                }
+                if (item == null || item.TenSP == null || item.TenSP == "")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "ten sp k dc de trong";
+                }
+                if (item == null || item.LoaiSanPham == null || item.LoaiSanPham == "")
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "LoaiSanPhamk dc de trong";
+                }
+                if (item == null || item.SoLuong < 0)
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "ten sp k dc de trong";
+                }
+                if (item == null || item.SoLuong < 0)
+                {
+                    Result.Status = 0;
+                    Result.Messeage = "SoLuong k dc de trong";
+                }
+                else
+                {
+                    var checksp = new SanPhamDAL().ThongTinSp(item.MSanPham);
+                    if (checksp != null)
+                    {
+                        Result.Status = -1;
+                        Result.Messeage = "Sản phẩm đã tồn tại";
+                    }
+                    else
+                    {
+
+                   
+                        return new SanPhamDAL().ThemSPBase64(item, file);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có
+                Result.Status = -1;
+                Result.Messeage = "Thêm sản phẩm thất bại";
+            }
+            return Result;
+        }
+
         public BaseResultMOD SuaSP(SanPhamMOD item, IFormFile file)
         {
             var Result = new BaseResultMOD();
@@ -185,7 +244,7 @@ namespace CT.BUS
         }
             
         
-        public BaseResultMOD DanhSachSP(int page)
+        public BaseResultMOD DanhSachSP(int page )
 
 
         {
@@ -202,6 +261,13 @@ namespace CT.BUS
                 {
 
                     Result = new SanPhamDAL().GetDanhSachSP(page);
+                   /* if(loaisp != null)
+                    {
+                        Result = new SanPhamDAL().GetDanhSachSP(tensp);
+                    }else if(tensp != null)
+                    {
+                        Result = new SanPhamDAL().GetDanhSachSP(tensp);
+                    }*/
                 }
             }
             catch (Exception ex)
