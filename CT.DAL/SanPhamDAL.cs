@@ -99,7 +99,7 @@ namespace CT.DAL
                                 string picture = reader.GetString(1);
                                 if (picture.EndsWith(".jpg") || picture.EndsWith(".png") || picture.EndsWith(".gif"))
                                 {
-                                    item.Picture = "https://localhost:7177" + reader.GetString(1);
+                                    item.Picture = "https://localhost:7177/" + reader.GetString(1);
                                 }
                                 else
                                 {
@@ -150,14 +150,16 @@ namespace CT.DAL
                         file.CopyTo(stream);
 
                     }
-                    Picture = "/upload/" + file.FileName;
+                     Picture = "/upload/" + file.FileName;
+                    //Picture = file.FileName;
 
                 }
                 else
                 {
                     Picture = "";
                 }
-                sqlcmd.CommandText = "insert into SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia)values(@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong ,@DonGia)";
+                using (SqlConnection SQLCon = new SqlConnection(strcon)) { 
+                    sqlcmd.CommandText = "insert into SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia)values(@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong ,@DonGia)";
                 sqlcmd.Connection = SQLCon;
                 sqlcmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                 sqlcmd.Parameters.AddWithValue("@Picture", Picture);
@@ -167,11 +169,11 @@ namespace CT.DAL
                 sqlcmd.Parameters.AddWithValue("@DonGia", item.DonGia);
                 SQLCon.Open();
                 sqlcmd.ExecuteNonQuery();
-
+                SQLCon.Close();
                 Result.Status = 1;
                 Result.Messeage = "Them sp thanh cong";
                 Result.Data = 1;
-
+                }
             }
             catch (Exception ex)
             {

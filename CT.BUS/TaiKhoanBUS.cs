@@ -3,6 +3,7 @@ using CT.MOD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,50 +19,38 @@ namespace CT.BUS
             var Result = new BaseResultMOD();
             try
             {
-                if (login.PhoneNumber == null || login.PhoneNumber == "") 
+                if (login.PhoneNumber == null || login.PhoneNumber == "")
                 {
                     Result.Status = 0;
                     Result.Messeage = "SDT hoặc Email không được để trống";
                     return Result;
-
-                } else if (login.Password == null || login.Password == "")
+                }
+                else if (login.Password == null || login.Password == "")
                 {
                     Result.Status = 0;
                     Result.Messeage = "password ko dc de trong";
                     return Result;
-
                 }
                 else
                 {
                     var Userlogin = new TaiKhoanDAL().LoginDAL(login);
-                   // var quyen = new TaiKhoanDAL().CheckRoles;
-                    if(Userlogin != null)
+
+                    if (Userlogin != null)
                     {
-                        //check role + isActive
-                       if( Userlogin.isActive == 1 )
-                        {
-                            Result.Status= 1;
-                            Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
-
-                        }
-                        if ( Userlogin.isActive == 1)
+                        // Kiểm tra isActive
+                        if (Userlogin.isActive == 1)
                         {
                             Result.Status = 1;
                             Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
-
+                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.PhoneNumber);
                         }
-                        if ( Userlogin.isActive == 1)
+                        else
                         {
-                            Result.Status = 1;
-                            Result.Messeage = "Dang nhap thanh cong";
-                            Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.isActive);
-
+                            Result.Status = 0;
+                            Result.Messeage = "Tài khoản đã bị vô hiệu hóa";
                         }
-
                     }
-                    if (Userlogin == null)
+                    else
                     {
                         Result.Status = 0;
                         Result.Messeage = "tai khoan hoac mk ko dung";
@@ -74,9 +63,8 @@ namespace CT.BUS
                 Console.WriteLine("Caught exception: " + ex.Message);
                 throw;
             }
-
-            return Result;
         }
+
         public BaseResultMOD DangKyTaiKhoan(DangKyTK item)
         {
             var Result = new BaseResultMOD();

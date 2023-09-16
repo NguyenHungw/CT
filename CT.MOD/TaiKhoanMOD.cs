@@ -40,7 +40,7 @@ namespace CT.MOD
     }
     public class TaiKhoanModel
     {
-        public int id { get; set; }
+        public int idUser { get; set; }
         public string Username { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
@@ -54,9 +54,14 @@ namespace CT.MOD
         public string TenChucNang { get; set; }
 
         public int quyen { get; set; }*/
-
+       // public string PhoneNumber { get; set; }
         public int idChucNang { get; set; }
         public string TenChucNang { get; set; }
+    }
+    public class DanhSachNhomND
+    {
+        public int NNDID { get; set; }
+        public string TenNND { get; set; }
     }
     
     public class DoiMK

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nANtPzxYJ7wzYgZgccjIZ6/QTJwggr0S56xoK7h8LQg=",
+  "Hash": "c9Jn8e0O0iGZZtvFgWrMK3Ty702FMXQNYrT3IrSbBVg=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -391,6 +391,40 @@
       "OriginalItemSpec": "wwwroot\\upload\\9.jpg"
     },
     {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\a_e78b6c0464e4f27fd0cf92324cb97096.gif"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\anh-3d-thien-nhien.jpeg",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/anh-3d-thien-nhien.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\anh-3d-thien-nhien.jpeg"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\jayjo.jpg",
       "SourceId": "CT",
       "SourceType": "Discovered",
@@ -440,6 +474,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\meomeo.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\temp\\2.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/temp/2.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\temp\\2.gif"
     },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",

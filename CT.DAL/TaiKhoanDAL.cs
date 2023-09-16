@@ -132,49 +132,63 @@ namespace CT.DAL
             return item;
 
         }
-        public BaseResultMOD CheckRoles(int UserId)
+        public BaseResultMOD CheckRoles(string phone)
         {
             var result = new BaseResultMOD();
             try
             {
-                List<DanhSachChucNang> dschucnang = new List<DanhSachChucNang>();
+                List<DanhSachNhomND> dsnhomnd = new List<DanhSachNhomND>();
                 using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                  //  cmd.CommandText = "select RoleName from Roles where RoleId = @RoleId ";
-                
-                         cmd.CommandText = @"SELECT NhomNguoiDung.TenNND FROM [user]
-INNER JOIN NguoiDungTrongNhom ON [user].idUser = NguoiDungTrongNhom.idUser
-INNER JOIN NhomNguoiDung ON NguoiDungTrongNhom.NNDID = NhomNguoiDung.NNDID
-WHERE [user].idUser = @UserId";
-                    cmd.Parameters.AddWithValue("@UserId", UserId);
+                    cmd.CommandText = @"
+                select distinct NND.NNDID,NND.TenNND 
+From [User] U
+inner join NguoiDungTrongNhom NDTN on U.idUser = NDTN.idUser
+inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID
+
+where U.PhoneNumber = @phone;
+";
+
+                    cmd.Parameters.AddWithValue("@phone", phone);
                     cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
+
                     SqlDataReader reader = cmd.ExecuteReader();
+                    int count = 0;
                     while (reader.Read())
                     {
-                        DanhSachChucNang item = new DanhSachChucNang();
-                        item.idChucNang = UserId;
-                        item.TenChucNang = reader.GetString(0);
-                        dschucnang.Add(item);
-
+                        DanhSachNhomND item = new DanhSachNhomND();
+                        item.NNDID = reader.GetInt32(0); 
+                        item.TenNND = reader.GetString(1); 
+                        dsnhomnd.Add(item);
+                        count++;
                     }
-              
-                    reader.Close();
-                }
-                result.Status = 1;
-                result.Data = dschucnang;
 
+                    reader.Close();
+                    if(count == 0)
+                    {
+                        result.Status = 0;
+                        result.Messeage = "Chưa có role";
+                    }
+                    else
+                    {
+                        result.Status = 1;
+                        result.Data = dsnhomnd;
+                    }
+
+                }
+                
+               
             }
             catch (Exception ex)
             {
                 throw;
-
             }
             return result;
         }
+
 
         public BaseResultMOD DanhSachTK(int page)
         {
@@ -201,7 +215,7 @@ WHERE [user].idUser = @UserId";
                     while (reader.Read())
                     {
                         TaiKhoanModel model = new TaiKhoanModel();
-                        model.id = reader.GetInt32(0);
+                        model.idUser = reader.GetInt32(0);
                         model.Username = reader.GetString(1);
                         model.PhoneNumber = reader.GetString(2);
                         model.Password = reader.GetString(3);
