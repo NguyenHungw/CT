@@ -49,10 +49,7 @@ namespace CT.DAL
                         Result.LoaiSanPham = reader.GetString(3);
                         Result.SoLuong = reader.GetInt32(4);
                         Result.DonGia = (float)reader.GetDecimal(5);
-
                         dssp.Add(Result);
-
-
                     }
 
                     reader.Close();
@@ -83,8 +80,8 @@ namespace CT.DAL
 
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "SELECT MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia FROM SanPham ORDER BY id OFFSET @StartPage ROWS FETCH NEXT @ProductPerPage ROWS ONLY";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "v1_SanPham_DanhSach";
                         cmd.Parameters.AddWithValue("@StartPage", startPage);
                         cmd.Parameters.AddWithValue("@ProductPerPage", ProductPerPage);
                         cmd.Connection = sqlCon;
@@ -124,7 +121,7 @@ namespace CT.DAL
             catch (Exception ex)
             {
                 result.Status = 0;
-                result.Messeage = ex.Message;
+                result.Message = ex.Message;
                 throw;
 
             }
@@ -144,13 +141,16 @@ namespace CT.DAL
                 SqlCommand sqlcmd = new SqlCommand();
                 if (file.Length > 0)
                 {
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", file.FileName);
-                    using (Stream stream = System.IO.File.Create(path))
+                    string fileName = $"{item.MSanPham}_{file.FileName}";
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (Stream stream = System.IO.File.Create(filePath))
                     {
                         file.CopyTo(stream);
 
                     }
-                     Picture = "/upload/" + file.FileName;
+                     Picture = "/upload/" + fileName;
                     //Picture = file.FileName;
 
                 }
@@ -158,8 +158,9 @@ namespace CT.DAL
                 {
                     Picture = "";
                 }
-                using (SqlConnection SQLCon = new SqlConnection(strcon)) { 
-                    sqlcmd.CommandText = "insert into SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia)values(@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong ,@DonGia)";
+                using (SqlConnection SQLCon = new SqlConnection(strcon)) {
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                sqlcmd.CommandText = "v1_SanPham_ThemMoi";
                 sqlcmd.Connection = SQLCon;
                 sqlcmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                 sqlcmd.Parameters.AddWithValue("@Picture", Picture);
@@ -171,15 +172,14 @@ namespace CT.DAL
                 sqlcmd.ExecuteNonQuery();
                 SQLCon.Close();
                 Result.Status = 1;
-                Result.Messeage = "Them sp thanh cong";
+                Result.Message = "Them sp thanh cong";
                 Result.Data = 1;
                 }
             }
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = "Them sp that bai";
-
+                Result.Message = "Them sp that bai";
             }
             return Result;
         }
@@ -224,15 +224,15 @@ namespace CT.DAL
                     SQLCon.Close();
 
                     Result.Status = 1;
-                    Result.Messeage = "Thêm sản phẩm thành công";
+                    Result.Message = "Thêm sản phẩm thành công";
                     Result.Data = 1;
                 }
             }
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = "Thêm sản phẩm thất bại";
-                Result.Messeage = "Caught exception: " + ex.Message;
+                Result.Message = "Thêm sản phẩm thất bại";
+                Result.Message = "Caught exception: " + ex.Message;
             }
 
             return Result;
@@ -251,13 +251,15 @@ namespace CT.DAL
                     SQLCon.Open();
                     if (file.Length > 0)
                     {
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", file.FileName);
-                        using (Stream stream = System.IO.File.Create(path))
+                        string fileName = $"{editsp.MSanPham}_{file.FileName}";
+                        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+                        using (Stream stream = System.IO.File.Create(fileName))
                         {
                             file.CopyTo(stream);
 
                         }
-                        Picture = "/upload/" + file.FileName;
+                        Picture = "/upload/" + fileName;
 
                     }
                     else
@@ -280,7 +282,7 @@ namespace CT.DAL
                     sqlcmd.ExecuteNonQuery();
                  
                         Result.Status = 1;
-                        Result.Messeage = "Chinh sua thong tin thanh cong";
+                        Result.Message = "Chinh sua thong tin thanh cong";
                         Result.Data = 1;
                 }
 
@@ -288,7 +290,7 @@ namespace CT.DAL
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = "San pham ko ton tai";
+                Result.Message = "San pham ko ton tai";
                 
             }
             return Result;
@@ -314,12 +316,12 @@ namespace CT.DAL
                 if (SQLCon != null)
                 {
                     Result.Status = 1;
-                    Result.Messeage = "xoa sp thanh cong";
+                    Result.Message = "xoa sp thanh cong";
                 }
                 else
                 {
                     Result.Status = -1;
-                    Result.Messeage = "vui long kiem tra lai ma sp";
+                    Result.Message = "vui long kiem tra lai ma sp";
 
                 }
 
@@ -353,12 +355,12 @@ namespace CT.DAL
                 if (SQLCon != null)
                 {
                     Result.Status = 1;
-                    Result.Messeage = "xoa sp thanh cong";
+                    Result.Message = "xoa sp thanh cong";
                 }
                 else
                 {
                     Result.Status = -1;
-                    Result.Messeage = "Ko co sp de xoa";
+                    Result.Message = "Ko co sp de xoa";
 
                 }
 

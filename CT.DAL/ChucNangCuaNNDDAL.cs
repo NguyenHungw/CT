@@ -1,0 +1,203 @@
+﻿using CT.MOD;
+using CT.ULT;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CT.DAL
+{
+    public class ChucNangCuaNNDDAL
+    {
+        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        public BaseResultMOD getDSChucNangCuaNND(int page)
+        {
+            const int ProductPerPage = 10;
+            int startPage = ProductPerPage  * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+                List<ChucNangCuaNNDMOD> listcncnnd = new List<ChucNangCuaNNDMOD>();
+                using(SqlConnection SQLCon =  new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = " Select * from ChucNangCuaNhomND ";
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ChucNangCuaNNDMOD item = new ChucNangCuaNNDMOD();
+                        item.idChucNangCuaNND = reader.GetInt32(0);
+
+                        item.ChucNang = reader.GetInt32(1);
+                        item.NNDID = reader.GetInt32(2);
+                        item.Xem = reader.GetBoolean(3);
+                        item.Them = reader.GetBoolean(4);
+                        item.Sua = reader.GetBoolean(5);
+
+                        item.Xoa = reader.GetBoolean(6);
+
+                        listcncnnd.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = listcncnnd;
+                }
+            }catch(Exception ex)
+            {
+                result.Status = -1;
+                result.Message = "Lỗi hệ thống" + ex;
+                throw;
+
+            }
+            return result;
+
+        }
+        public BaseResultMOD ThemQuyenCNCNND(ThemChucNangCuaNNDMOD item)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Insert into ChucNangCuaNhomND (ChucNangid,NNDID,Xem,Them,Sua,Xoa) VALUES(@ChucNangid,@NNDID,@Xem,@Them,@Sua,@Xoa)";
+                    cmd.Parameters.AddWithValue("@ChucNangid", item.ChucNang);
+                    cmd.Parameters.AddWithValue("@NNDID", item.NNDID);
+                
+                    cmd.Parameters.AddWithValue("@Xem", item.Xem);
+                    cmd.Parameters.AddWithValue("@Them", item.Them);
+                    cmd.Parameters.AddWithValue("@Sua", item.Sua);
+                    cmd.Parameters.AddWithValue("@Xoa", item.Xoa);
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                   
+
+                    result.Status = 1;
+                    result.Message = "Thêm thành công";
+                    result.Data = 1;
+
+                }
+            }catch(Exception ex)
+            {
+                result.Status = -1;
+                result.Message = Constant.API_Error_System;
+            }
+            return result;
+        }
+        public BaseResultMOD SuaCNCNND(ChucNangCuaNNDMOD item)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Update ChucNangCuaNhomND set ChucNangid=@ChucNangid ,NNDID=@NNDID,Xem=@Xem,Them=@Them,Sua=@Sua,Xoa=@Xoa where idChucNangCuaNND=@idChucNangCuaNND ";
+                    cmd.Parameters.AddWithValue("@idChucNangCuaNND", item.idChucNangCuaNND);
+                    cmd.Parameters.AddWithValue("@ChucNangid",item.ChucNang);
+                    cmd.Parameters.AddWithValue("@NNDID", item.NNDID);
+                    cmd.Parameters.AddWithValue("@Xem", item.Xem);
+                    cmd.Parameters.AddWithValue("@Them", item.Them);
+                    cmd.Parameters.AddWithValue("@Sua", item.Sua);
+                    cmd.Parameters.AddWithValue("@Xoa", item.Xoa);
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+
+                    result.Status = 1;
+                    result.Message = "Sửa thành công";
+                    result.Data = 1;
+
+
+                }
+
+            }catch(Exception ex)
+            {
+                result.Status = -1;
+                result.Message = Constant.API_Error_System;
+            }
+            return result;
+        }
+        public BaseResultMOD XoaCNCNND(int id)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Delete from ChucNangCuaNhomND where idChucNangCuaNND =@idChucNangCuaNND";
+                    cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
+                    cmd.Connection = SQLCon;
+                    int rowaffected = cmd.ExecuteNonQuery();
+                    if (rowaffected > 0)
+                    {
+                        result.Status = 1;
+                        result.Message = "Xóa thành công";
+                    }
+                    else
+                    {
+                        result.Status = 0;
+                        result.Message = "ID không hợp lệ";
+                    }
+                }
+            }catch(Exception ex)
+            {
+                result.Status = -1;
+                result.Message = Constant.API_Error_System;
+            }
+            return result;
+        }
+        public ChucNangCuaNNDMOD ChiTietCNCN(int id)
+        {
+            ChucNangCuaNNDMOD item = null;
+            try
+            {
+                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Select * from ChucNangCuaNhomND where idChucNangCuaNND = @idChucNangCuaNND";
+                    cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
+                   
+
+                    cmd.Connection = SQLCon;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        item = new ChucNangCuaNNDMOD();
+                        item.idChucNangCuaNND = id;
+                        item.ChucNang = reader.GetInt32(1);
+                        item.NNDID = reader.GetInt32(2);
+                        item.Xem = reader.GetBoolean(3);
+                        item.Them = reader.GetBoolean(4);
+                        item.Sua = reader.GetBoolean(5);
+                        item.Xoa = reader.GetBoolean(6);
+
+                    }
+                    reader.Close();
+
+                }
+                
+            }catch(Exception ex)
+            {
+                throw;
+            }
+            return item;
+        }
+    }
+}

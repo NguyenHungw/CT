@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "c9Jn8e0O0iGZZtvFgWrMK3Ty702FMXQNYrT3IrSbBVg=",
+  "Hash": "g41uhqN3K129YRAFQyzANeEtzRdPp7zyOD6jods4FHk=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -374,6 +374,40 @@
       "OriginalItemSpec": "wwwroot\\upload\\8.jpg"
     },
     {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\825a2db6-18ab-4698-83dc-303d4cc4212d_eye_flames_template.png",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/825a2db6-18ab-4698-83dc-303d4cc4212d_eye_flames_template.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\825a2db6-18ab-4698-83dc-303d4cc4212d_eye_flames_template.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\8888_a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/8888_a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\8888_a_e78b6c0464e4f27fd0cf92324cb97096.gif"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\9.jpg",
       "SourceId": "CT",
       "SourceType": "Discovered",
@@ -389,6 +423,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\9.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\9999_a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/9999_a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\9999_a_e78b6c0464e4f27fd0cf92324cb97096.gif"
     },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",
@@ -423,6 +474,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\anh-3d-thien-nhien.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\eye_flames_template.png",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/eye_flames_template.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\eye_flames_template.png"
     },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\jayjo.jpg",

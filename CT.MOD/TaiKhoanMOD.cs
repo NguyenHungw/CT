@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ namespace CT.MOD
         public string Password { get; set; }
         public string Role { get; set; }
     }
+    
 /*    public class UserConstants
     {
         public static List<TKModel> Users = new()
@@ -60,8 +63,19 @@ namespace CT.MOD
     }
     public class DanhSachNhomND
     {
-        public int NNDID { get; set; }
+        public int idUser { get; set; }
+        public string Username  { get; set; }
         public string TenNND { get; set; }
+
+        public string ChucNang { get; set; }
+
+        
+        public Boolean Xem { get; set; }
+        public Boolean Them { get; set; }
+       
+        public Boolean Sua { get; set; }
+        public Boolean Xoa { get; set; }
+
     }
     
     public class DoiMK

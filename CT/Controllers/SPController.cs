@@ -130,11 +130,11 @@ namespace CT.Controllers
             }
             else if (result.Status == 0)
             {
-                return NotFound(result.Messeage); // Trả về thông báo lỗi nếu không tìm thấy dữ liệu
+                return NotFound(result.Message); // Trả về thông báo lỗi nếu không tìm thấy dữ liệu
             }
             else
             {
-                return BadRequest(result.Messeage); // Trả về thông báo lỗi nếu có lỗi xảy ra
+                return BadRequest(result.Message); // Trả về thông báo lỗi nếu có lỗi xảy ra
             }
         }
 

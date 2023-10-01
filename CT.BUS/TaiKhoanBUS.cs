@@ -22,13 +22,13 @@ namespace CT.BUS
                 if (login.PhoneNumber == null || login.PhoneNumber == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "SDT hoặc Email không được để trống";
+                    Result.Message = "SDT hoặc Email không được để trống";
                     return Result;
                 }
                 else if (login.Password == null || login.Password == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "password ko dc de trong";
+                    Result.Message = "password ko dc de trong";
                     return Result;
                 }
                 else
@@ -41,19 +41,19 @@ namespace CT.BUS
                         if (Userlogin.isActive == 1)
                         {
                             Result.Status = 1;
-                            Result.Messeage = "Dang nhap thanh cong";
+                            Result.Message = "Dang nhap thanh cong";
                             Result.Data = new TaiKhoanDAL().CheckRoles(Userlogin.PhoneNumber);
                         }
                         else
                         {
                             Result.Status = 0;
-                            Result.Messeage = "Tài khoản đã bị vô hiệu hóa";
+                            Result.Message = "Tài khoản đã bị vô hiệu hóa";
                         }
                     }
                     else
                     {
                         Result.Status = 0;
-                        Result.Messeage = "tai khoan hoac mk ko dung";
+                        Result.Message = "tai khoan hoac mk ko dung";
                     }
                     return Result;
                 }
@@ -73,19 +73,19 @@ namespace CT.BUS
                 if(item == null || item.Name == null || item.Name == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "name k dc de trong";
+                    Result.Message = "name k dc de trong";
 
                 }
                 else if (item == null || item.Password == null || item.Password == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "mk k dc de trong";
+                    Result.Message = "mk k dc de trong";
 
                 }
                 else if (item == null || item.PhoneNumber == null || item.PhoneNumber == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "sdt k dc de trong";
+                    Result.Message = "sdt k dc de trong";
 
                 }
                 else { return new TaiKhoanDAL().RegisterDAL(item); }
@@ -95,7 +95,7 @@ namespace CT.BUS
             catch(Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = " Lỗi hệ thống ";
+                Result.Message = " Lỗi hệ thống ";
                 throw;
 
             }
@@ -110,13 +110,13 @@ namespace CT.BUS
                 else
                 {
                     result.Status = 0;
-                    result.Messeage = "lỗi page";
+                    result.Message = "lỗi page";
                 }
             }
             catch (Exception)
             {
                 result.Status = -1;
-                result.Messeage = " Lỗi hệ thống ";
+                result.Message = " Lỗi hệ thống ";
                 result.Data = null;
                 throw;
 
@@ -133,15 +133,15 @@ namespace CT.BUS
                 if(item==null|| item.PhoneNumber == null || item.PhoneNumber ==" ")
                 {
                     Result.Status=0;
-                    Result.Messeage = "SDT Không được để trống";
+                    Result.Message = "SDT Không được để trống";
                 }else if(item == null || item.Password == null || item.Password==" ")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "MK không được để trống";
+                    Result.Message = "MK không được để trống";
                 }else if(item == null || item.RePassword == null|| item.RePassword == " ")
                 {
                     Result.Status = 0;
-                    Result.Messeage = " MK không được để trống";
+                    Result.Message = " MK không được để trống";
                 }
                 else
                 {
@@ -154,7 +154,7 @@ namespace CT.BUS
                     else
                     {
                         Result.Status = -1;
-                        Result.Messeage = " SDT sai";
+                        Result.Message = " SDT sai";
                     }
                 }
 
@@ -166,12 +166,12 @@ namespace CT.BUS
             if(item == null || item.PhoneNumber == null || item.PhoneNumber == "")
             {
                 Result.Status = 0;
-                Result.Messeage = "SDT ko dc de trong";
+                Result.Message = "SDT ko dc de trong";
 
             }
             else if (item == null || item.Username == null || item.Username == ""){
                 Result.Status = 0;
-                Result.Messeage = "Username k dc de trong";
+                Result.Message = "Username k dc de trong";
 
             }
             else
@@ -184,7 +184,7 @@ namespace CT.BUS
                 else
                 {
                     Result.Status = 0;
-                    Result.Messeage = "Sdt sai";
+                    Result.Message = "Sdt sai";
 
                 }
             }
@@ -198,7 +198,7 @@ namespace CT.BUS
             if(sdt ==null || sdt == "")
             {
                 Result.Status = 0;
-                Result.Messeage = "SDT ko dc de trong";
+                Result.Message = "SDT ko dc de trong";
                 return Result;
 
 
@@ -209,7 +209,7 @@ namespace CT.BUS
                 if(thongtintk == null)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "SDT ko ton tai";
+                    Result.Message = "SDT ko ton tai";
                     return Result;
                 }
                 else

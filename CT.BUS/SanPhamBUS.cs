@@ -21,27 +21,27 @@ namespace CT.BUS
                 if (item == null || item.MSanPham == null || item.MSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ma sp k dc de trong";
+                    Result.Message = "ma sp k dc de trong";
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ten sp k dc de trong";
+                    Result.Message = "ten sp k dc de trong";
                 }
                 if (item == null || item.LoaiSanPham == null || item.LoaiSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "LoaiSanPhamk dc de trong";
+                    Result.Message = "LoaiSanPhamk dc de trong";
                 }
                 if (item == null || item.SoLuong < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ten sp k dc de trong";
+                    Result.Message = "ten sp k dc de trong";
                 }
                 if (item == null || item.SoLuong < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "SoLuong k dc de trong";
+                    Result.Message = "SoLuong k dc de trong";
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace CT.BUS
                     if (checksp != null)
                     {
                         Result.Status = -1;
-                        Result.Messeage = "SP da ton tai";
+                        Result.Message = "SP da ton tai";
                     }
                     else
                     {
@@ -62,7 +62,7 @@ namespace CT.BUS
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = "Vui lòng điền đầy đủ thông tin";
+                Result.Message = "Vui lòng điền đầy đủ thông tin";
                 throw;
             }
             return Result;
@@ -79,27 +79,27 @@ namespace CT.BUS
                 if (item == null || item.MSanPham == null || item.MSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ma sp k dc de trong";
+                    Result.Message = "ma sp k dc de trong";
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ten sp k dc de trong";
+                    Result.Message = "ten sp k dc de trong";
                 }
                 if (item == null || item.LoaiSanPham == null || item.LoaiSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "LoaiSanPhamk dc de trong";
+                    Result.Message = "LoaiSanPhamk dc de trong";
                 }
                 if (item == null || item.SoLuong < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "ten sp k dc de trong";
+                    Result.Message = "ten sp k dc de trong";
                 }
                 if (item == null || item.SoLuong < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "SoLuong k dc de trong";
+                    Result.Message = "SoLuong k dc de trong";
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace CT.BUS
                     if (checksp != null)
                     {
                         Result.Status = -1;
-                        Result.Messeage = "Sản phẩm đã tồn tại";
+                        Result.Message = "Sản phẩm đã tồn tại";
                     }
                     else
                     {
@@ -121,7 +121,7 @@ namespace CT.BUS
             {
                 // Xử lý lỗi nếu có
                 Result.Status = -1;
-                Result.Messeage = "Thêm sản phẩm thất bại";
+                Result.Message = "Thêm sản phẩm thất bại";
             }
             return Result;
         }
@@ -134,30 +134,30 @@ namespace CT.BUS
                 if (item == null || file == null)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "anh khong duoc de trong";
+                    Result.Message = "anh khong duoc de trong";
 
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "anh ko dc de trong";
+                    Result.Message = "anh ko dc de trong";
 
                 }
                 if (item == null || item.LoaiSanPham == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "loai sp ko dc de trong";
+                    Result.Message = "loai sp ko dc de trong";
 
                 }
                 if (item == null || item.SoLuong < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "So luong ko dc de trong";
+                    Result.Message = "So luong ko dc de trong";
                 }
                 if (item == null || item.DonGia < 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "don gia ko dc de trong";
+                    Result.Message = "don gia ko dc de trong";
                 }
                 else
                 {
@@ -165,7 +165,7 @@ namespace CT.BUS
                     if (sua == null)
                     {
                         Result.Status = 0;
-                        Result.Messeage = "ma sp ko dung";
+                        Result.Message = "ma sp ko dung";
                         return Result;
                     }
                     else
@@ -177,7 +177,7 @@ namespace CT.BUS
             catch (Exception)
             {
                 Result.Status = -1;
-                Result.Messeage = "Vui long dien day du thong tin";
+                Result.Message = "Vui long dien day du thong tin";
                 throw;
             }
             return Result;
@@ -188,7 +188,7 @@ namespace CT.BUS
             if (msp == null || msp == "")
             {
                 Result.Status = 0;
-                Result.Messeage = "vui long nhap sp";
+                Result.Message = "vui long nhap sp";
                 return Result;
             }
             else
@@ -197,7 +197,7 @@ namespace CT.BUS
                 if (chitietsp == null)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "Ma sp ko ton tai";
+                    Result.Message = "Ma sp ko ton tai";
                     return Result;
 
                 }
@@ -205,7 +205,7 @@ namespace CT.BUS
 
                 {
                     Result.Status = 1;
-                    Result.Messeage = "xoa thanh cong";
+                    Result.Message = "xoa thanh cong";
                     return new SanPhamDAL().XoaSp(msp);
                 }
 
@@ -226,13 +226,13 @@ namespace CT.BUS
                 {
                     // Xử lý dữ liệu và gán vào Result
                     Result.Status = 1;
-                    Result.Messeage = "Xoa thanh cong";
+                    Result.Message = "Xoa thanh cong";
                    
                 }
                 else
                 {
                     Result.Status = 0;
-                    Result.Messeage = "Không tìm thấy dữ liệu.";
+                    Result.Message = "Không tìm thấy dữ liệu.";
                 }
 
             }
@@ -254,27 +254,21 @@ namespace CT.BUS
                 if (page == 0)
                 {
                     Result.Status = 0;
-                    Result.Messeage = "Vui long nhap so trang";
+                    Result.Message = "Vui long nhap so trang";
 
                 }
                 else
                 {
 
                     Result = new SanPhamDAL().GetDanhSachSP(page);
-                   /* if(loaisp != null)
-                    {
-                        Result = new SanPhamDAL().GetDanhSachSP(tensp);
-                    }else if(tensp != null)
-                    {
-                        Result = new SanPhamDAL().GetDanhSachSP(tensp);
-                    }*/
+                  
                 }
             }
             catch (Exception ex)
             {
                 Result.Status = -1;
                 Result.Data = null;
-                Result.Messeage = "Loi khi lay ds sp" + ex.Message;
+                Result.Message = "Loi khi lay ds sp" + ex.Message;
 
             }
             return Result;
@@ -296,13 +290,13 @@ namespace CT.BUS
                 else
                 {
                     Result.Status = 0;
-                    Result.Messeage = "Không tìm thấy dữ liệu.";
+                    Result.Message = "Không tìm thấy dữ liệu.";
                 }
             }
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Messeage = "Lỗi khi lấy danh sách sản phẩm: " + ex.Message;
+                Result.Message = "Lỗi khi lấy danh sách sản phẩm: " + ex.Message;
             }
 
             return Result;
@@ -318,7 +312,7 @@ namespace CT.BUS
                 if (name == null || name == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "vui long nhap ten sp";
+                    Result.Message = "vui long nhap ten sp";
                 }
                 else
                 {
@@ -328,7 +322,7 @@ namespace CT.BUS
                     if (checksp == null)
                     {
                         Result.Status = 0;
-                        Result.Messeage = "ko tim thay sp";
+                        Result.Message = "ko tim thay sp";
 
                     }
                     else
@@ -358,7 +352,7 @@ namespace CT.BUS
                 if(name == null|| name == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "vui long nhap ten sp";
+                    Result.Message = "vui long nhap ten sp";
                 }
                 else
                 {
@@ -367,7 +361,7 @@ namespace CT.BUS
                             if (checksp == null)
                             {
                         Result.Status = 0;
-                        Result.Messeage = "ko tim thay sp";
+                        Result.Message = "ko tim thay sp";
 
                             }
                             else
@@ -396,7 +390,7 @@ namespace CT.BUS
                 if(msp == null|| msp == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "MSP ko dc de trong";
+                    Result.Message = "MSP ko dc de trong";
 
                 }
                 else
@@ -405,7 +399,7 @@ namespace CT.BUS
                         if(checksp == null)
                         {
                             Result.Status = 0;
-                            Result.Messeage = "SP ko ton tai";
+                            Result.Message = "SP ko ton tai";
                         }
                         else
                         {
@@ -430,7 +424,7 @@ namespace CT.BUS
                 if(loaisp == null || loaisp == "")
                 {
                     Result.Status = 0;
-                    Result.Messeage = "vui long chon lai loai sp";
+                    Result.Message = "vui long chon lai loai sp";
 
 
                 }
@@ -442,7 +436,7 @@ namespace CT.BUS
             catch (Exception ex )
             {
                 Result.Status = -1;
-                Result.Messeage = "Loi khi lay ds san pham " + ex.Message;
+                Result.Message = "Loi khi lay ds san pham " + ex.Message;
                 throw;
 
             }

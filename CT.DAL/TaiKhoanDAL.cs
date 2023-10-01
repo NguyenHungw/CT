@@ -10,6 +10,8 @@ using BCrypt.Net;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CT.DAL
 {
@@ -17,6 +19,7 @@ namespace CT.DAL
     {
         private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
+
 
 
         public TaiKhoanModel LoginDAL(TaiKhoanMOD item)
@@ -29,8 +32,8 @@ namespace CT.DAL
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT * FROM [User] WHERE phonenumber = @PhoneNumber ";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "v1_Users_Login";
                     cmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
                     //cmd.Parameters.AddWithValue("Email",item.Email);
                     cmd.Connection = SQLCon;
@@ -77,8 +80,13 @@ namespace CT.DAL
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "INSERT INTO [User] (UserName, PhoneNumber, Password, Email, isActive) VALUES ('" + item.Name + "', '" + item.PhoneNumber + "', '" + hash + "', '" + item.Email + "', 1)";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "v1_Users_Register";
+                    cmd.Parameters.AddWithValue("@Username",item.Name );
+                    cmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@Password", hash);
+                    cmd.Parameters.AddWithValue("@Email",item.Email);
+
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
 
@@ -86,7 +94,7 @@ namespace CT.DAL
                 }
 
                 Result.Status = 1;
-                Result.Messeage = "Đăng ký thành công ";
+                Result.Message = "Đăng ký thành công ";
 
 
             }
@@ -142,17 +150,11 @@ namespace CT.DAL
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"
-                select distinct NND.NNDID,NND.TenNND 
-From [User] U
-inner join NguoiDungTrongNhom NDTN on U.idUser = NDTN.idUser
-inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "v1_User_Checkroles";
 
-where U.PhoneNumber = @phone;
-";
 
-                    cmd.Parameters.AddWithValue("@phone", phone);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", phone);
                     cmd.Connection = SQLCon;
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -160,8 +162,22 @@ where U.PhoneNumber = @phone;
                     while (reader.Read())
                     {
                         DanhSachNhomND item = new DanhSachNhomND();
-                        item.NNDID = reader.GetInt32(0); 
-                        item.TenNND = reader.GetString(1); 
+                        item.idUser = reader.GetInt32(0);
+                        item.Username = reader.GetString(1);
+                        item.TenNND = reader.GetString(2); 
+                        item.ChucNang = reader.GetString(3);
+                        item.Xem = reader.GetSqlBoolean(4).Value;
+                        item.Them = reader.GetSqlBoolean(5).Value;
+                        item.Sua = reader.GetSqlBoolean(6).Value;
+                        item.Xoa = reader.GetSqlBoolean(7).Value;
+
+                        /*string xemValue = reader.GetString(3);
+                        if (xemValue == "true" || xemValue == "false")
+                        {
+                            item.Xem = Boolean.Parse(xemValue); // Chuyển đổi thành kiểu bool
+                        }*/
+
+
                         dsnhomnd.Add(item);
                         count++;
                     }
@@ -170,7 +186,7 @@ where U.PhoneNumber = @phone;
                     if(count == 0)
                     {
                         result.Status = 0;
-                        result.Messeage = "Chưa có role";
+                        result.Message = "Chưa có role";
                     }
                     else
                     {
@@ -204,11 +220,11 @@ where U.PhoneNumber = @phone;
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     var item = new TaiKhoanModel();
-                    //cmd.CommandText = "select * from TaiKhoan order by id offset " + startPage + " rows fetch next " + ProductPerPage + " rows only WHERE isActive = @isAcitve";
-                    cmd.CommandText = "SELECT * FROM [User] WHERE isActive = 1 ORDER BY idUser OFFSET @startPage ROWS FETCH NEXT @ProductPerPage ROWS ONLY";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "v1_Users_DanhSach_Active";
                     cmd.Parameters.AddWithValue("@startPage", startPage);
                     cmd.Parameters.AddWithValue("@productPerPage", ProductPerPage);
-                    cmd.Parameters.AddWithValue("@isActive",item.isActive);
+                    
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -261,13 +277,13 @@ where U.PhoneNumber = @phone;
                     cmd.ExecuteNonQuery();
                 }
                 Result.Status = 1;
-                Result.Messeage = "Đổi mật khẩu thành công";
+                Result.Message = "Đổi mật khẩu thành công";
 
             }
             catch (Exception)
             {
                 Result.Status = -1;
-                Result.Messeage = "Đổi mật khẩu thất bại";
+                Result.Message = "Đổi mật khẩu thất bại";
                 throw;
             }
             return Result;
@@ -293,12 +309,12 @@ where U.PhoneNumber = @phone;
                     
                 }
                 Result.Status = 1;
-                Result.Messeage = "Doi ten thanh cong";
+                Result.Message = "Doi ten thanh cong";
             }
             catch (Exception)
             {
                 Result.Status = -1;
-                Result.Messeage = "Doi ten that bai";
+                Result.Message = "Doi ten that bai";
                 throw;
             }
             return Result;
@@ -314,8 +330,8 @@ where U.PhoneNumber = @phone;
                     SQLCon.Open();
 
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "DELETE FROM [User] WHERE phonenumber = @phonenumber ";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "v1_Users_Delete_ByPhonenum";
                     cmd.Parameters.AddWithValue("@phonenumber", sdt);
                     cmd.Connection = SQLCon;
 
@@ -324,12 +340,12 @@ where U.PhoneNumber = @phone;
                     if (rowsAffected > 0)
                     {
                         Result.Status = 1;
-                        Result.Messeage = "Xóa tài khoản thành công";
+                        Result.Message = "Xóa tài khoản thành công";
                     }
                     else
                     {
                         Result.Status = -1;
-                        Result.Messeage = "Không tìm thấy tài khoản để xóa";
+                        Result.Message = "Không tìm thấy tài khoản để xóa";
                     }
                 }
             }
@@ -337,7 +353,7 @@ where U.PhoneNumber = @phone;
             {
                 // Xử lý các ngoại lệ ở đây và ghi log nếu cần
                 Result.Status = -1;
-                Result.Messeage = "Lỗi xóa tài khoản: " + ex.Message;
+                Result.Message = "Lỗi xóa tài khoản: " + ex.Message;
             }
             return Result;
         }

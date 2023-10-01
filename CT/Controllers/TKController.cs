@@ -17,12 +17,6 @@ namespace CT.Controllers
     public class TKController : ControllerBase
     {
 
-      
-
-
-        //
-       
-
         [HttpPost]
         [Route("Login")]
 

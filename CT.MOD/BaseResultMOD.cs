@@ -9,7 +9,7 @@ namespace CT.MOD
     public class BaseResultMOD
     {
         public int Status { get; set; } = 0;
-        public string Messeage { get; set; } = "";
+        public string Message { get; set; } = "";
         public object Data { get; set; }
 
         public int TotalRow { get; set; }
