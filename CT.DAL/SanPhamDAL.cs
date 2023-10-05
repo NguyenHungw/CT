@@ -254,7 +254,7 @@ namespace CT.DAL
                         string fileName = $"{editsp.MSanPham}_{file.FileName}";
                         string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
                         string filePath = Path.Combine(uploadsFolder, fileName);
-                        using (Stream stream = System.IO.File.Create(fileName))
+                        using (Stream stream = System.IO.File.Create(filePath))
                         {
                             file.CopyTo(stream);
 

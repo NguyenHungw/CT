@@ -30,6 +30,8 @@ namespace CT.Controllers
         }
         [HttpPost]
         [Route("Register")]
+        [AllowAnonymous]
+
 
         public IActionResult Register([FromBody] DangKyTK item)
         {
@@ -41,20 +43,30 @@ namespace CT.Controllers
         }
         [HttpGet]
         [Route("DanhSachTK")]
+        [Authorize]
         public IActionResult DanhSachTK(int page)
         {
-            if (page < 1) return BadRequest();
+            var UserClaimRole = User.FindFirst("Admin")?.Value;
+            if (!String.IsNullOrEmpty(UserClaimRole))
+            {
+                if (page < 1) return BadRequest();
+                else
+                {
+                    var totalrows = 0;
+                    var result = new TaiKhoanBUS().DanhSachTK(page);
+                    result.TotalRow = totalrows;
+                    if (result != null) return Ok(result);
+                    else return NotFound();
+                }
+            }
             else
             {
-                var totalrows = 0;
-                var result = new TaiKhoanBUS().DanhSachTK(page);
-                result.TotalRow = totalrows;
-                if (result != null) return Ok(result);
-                else return NotFound();
+                return StatusCode(-99, "Không có quyền"); 
             }
         }
         [HttpPost]
         [Route("DoiMK")]
+        [AllowAnonymous]
 
         public IActionResult DoiMK([FromBody] DoiMK item)
         {

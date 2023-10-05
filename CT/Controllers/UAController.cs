@@ -43,6 +43,8 @@ namespace CT.Services
        
 
         [HttpPost("login")]
+        [AllowAnonymous]
+
         public IActionResult Login([FromBody] TaiKhoanMOD item)
         {
             try
