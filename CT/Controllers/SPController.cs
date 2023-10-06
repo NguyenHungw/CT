@@ -1,6 +1,7 @@
 ﻿using CT.BUS;
 using CT.DAL;
 using CT.MOD;
+using CT.ULT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +49,12 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền thực hiện phương thức ThemSP");
+
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message= Constant.NOT_ACCESS
+                });
             }
         }
 
@@ -80,7 +86,11 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = Constant.NOT_ACCESS
+                });
             }
           
 
@@ -111,7 +121,11 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = Constant.NOT_ACCESS
+                });
             }
            
         }
@@ -130,7 +144,11 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = Constant.NOT_ACCESS
+                });
             }
            
         }
@@ -147,7 +165,11 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = Constant.NOT_ACCESS
+                });
             }
            
         }

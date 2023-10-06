@@ -15,6 +15,11 @@ using CT.ULT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Security;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using static CT.MOD.jwtmod;
+using Microsoft.AspNetCore.Routing.Patterns;
+using System.Security.Authentication.ExtendedProtection;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace CT.Services
 {
@@ -45,7 +50,7 @@ namespace CT.Services
         [HttpPost("login")]
         [AllowAnonymous]
 
-        public IActionResult Login([FromBody] TaiKhoanMOD item)
+        public IActionResult Login([FromBody] TaiKhoanMOD item )
         {
             try
             {
@@ -60,7 +65,7 @@ namespace CT.Services
                 {
                     SQLCon.Open();
 
-                    string sqlQuery = @"select u.Password,u.isActive, NND.TenNND,CN.TenChucNang, CNCNND.Xem,CNCNND.Them,CNCNND.Sua,CNCNND.Xoa
+                    string sqlQuery = @"select u.idUser, u.PhoneNumber, u.Username, u.Email , u.Password,u.isActive, NND.TenNND,CN.TenChucNang, CNCNND.Xem,CNCNND.Them,CNCNND.Sua,CNCNND.Xoa
                                 from [User] u 
                                 inner join NguoiDungTrongNhom NDTN on u.idUser = NDTN.idUser
                                 inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID
@@ -79,7 +84,8 @@ namespace CT.Services
                         List<string> functionalities = new List<string>();
                         List<string> CN = new List<string>();
                         List<Claim> claims = new List<Claim>();
-
+                        //jwtmod cvk = null;
+                        var cvk = new jwtmod();
 
                         while (reader.Read())
                         {
@@ -88,8 +94,12 @@ namespace CT.Services
 
                             if (BCrypt.Net.BCrypt.Verify(item.Password, hashedPasswordFromDB))
                             {
-                               
-                                
+                                //cvk = new jwtmod();
+                              
+                                cvk.ID = reader.GetInt32(reader.GetOrdinal("idUser"));
+                                cvk.Username = reader.GetString(reader.GetOrdinal("Username"));
+                                cvk.Email = reader.GetString(reader.GetOrdinal("Email"));
+                                cvk.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
                                 int isActive = reader.GetInt32(reader.GetOrdinal("isActive"));
                                 string ChucNang = reader.IsDBNull(reader.GetOrdinal("TenChucNang")) ? null : reader.GetString(reader.GetOrdinal("TenChucNang"));
                                 string quyen = "";
@@ -135,8 +145,6 @@ namespace CT.Services
                                         /*claims.Add(new Claim("TenChucNang", ChucNang));
                                         claims.Add(new Claim("Quyen", quyen));*/
 
-
-
                                     }
 
                                 }
@@ -160,20 +168,65 @@ namespace CT.Services
                             };
 
                             var token = authService.GenerateJwtToken(taiKhoanMOD, userRole, claims);
+                            /*    var baseResult = new BaseResultMOD
+                                {
+                                    Status = 1,
+                                    Message = "Đăng nhập thành công"
+                                };*/
+                            List<string> chucNangClaims = claims
+                                        .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
+                                        .Select(c => c.Value) // Chọn giá trị của các Claim
+                                        .ToList();
+                            var aidi = claims.FirstOrDefault(n => n.Type == "idUser")?.Value;
+                           
+                            //var name = claims.FirstOrDefault(n => n.Type == "Username")?.Value; 
+                            var time = claims.FirstOrDefault(t => t.Type == "ThoiHanDangNhap")?.Value;
+                            var R = claims.FirstOrDefault(r => r.Type == "NhomNguoiDung")?.Value;
+                            var rp = new jwtmod
+                            {
+                                Status = 1,
+                                Message = "Đăng nhập thành công",
+                                ID = cvk.ID,
+                                Username = cvk.Username,
+                                Role =R,
+                                PhoneNumber = cvk.PhoneNumber,
+                                Email = cvk.Email,
+                                TimeOut = time,
+                                ChucNangVaQuyen = chucNangClaims,
+                                Token = token
                             
-                            return Ok(new { Token = token });
+
+
+                        };
+                           /* var response = new
+                            {
+                                BaseResult = rp,
+                                Token = token
+                              
+                            };*/
+                            return Ok(rp);
                           
                         }
                         else
                         {
+
                             // trả về thông báo lỗi nếu tài khoản bị vô hiệu hóa hoặc thông tin không hợp lệ
-                            return Unauthorized("Tài khoản hoặc mật khẩu không đúng hoặc tài khoản bị vô hiệu hóa");
+                            return Unauthorized(new BaseResultMOD
+                            {
+                                Status = 0,
+                                Message = "Tài khoản hoặc mật khẩu không đúng, hoặc bị vô hiệu hóa"
+                            }) ;
+
                         }
                     }
                 }
 
                 // trả về thông báo lỗi nếu không tìm thấy dữ liệu
-                return NotFound("Tài khoản không tồn tại");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = 0,
+                    Message = "Tài khoản không tồn tại"
+                });
             }
             catch (Exception ex)
             {

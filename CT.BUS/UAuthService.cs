@@ -25,7 +25,7 @@ namespace CT.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
-            var ThoiGianHetHan = DateTime.Now.AddHours(2);
+            var ThoiGianHetHan = DateTime.Now.AddMinutes(5);
             var additionalClaims = new List<Claim>
             {
                 
@@ -37,7 +37,7 @@ namespace CT.Services
 
             // chèn claim vào phia trước ds claim hienj tại
             claims.InsertRange(0, additionalClaims);
-
+          //  var result = new BaseResultMOD();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -51,8 +51,10 @@ namespace CT.Services
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+          
 
             return tokenHandler.WriteToken(token);
         }
+        
     }
 }
