@@ -59,29 +59,55 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                // Kiểm tra trước khi thêm chức năng
+                bool isDuplicate = KiemTraTrungChucNang(namecn);
+                if (isDuplicate)
                 {
-                    SQLCon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Insert into ChucNang (TenChucNang) VALUES(@TenChucNang)";
-                    cmd.Parameters.AddWithValue("@TenChucNang", namecn);
-                    cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
-                    result.Status = 1;
-                    result.Message = "Thêm chức năng thành công";
-                    result.Data = 1;
-
+                    result.Status = -1;
+                    result.Message = "Tên chức năng đã tồn tại.";
+                }
+                else
+                {
+                    // Thêm chức năng vào cơ sở dữ liệu
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SQLCon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "Insert into ChucNang (TenChucNang) VALUES(@TenChucNang)";
+                        cmd.Parameters.AddWithValue("@TenChucNang", namecn);
+                        cmd.Connection = SQLCon;
+                        cmd.ExecuteNonQuery();
+                        result.Status = 1;
+                        result.Message = "Thêm chức năng thành công";
+                        result.Data = 1;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 result.Status = -1;
                 result.Message = Constant.API_Error_System;
-
             }
             return result;
         }
+
+        // Hàm để kiểm tra trùng chức năng
+        private bool KiemTraTrungChucNang(string namecn)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM ChucNang WHERE TenChucNang = @TenChucNang";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@TenChucNang", namecn);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+
         public BaseResultMOD SuaChucNang(ChucNangMOD item)
         {
             var result = new BaseResultMOD();

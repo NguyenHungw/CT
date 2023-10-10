@@ -73,19 +73,19 @@ namespace CT.BUS
                 if(item == null || item.Name == null || item.Name == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "name k dc de trong";
+                    Result.Message = "Tên người dùng không được để trống";
 
                 }
                 else if (item == null || item.Password == null || item.Password == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "mk k dc de trong";
+                    Result.Message = "Mật khẩu không được để trống";
 
                 }
                 else if (item == null || item.PhoneNumber == null || item.PhoneNumber == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "sdt k dc de trong";
+                    Result.Message = "Số điện thoại không được để trống";
 
                 }
                 else { return new TaiKhoanDAL().RegisterDAL(item); }
@@ -95,7 +95,7 @@ namespace CT.BUS
             catch(Exception ex)
             {
                 Result.Status = -1;
-                Result.Message = " Lỗi hệ thống ";
+                Result.Message = ULT.Constant.API_Error_System;
                 throw;
 
             }

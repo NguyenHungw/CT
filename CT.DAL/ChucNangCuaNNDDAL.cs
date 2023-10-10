@@ -65,35 +65,59 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                bool isDuplicate = KiemTraTrungChucNang(item);
+                if (isDuplicate)
                 {
-                    SQLCon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Insert into ChucNangCuaNhomND (ChucNangid,NNDID,Xem,Them,Sua,Xoa) VALUES(@ChucNangid,@NNDID,@Xem,@Them,@Sua,@Xoa)";
-                    cmd.Parameters.AddWithValue("@ChucNangid", item.ChucNang);
-                    cmd.Parameters.AddWithValue("@NNDID", item.NNDID);
-                
-                    cmd.Parameters.AddWithValue("@Xem", item.Xem);
-                    cmd.Parameters.AddWithValue("@Them", item.Them);
-                    cmd.Parameters.AddWithValue("@Sua", item.Sua);
-                    cmd.Parameters.AddWithValue("@Xoa", item.Xoa);
-                    cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
-                   
-
-                    result.Status = 1;
-                    result.Message = "Thêm thành công";
-                    result.Data = 1;
-
+                    result.Status = -1;
+                    result.Message = "Quyền chức năng đã tồn tại.";
                 }
-            }catch(Exception ex)
+                else
+                {
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SQLCon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "Insert into ChucNangCuaNhomND (ChucNangid, NNDID, Xem, Them, Sua, Xoa) VALUES (@ChucNangid, @NNDID, @Xem, @Them, @Sua, @Xoa)";
+                        cmd.Parameters.AddWithValue("@ChucNangid", item.ChucNang);
+                        cmd.Parameters.AddWithValue("@NNDID", item.NNDID);
+                        cmd.Parameters.AddWithValue("@Xem", item.Xem);
+                        cmd.Parameters.AddWithValue("@Them", item.Them);
+                        cmd.Parameters.AddWithValue("@Sua", item.Sua);
+                        cmd.Parameters.AddWithValue("@Xoa", item.Xoa);
+                        cmd.Connection = SQLCon;
+                        cmd.ExecuteNonQuery();
+
+                        result.Status = 1;
+                        result.Message = "Thêm quyền chức năng thành công";
+                        result.Data = 1;
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 result.Status = -1;
                 result.Message = Constant.API_Error_System;
             }
             return result;
         }
+
+        private bool KiemTraTrungChucNang(ThemChucNangCuaNNDMOD item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM ChucNangCuaNhomND WHERE ChucNangid = @ChucNangid AND NNDID = @NNDID";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@ChucNangid", item.ChucNang);
+                    checkCmd.Parameters.AddWithValue("@NNDID", item.NNDID);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+
         public BaseResultMOD SuaCNCNND(ChucNangCuaNNDMOD item)
         {
             var result = new BaseResultMOD();

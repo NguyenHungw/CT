@@ -22,16 +22,23 @@ namespace CT.Controllers
 
         public IActionResult ThemSP(IFormFile file, [FromForm] SanPhamMOD item)
         {
-           
 
-     
+
+
             //var userId = User.FindFirst("PhoneNumber")?.Value; // Lấy PhoneNumber từ claim
             // Kiểm tra claim "NhomNguoiDung" để xác định quyền
-            var userRoleClaim = User.FindFirst("CN")?.Value;
-            if (!string.IsNullOrEmpty(userRoleClaim) && userRoleClaim.Contains("QLSP") && userRoleClaim.Contains("Them"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach (var claim in userclaim)
             {
-                // Người dùng có quyền 
-                // Thực hiện logic 
+                if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Them"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+            if (check)
+            {
                 if (item == null) return BadRequest();
                 if (file.Length > 0)
                 {
@@ -47,6 +54,9 @@ namespace CT.Controllers
                     return NotFound();
                 }
             }
+         
+          
+            
             else
             {
 
@@ -64,27 +74,28 @@ namespace CT.Controllers
         [Authorize]
         public IActionResult ThemSPBase64( IFormFile file, [FromForm] SanPhamMOD item )
         {
-            var userRoleClaim = User.FindFirst("CN")?.Value;
-            if(!string.IsNullOrEmpty(userRoleClaim)&& userRoleClaim.Contains("QLSP") && userRoleClaim.Contains("Them")){
-                if (item == null) return BadRequest();
-                if (file != null && file.Length > 0)
+            var userclaim = User.Claims;
+                var check = false;
+            foreach(var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Them"))
                 {
-                    var Result = new SanPhamBUS().ThemSPBase64(item, file);
-                    if (Result != null)
-                    {
-
-                        return Ok(Result);
-                    }
-                    else return NotFound();
-
+                    check = true;
+                    break;
                 }
-                else
-                {
-                    return NotFound();
-                }
-
             }
-            else
+            if (check)
+            {
+                var Result = new SanPhamBUS().ThemSPBase64(item, file);
+                if (Result != null)
+                {
+
+                    return Ok(Result);
+                }
+                else return NotFound();
+            }
+
+                else
             {
                 return NotFound(new BaseResultMOD
                 {
@@ -92,7 +103,8 @@ namespace CT.Controllers
                     Message = Constant.NOT_ACCESS
                 });
             }
-          
+
+
 
         }
 
@@ -103,9 +115,18 @@ namespace CT.Controllers
         [Authorize]
         public IActionResult SuaSP(IFormFile file, [FromForm] SanPhamMOD item)
         {
-            var userRoleClaim = User.FindFirst("CN")?.Value;
-            
-            if(!string.IsNullOrEmpty(userRoleClaim) && userRoleClaim.Contains("QLSP") && userRoleClaim.Contains("Sua"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach (var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Sua"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (check)
             {
                 if (item == null) return BadRequest();
                 if (file.Length > 0)
@@ -119,6 +140,7 @@ namespace CT.Controllers
                     return NotFound();
                 }
             }
+            
             else
             {
                 return NotFound(new BaseResultMOD
@@ -134,14 +156,27 @@ namespace CT.Controllers
         [Authorize]
         public IActionResult XoaSP(string msp)
         {
-            var useRoleClaim = User.FindFirst("CN")?.Value;
-            if(!string.IsNullOrEmpty(useRoleClaim) &&useRoleClaim.Contains("QLSP") && useRoleClaim.Contains("Xoa"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach (var claim in userclaim)
             {
-                if (msp == null || msp == "") return BadRequest();
-                var Result = new SanPhamBUS().XoaSP(msp);
-                if (Result != null) return Ok(Result);
-                else return NotFound();
+                if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Xoa"))
+                {
+                    check = true;
+                    break;
+                }
             }
+            if (check)
+            {
+
+                
+                    if (msp == null || msp == "") return BadRequest();
+                    var Result = new SanPhamBUS().XoaSP(msp);
+                    if (Result != null) return Ok(Result);
+                    else return NotFound();
+                
+            }
+
             else
             {
                 return NotFound(new BaseResultMOD
@@ -156,13 +191,24 @@ namespace CT.Controllers
         [Route("XoaALLSP")]
         public IActionResult XoaAllSP()
         {
-            var useRoleClaim = User.FindFirst("CN")?.Value;
-            if(!string.IsNullOrEmpty(useRoleClaim) && useRoleClaim.Contains("CN") && useRoleClaim.Contains("Xoa"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach (var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Xoa"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (check)
             {
                 var Result = new SanPhamBUS().XoaAllSP();
                 if (Result != null) return Ok(Result);
                 else return NotFound();
             }
+            
             else
             {
                 return NotFound(new BaseResultMOD

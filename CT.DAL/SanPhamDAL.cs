@@ -159,7 +159,7 @@ namespace CT.DAL
                     Picture = "";
                 }
                 using (SqlConnection SQLCon = new SqlConnection(strcon)) {
-                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                sqlcmd.CommandType = CommandType.StoredProcedure;
                 sqlcmd.CommandText = "v1_SanPham_ThemMoi";
                 sqlcmd.Connection = SQLCon;
                 sqlcmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
@@ -172,14 +172,14 @@ namespace CT.DAL
                 sqlcmd.ExecuteNonQuery();
                 SQLCon.Close();
                 Result.Status = 1;
-                Result.Message = "Them sp thanh cong";
+                Result.Message = "Thêm thành công";
                 Result.Data = 1;
                 }
             }
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Message = "Them sp that bai";
+                Result.Message = ULT.Constant.API_Error_System;
             }
             return Result;
         }

@@ -1,8 +1,10 @@
 ﻿using CT.BUS;
 using CT.MOD;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CT.Controllers
 {
@@ -17,8 +19,18 @@ namespace CT.Controllers
         
         public IActionResult dsChucNang(int page)
         {
-            var UserClaimRole = User.FindFirst("CN")?.Value;
-            if (!string.IsNullOrEmpty(UserClaimRole) && UserClaimRole.Contains("QLCN") && UserClaimRole.Contains("Xem"))
+            var userclaim = User.Claims;
+            bool check = false;
+            foreach(var claim in userclaim)
+            {
+                if(claim.Type == "CN" && claim.Value.Contains("QLCN") && claim.Value.Contains("Xem"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (check)
             {
                 if (page < 1) return BadRequest();
                 else
@@ -27,12 +39,19 @@ namespace CT.Controllers
                     if (Result != null) return Ok(Result);
                     else return NotFound();
                 }
+
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                });
             }
-         
+
+
+
         }
 
         [HttpPost]
@@ -41,8 +60,18 @@ namespace CT.Controllers
 
         public IActionResult ThemCN(string namecn)
         {
-            var UserClaimRole = User.FindFirst("CN")?.Value;
-            if(!string.IsNullOrEmpty(UserClaimRole) && UserClaimRole.Contains("QLCN") && UserClaimRole.Contains("Them"))
+
+            var userclaim = User.Claims;
+            var check = false;
+            foreach(var claim in userclaim)
+            {
+                if(claim.Type=="CN" && claim.Value.Contains("QLCN") && claim.Value.Contains("Them"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+            if (check)
             {
                 if (namecn == null || namecn == "") return BadRequest();
                 else
@@ -54,9 +83,12 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                });
             }
-           
         }
 
         [HttpPut]
@@ -65,8 +97,17 @@ namespace CT.Controllers
 
         public IActionResult SuaCN([FromBody] ChucNangMOD item)
         {
-            var UserClaimRole = User.FindFirst("CN")?.Value;
-            if (!string.IsNullOrEmpty(UserClaimRole) && UserClaimRole.Contains("QLCN") && UserClaimRole.Contains("Sua"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach(var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLCN") && claim.Value.Contains("Sua"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+            if (check)
             {
                 if (item == null) return BadRequest();
                 else
@@ -79,9 +120,18 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                });
             }
-           
+
+          
+
+
+          
+
         }
         [HttpDelete]
         [Route("XoaChucNang")]
@@ -89,8 +139,18 @@ namespace CT.Controllers
 
         public IActionResult XoaCN(int id)
         {
-            var UserClaimRole = User.FindFirst("CN")?.Value;
-            if (!String.IsNullOrEmpty(UserClaimRole) && UserClaimRole.Contains("QLCN") && UserClaimRole.Contains("Xoa"))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach(var claim in userclaim)
+            {
+                if(claim.Type=="CN" && claim.Value.Contains("QLCN") && claim.Value.Contains("Xoa"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (check)
             {
 
                 if (id == null) return BadRequest();
@@ -101,9 +161,14 @@ namespace CT.Controllers
                     else return NotFound();
                 }
             }
+            
             else
             {
-                return StatusCode(-99, "Không có quyền");
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                });;
             }
            
         }

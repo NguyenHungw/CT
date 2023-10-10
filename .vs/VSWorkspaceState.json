@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\CT",
-    "\\CT.BUS",
-    "\\CT.DAL",
-    "\\CT.MOD",
-    "\\CT\\Controllers"
+    ""
   ],
   "SelectedNode": "\\CT.sln",
   "PreviewInSolutionExplorer": false

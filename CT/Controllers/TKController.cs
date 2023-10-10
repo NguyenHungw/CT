@@ -14,11 +14,13 @@ namespace CT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class TKController : ControllerBase
     {
 
         [HttpPost]
         [Route("Login")]
+        [AllowAnonymous]
 
         public IActionResult Login([FromBody] TaiKhoanMOD login)
         {
@@ -42,12 +44,24 @@ namespace CT.Controllers
 
         }
         [HttpGet]
-        [Route("DanhSachTK")]
+        [Route("admin/DanhSachTK")]
+     /*   [Authorize(Policy = "CanViewTK")]*/
         [Authorize]
         public IActionResult DanhSachTK(int page)
         {
-            var UserClaimRole = User.FindFirst("Admin")?.Value;
-            if (!String.IsNullOrEmpty(UserClaimRole))
+            var userclaim = User.Claims;
+            var check = false;
+            foreach(var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLTK") && claim.Value.Contains("Xem"))
+                {
+                    check = true;
+                    break;
+
+                }
+            }
+
+            if (check)
             {
                 if (page < 1) return BadRequest();
                 else
@@ -61,8 +75,15 @@ namespace CT.Controllers
             }
             else
             {
-                return StatusCode(-99, "Không có quyền"); 
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                    
+                });
             }
+                
+                             
         }
         [HttpPost]
         [Route("DoiMK")]
@@ -79,6 +100,7 @@ namespace CT.Controllers
         }
         [HttpPost]
         [Route("DoiTen")]
+        [AllowAnonymous]
         public IActionResult DoiTen([FromForm] Rename item)
         {
             if (item == null) return BadRequest();

@@ -1,3 +1,4 @@
+﻿using CT.MOD;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
@@ -7,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+
 
 using System.Text;
 
@@ -50,9 +52,47 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        ClockSkew = TimeSpan.Zero
     };
 });
+
+/*builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("QLSP", policy =>
+    {
+        policy.RequireClaim("NhomNguoiDung", "Admin");
+        policy.RequireClaim("ChucNang", "QLSP");
+        policy.RequireClaim("Quyen", "Them");
+    });
+
+    options.AddPolicy("UserOnly", policy =>
+    {
+        policy.RequireClaim("NhomNguoiDung", "User");
+    });
+});
+
+*/
+// Thêm services cho phân quyền
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanViewQLSP", policy => policy.RequireClaim("CN", "QLSP:Xem"));
+    options.AddPolicy("CanAddQLSP", policy => policy.RequireClaim("CN", "QLSP:Them"));
+    options.AddPolicy("CanViewTK", policy =>
+    {
+        policy.RequireClaim("CN", "QLTK");
+        
+        policy.RequireClaim("QLTK", "Xem");
+    });
+
+
+    // Thêm các policy khác tương tự
+});
+
+
+
+
+
 
 // Cors
 builder.Services.AddCors();
@@ -88,7 +128,39 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 builder.Services.AddAuthentication();
+app.Use(async (context, next) =>
+{
+    if (context.Response.StatusCode == 403)
+    {
+        context.Response.StatusCode = 403;
+        context.Response.ContentType = "application/json";
 
+        var result = new BaseResultMOD
+        {
+            Status = -99,
+            Message = "Bạn không có quyền truy cập"
+        };
+
+        await context.Response.WriteAsJsonAsync(result);
+    }
+    else if (context.Response.StatusCode == 401)
+    {
+        context.Response.StatusCode = 401;
+        context.Response.ContentType = "application/json";
+
+        var result = new BaseResultMOD
+        {
+            Status = 0,
+            Message = "Chưa đăng nhập"
+        };
+
+        await context.Response.WriteAsJsonAsync(result);
+    }
+    else
+    {
+        await next();
+    }
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -102,6 +174,7 @@ if (app.Environment.IsDevelopment())
         c.OAuthAppName("My API");
     });
 }
+
 
 app.UseHttpsRedirection();
 

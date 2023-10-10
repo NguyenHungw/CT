@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "N2YWVcQ2OMFiJTlI1k9kM4MkJhPQnCfhUcqt9nfV4rM=",
+  "Hash": "A/A1vcaMaiQVN3QZ0dmMvLCtl3tHjCUGy3CgSQc4fNM=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\333_anh-3d-thien-nhien.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\3333_33.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/3333_33.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\3333_33.gif"
     },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\temp\\2.gif",
