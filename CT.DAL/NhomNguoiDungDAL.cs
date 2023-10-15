@@ -39,7 +39,7 @@ namespace CT.DAL
                         DanhSachNhomNDMOD item = new DanhSachNhomNDMOD();
                         item.NNDID = reader.GetInt32(0);
                         item.TenNND = reader.GetString(1);
-
+                        item.GhiChu = reader.GetString(2);
                         dsnnd.Add(item);
 
                     }
@@ -66,9 +66,10 @@ namespace CT.DAL
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "insert into NhomNguoiDung (TenNND)VALUES(@TenNND)";
+                    cmd.CommandText = "insert into NhomNguoiDung (TenNND,GhiChu)VALUES(@TenNND,@GhiChu)";
                     cmd.Connection = SQLCon;
                     cmd.Parameters.AddWithValue("@TenNND", item.TenNND);
+                    cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
                     SQLCon.Open();
                    
                     cmd.ExecuteNonQuery();
@@ -95,12 +96,13 @@ namespace CT.DAL
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "update NhomNguoiDung set TenNND = @TenNND where NNDID=@NNDID";
+                    cmd.CommandText = "update NhomNguoiDung set TenNND = @TenNND , GhiChu = @GhiChu where NNDID=@NNDID";
                     cmd.Connection = SQLCon;
                     
 
                     cmd.Parameters.AddWithValue("@NNDID", item.NNDID);
                     cmd.Parameters.AddWithValue("@TenNND", item.TenNND);
+                    cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
                     SQLCon.Open();
                     cmd.ExecuteNonQuery();
                     Result.Status = 1;

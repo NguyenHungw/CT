@@ -21,21 +21,24 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                List<NguoiDungTrongNhomMOD> dsndtn = new List<NguoiDungTrongNhomMOD>();
+                List<NguoiDungTrongNhomMOD2> dsndtn = new List<NguoiDungTrongNhomMOD2>();
                 using(SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType=CommandType.Text;
-                    cmd.CommandText = "Select * from NguoiDungTrongNhom";
+                    cmd.CommandText = @"SELECT NND.TenNND ,u.Username
+FROM [User] u
+inner join NguoiDungTrongNhom NDTN on u.idUser = NDTN.idUser
+inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        NguoiDungTrongNhomMOD item = new NguoiDungTrongNhomMOD();
-                        item.NNDID = reader.GetInt32(0);
-                        item.idUser = reader.GetInt32(1);
+                        NguoiDungTrongNhomMOD2 item = new NguoiDungTrongNhomMOD2();
+                        item.TenNND = reader.GetString(0);
+                        item.Username = reader.GetString(1);
                         dsndtn.Add(item);
                     }
                     reader.Close();

@@ -10,12 +10,13 @@ namespace CT.MOD
     {
         public int NNDID { get; set; }
         public string TenNND { get; set; }
+        public string GhiChu { get; set; }
 
     }
     public class ThemMoiNND
     {
         public string TenNND { get; set; }
-
+        public string GhiChu { get; set; }
     }
    
 }

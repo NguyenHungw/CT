@@ -51,6 +51,43 @@ namespace CT.Controllers
              
        
         }
+        [HttpGet]
+        [Route("DanhSachCNCuaNND2")]
+        [Authorize]
+        public IActionResult dscncuannd2(int page)
+        {
+            var userclaim = User.Claims;
+            var check = false;
+            foreach (var claim in userclaim)
+            {
+                if (claim.Type == "CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Xem"))
+                {
+                    check = true;
+                    break;
+                }
+            }
+            if (check)
+            {
+                if (page < 1) return BadRequest();
+                else
+                {
+                    var Result = new ChucNangCuaNNDBUS().dsCNCuannd2(page);
+                    if (Result != null) return Ok(Result);
+                    else return NotFound();
+                }
+            }
+            else
+            {
+                return NotFound(new BaseResultMOD
+                {
+                    Status = -99,
+                    Message = ULT.Constant.NOT_ACCESS
+                });
+            }
+
+
+
+        }
         [HttpPost]
         [Route("ThemChucNangCuaNND")]
         [Authorize]

@@ -10,5 +10,6 @@ namespace CT.MOD
     {
         public int ChucNangid { get; set; }
         public string TenChucNang { get; set; }
+       
     }
 }

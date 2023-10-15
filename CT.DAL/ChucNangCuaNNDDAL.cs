@@ -28,6 +28,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = " Select * from ChucNangCuaNhomND ";
+                    
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -60,6 +61,61 @@ namespace CT.DAL
             return result;
 
         }
+        public BaseResultMOD getDSChucNangCuaNND2(int page)
+        {
+            const int ProductPerPage = 10;
+            int startPage = ProductPerPage * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+                List<ChucNangCuaNNDMOD2> listcncnnd = new List<ChucNangCuaNNDMOD2>();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    //cmd.CommandText = " Select * from ChucNangCuaNhomND ";
+                    cmd.CommandText = @"SELECT distinct  idChucNangCuaNND ,ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
+FROM ChucNangCuaNhomND CNND
+INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
+INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
+INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID;
+";
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ChucNangCuaNNDMOD2 item = new ChucNangCuaNNDMOD2();
+                        item.idChucNangCuaNND = reader.GetInt32(0);
+                        item.TenNND = reader.GetString(1);
+                        item.TenChucNang = reader.GetString(2);
+                        
+                        item.Xem = reader.GetBoolean(3);
+                        item.Them = reader.GetBoolean(4);
+                        item.Sua = reader.GetBoolean(5);
+
+                        item.Xoa = reader.GetBoolean(6);
+
+                        listcncnnd.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = listcncnnd;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = "Lỗi hệ thống" + ex;
+                throw;
+
+            }
+            return result;
+
+        }
+
+
         public BaseResultMOD ThemQuyenCNCNND(ThemChucNangCuaNNDMOD item)
         {
             var result = new BaseResultMOD();
@@ -185,9 +241,9 @@ namespace CT.DAL
             }
             return result;
         }
-        public ChucNangCuaNNDMOD ChiTietCNCN(int id)
+        public ChucNangCuaNNDMOD2 ChiTietCNCN(int id)
         {
-            ChucNangCuaNNDMOD item = null;
+            ChucNangCuaNNDMOD2 item = null;
             try
             {
                 using(SqlConnection SQLCon = new SqlConnection(strcon))
@@ -195,7 +251,12 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Select * from ChucNangCuaNhomND where idChucNangCuaNND = @idChucNangCuaNND";
+                    cmd.CommandText = @"SELECT distinct  idChucNangCuaNND ,ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
+FROM ChucNangCuaNhomND CNND
+INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
+INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
+INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
+where idChucNangCuaNND = @idChucNangCuaNND;";
                     cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
                    
 
@@ -203,13 +264,15 @@ namespace CT.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        item = new ChucNangCuaNNDMOD();
-                        item.idChucNangCuaNND = id;
-                        item.ChucNang = reader.GetInt32(1);
-                        item.NNDID = reader.GetInt32(2);
+                        item = new ChucNangCuaNNDMOD2();
+                        item.idChucNangCuaNND = reader.GetInt32(0);
+                        item.TenNND = reader.GetString(1);
+                        item.TenChucNang = reader.GetString(2);
+
                         item.Xem = reader.GetBoolean(3);
                         item.Them = reader.GetBoolean(4);
                         item.Sua = reader.GetBoolean(5);
+
                         item.Xoa = reader.GetBoolean(6);
 
                     }

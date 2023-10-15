@@ -35,6 +35,7 @@ namespace CT.DAL
                         ChucNangMOD item = new ChucNangMOD();
                         item.ChucNangid = reader.GetInt32(0);
                         item.TenChucNang = reader.GetString(1);
+                       
 
 
                         dscn.Add(item);

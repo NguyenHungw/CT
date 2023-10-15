@@ -13,12 +13,36 @@ namespace CT.BUS
 {
     public class ChucNangCuaNNDBUS
     {
+        
         public BaseResultMOD dsCNCuannd(int page)
         {
             var result = new BaseResultMOD();
             try
             {
                 if (page > 0) { result = new ChucNangCuaNNDDAL().getDSChucNangCuaNND(page); }
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "lỗi page";
+                }
+            }
+            catch (Exception)
+            {
+                result.Status = -1;
+                result.Message = " Lỗi hệ thống ";
+                result.Data = null;
+                throw;
+
+            }
+            return result;
+
+        }
+        public BaseResultMOD dsCNCuannd2(int page)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                if (page > 0) { result = new ChucNangCuaNNDDAL().getDSChucNangCuaNND2(page); }
                 else
                 {
                     result.Status = 0;
@@ -116,9 +140,9 @@ namespace CT.BUS
             return result;
         }
 
-        public ChucNangCuaNNDMOD ChiTCNCN(int id )
+        public ChucNangCuaNNDMOD2 ChiTCNCN(int id )
         {
-            var item = new ChucNangCuaNNDMOD();
+            var item = new ChucNangCuaNNDMOD2();
             var Result = new BaseResultMOD();
             try
             {
