@@ -62,21 +62,30 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                bool isDuplicate = KiemTraTrungNND(item);
+                if (isDuplicate)
                 {
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "insert into NhomNguoiDung (TenNND,GhiChu)VALUES(@TenNND,@GhiChu)";
-                    cmd.Connection = SQLCon;
-                    cmd.Parameters.AddWithValue("@TenNND", item.TenNND);
-                    cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
-                    SQLCon.Open();
-                   
-                    cmd.ExecuteNonQuery();
-                    result.Status = 1;
-                    result.Message = "Them thanh cong";
-                    result.Data = 1;
+                    result.Status = -1;
+                    result.Message = "Tên nhóm người dùng đã tồn tại.";
+                }
+                else
+                {
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "insert into NhomNguoiDung (TenNND,GhiChu)VALUES(@TenNND,@GhiChu)";
+                        cmd.Connection = SQLCon;
+                        cmd.Parameters.AddWithValue("@TenNND", item.TenNND);
+                        cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
+                        SQLCon.Open();
 
+                        cmd.ExecuteNonQuery();
+                        result.Status = 1;
+                        result.Message = "Them thanh cong";
+                        result.Data = 1;
+
+                    }
                 }
                 
 
@@ -86,6 +95,21 @@ namespace CT.DAL
                 throw;
             }
             return result;
+        }
+
+        private bool KiemTraTrungNND(ThemMoiNND item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM NhomNguoiDung WHERE TenNND = @TenNND";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@TenNND", item.TenNND);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
         }
         public BaseResultMOD SuaNhomND(DanhSachNhomNDMOD item)
         {
