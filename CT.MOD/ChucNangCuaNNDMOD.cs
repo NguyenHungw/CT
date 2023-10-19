@@ -21,7 +21,9 @@ namespace CT.MOD
     public class ChucNangCuaNNDMOD2
     {
         public int idChucNangCuaNND { get; set; }
+        public int NNDID { get; set; }
         public string TenNND { get; set; }
+        public int ChungNangid { get; set; }
         public string TenChucNang { get; set; }
        
         public bool Xem { get; set; }

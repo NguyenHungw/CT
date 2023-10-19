@@ -75,11 +75,11 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     //cmd.CommandText = " Select * from ChucNangCuaNhomND ";
-                    cmd.CommandText = @"SELECT distinct  idChucNangCuaNND ,ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
+                    cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND,CN.ChucNangid, CN.TenChucNang , Xem,Them , Sua ,Xoa
 FROM ChucNangCuaNhomND CNND
 INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
 INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
-INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID;
+INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
 ";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
@@ -88,14 +88,16 @@ INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID;
                     {
                         ChucNangCuaNNDMOD2 item = new ChucNangCuaNNDMOD2();
                         item.idChucNangCuaNND = reader.GetInt32(0);
-                        item.TenNND = reader.GetString(1);
-                        item.TenChucNang = reader.GetString(2);
-                        
-                        item.Xem = reader.GetBoolean(3);
-                        item.Them = reader.GetBoolean(4);
-                        item.Sua = reader.GetBoolean(5);
+                        item.NNDID = reader.GetInt32(1);
+                        item.TenNND = reader.GetString(2);
+                        item.ChungNangid = reader.GetInt32(3);
+                        item.TenChucNang = reader.GetString(4);
 
-                        item.Xoa = reader.GetBoolean(6);
+                        item.Xem = reader.GetBoolean(5);
+                        item.Them = reader.GetBoolean(6);
+                        item.Sua = reader.GetBoolean(7);
+
+                        item.Xoa = reader.GetBoolean(8);
 
                         listcncnnd.Add(item);
                     }
@@ -251,13 +253,13 @@ INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID;
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
+                    cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND,CN.ChucNangid, CN.TenChucNang , Xem,Them , Sua ,Xoa
 FROM ChucNangCuaNhomND CNND
 INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
 INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
 INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
-where NNDID = @NNDID;";
-                    cmd.Parameters.AddWithValue("@NNDID", id);
+where idChucNangCuaNND = @idChucNangCuaNND;";
+                    cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
                    
 
                     cmd.Connection = SQLCon;
@@ -266,14 +268,16 @@ where NNDID = @NNDID;";
                     {
                         item = new ChucNangCuaNNDMOD2();
                         item.idChucNangCuaNND = reader.GetInt32(0);
-                        item.TenNND = reader.GetString(1);
-                        item.TenChucNang = reader.GetString(2);
+                        item.NNDID = reader.GetInt32(1);
+                        item.TenNND = reader.GetString(2);
+                        item.ChungNangid = reader.GetInt32(3);
+                        item.TenChucNang = reader.GetString(4);
 
-                        item.Xem = reader.GetBoolean(3);
-                        item.Them = reader.GetBoolean(4);
-                        item.Sua = reader.GetBoolean(5);
+                        item.Xem = reader.GetBoolean(5);
+                        item.Them = reader.GetBoolean(6);
+                        item.Sua = reader.GetBoolean(7);
 
-                        item.Xoa = reader.GetBoolean(6);
+                        item.Xoa = reader.GetBoolean(8);
 
                     }
                     reader.Close();
