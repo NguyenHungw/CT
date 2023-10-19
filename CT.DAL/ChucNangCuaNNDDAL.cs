@@ -251,13 +251,13 @@ INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID;
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"SELECT distinct  idChucNangCuaNND ,ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
+                    cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND, CN.TenChucNang , Xem,Them , Sua ,Xoa
 FROM ChucNangCuaNhomND CNND
 INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
 INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
 INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
-where idChucNangCuaNND = @idChucNangCuaNND;";
-                    cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
+where NNDID = @NNDID;";
+                    cmd.Parameters.AddWithValue("@NNDID", id);
                    
 
                     cmd.Connection = SQLCon;

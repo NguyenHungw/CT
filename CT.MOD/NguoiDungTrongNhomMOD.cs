@@ -13,7 +13,9 @@ namespace CT.MOD
     }
     public class NguoiDungTrongNhomMOD2
     {
+        public int NNDID { get; set; }
         public string TenNND { get; set; }
+        public int idUser { get; set; }
         public string Username { get; set; }
     }
 }

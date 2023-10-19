@@ -21,23 +21,22 @@ namespace CT.Services
             _audience = audience;
         }
 
-        public string GenerateJwtToken(TaiKhoanMOD item, string userRole, List<Claim> claims)
+        public (string jwtToken, string refreshToken) GenerateJwtAndRefreshToken(TaiKhoanMOD item, string userRole, List<Claim> claims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
             var ThoiGianHetHan = DateTime.Now.AddMinutes(5);
+
             var additionalClaims = new List<Claim>
             {
-                
                 new Claim("PhoneNumber", item.PhoneNumber),
                 new Claim("NhomNguoiDung", userRole),
                 new Claim("ThoiHanDangNhap", ThoiGianHetHan.ToString(), ClaimValueTypes.Integer),
-
             };
 
-            // chèn claim vào phia trước ds claim hienj tại
+            // Chèn claim vào phía trước danh sách claim hiện tại
             claims.InsertRange(0, additionalClaims);
-          //  var result = new BaseResultMOD();
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -50,11 +49,16 @@ namespace CT.Services
                 Audience = _audience
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-          
+            // Tạo JWT Token
+            var jwtToken = tokenHandler.CreateToken(tokenDescriptor);
+            var jwtTokenString = tokenHandler.WriteToken(jwtToken);
 
-            return tokenHandler.WriteToken(token);
+            // tạo ref token sử dụng một chuỗi ngẫu nhiên để làm rf token
+            var refreshToken = Guid.NewGuid().ToString();
+
+            // Lưu trữ refresh token 
+
+            return (jwtTokenString, refreshToken);
         }
-        
     }
 }

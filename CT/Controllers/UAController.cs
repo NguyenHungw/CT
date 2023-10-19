@@ -167,7 +167,7 @@ namespace CT.Services
                                 PhoneNumber = item.PhoneNumber,
                             };
 
-                            var token = authService.GenerateJwtToken(taiKhoanMOD, userRole, claims);
+                            var (jwtToken, refreshToken) = authService.GenerateJwtAndRefreshToken(taiKhoanMOD, userRole, claims);
                             /*    var baseResult = new BaseResultMOD
                                 {
                                     Status = 1,
@@ -193,11 +193,11 @@ namespace CT.Services
                                 Email = cvk.Email,
                                 TimeOut = time,
                                 ChucNangVaQuyen = chucNangClaims,
-                                Token = token
-                            
+                                Token = jwtToken,
+                                RefreshToken = refreshToken
 
 
-                        };
+                            };
                            /* var response = new
                             {
                                 BaseResult = rp,

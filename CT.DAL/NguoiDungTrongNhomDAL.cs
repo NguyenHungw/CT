@@ -27,7 +27,7 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType=CommandType.Text;
-                    cmd.CommandText = @"SELECT NND.TenNND ,u.Username
+                    cmd.CommandText = @"SELECT NND.NNDID,NND.TenNND,u.idUser,u.Username
 FROM [User] u
 inner join NguoiDungTrongNhom NDTN on u.idUser = NDTN.idUser
 inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID";
@@ -37,8 +37,10 @@ inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID";
                     while (reader.Read())
                     {
                         NguoiDungTrongNhomMOD2 item = new NguoiDungTrongNhomMOD2();
-                        item.TenNND = reader.GetString(0);
-                        item.Username = reader.GetString(1);
+                        item.NNDID = reader.GetInt32(0);
+                        item.TenNND = reader.GetString(1);
+                        item.idUser = reader.GetInt32(2);
+                        item.Username = reader.GetString(3);
                         dsndtn.Add(item);
                     }
                     reader.Close();
