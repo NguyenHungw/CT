@@ -13,7 +13,7 @@ namespace CT.DAL
 {
     public class ChucNangCuaNNDDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;";
         public BaseResultMOD getDSChucNangCuaNND(int page)
         {
             const int ProductPerPage = 10;
@@ -75,11 +75,10 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     //cmd.CommandText = " Select * from ChucNangCuaNhomND ";
-                    cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND,CN.ChucNangid, CN.TenChucNang , Xem,Them , Sua ,Xoa
-FROM ChucNangCuaNhomND CNND
-INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
-INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
-INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
+                    cmd.CommandText = @"select distinct CNCNND.idChucNangCuaNND,CNCNND.NNDID,NND.TenNND,CNCNND.ChucNangid,CN.TenChucNang, Xem , Them,Sua , Xoa
+From ChucNangCuaNhomND CNCNND
+inner join NhomNguoiDung as NND on  CNCNND.NNDID = NND.NNDID
+inner join ChucNang as CN on CNCNND.ChucNangid = CN.ChucNangid
 ";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
