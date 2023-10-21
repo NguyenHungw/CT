@@ -11,7 +11,6 @@ using System;
 
 
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -162,30 +161,6 @@ app.Use(async (context, next) =>
         await next();
     }
 });
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                      });
-});
-app.UseCors(MyAllowSpecificOrigins);
-
-builder.Services.AddControllers(options =>
-{
-    options.RespectBrowserAcceptHeader = true;
-});
-builder.Services.AddControllers()
-    .AddXmlSerializerFormatters();
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    });
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -206,12 +181,20 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 // Enable CORS
+app.UseStaticFiles();
+
+// Enable CORS
+// Enable CORS
 app.UseCors(builder =>
 {
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-    .AllowAnyHeader();
+    builder
+        .SetIsOriginAllowed(origin => true) // Cho phép tất cả các nguồn gốc //có thể có tác động đến bảo mật của ứng dụng 
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials() // Nếu cần hỗ trợ cookies hoặc thông tin xác thực
+        .WithExposedHeaders("Access-Control-Allow-Origin");
 });
+
 
 app.UseAuthentication();
 app.UseAuthorization();
