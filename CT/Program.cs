@@ -11,11 +11,35 @@ using System;
 
 
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.RespectBrowserAcceptHeader = true;
+});
+builder.Services.AddControllers()
+    .AddXmlSerializerFormatters();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                      });
+});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // JWT Authentication
 /*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -127,6 +151,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 builder.Services.AddAuthentication();
 app.Use(async (context, next) =>
 {
@@ -180,21 +205,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-// Enable CORS
-app.UseStaticFiles();
+
 
 // Enable CORS
-// Enable CORS
-app.UseCors(builder =>
-{
-    builder
-        .SetIsOriginAllowed(origin => true) // Cho phép tất cả các nguồn gốc //có thể có tác động đến bảo mật của ứng dụng 
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials() // Nếu cần hỗ trợ cookies hoặc thông tin xác thực
-        .WithExposedHeaders("Access-Control-Allow-Origin");
-});
-
 
 app.UseAuthentication();
 app.UseAuthorization();
