@@ -76,25 +76,36 @@ namespace CT.DAL
             string hash = BCrypt.Net.BCrypt.HashPassword(item.Password, salt);
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                bool check = KiemTraTrungTK(item);
+                    if (check)
                 {
-                    SQLCon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "v1_Users_Register";
-                    cmd.Parameters.AddWithValue("@Username",item.Name );
-                    cmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
-                    cmd.Parameters.AddWithValue("@Password", hash);
-                    cmd.Parameters.AddWithValue("@Email",item.Email);
-
-                    cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
-
-
+                    Result.Status = -1;
+                    Result.Message = "Số điện thoại "+item.PhoneNumber+" đã được đăng ký";
                 }
+                else
+                {
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SQLCon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "v1_Users_Register";
+                        cmd.Parameters.AddWithValue("@Username", item.Name);
+                        cmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
+                        cmd.Parameters.AddWithValue("@Password", hash);
+                        cmd.Parameters.AddWithValue("@Email", item.Email);
 
-                Result.Status = 1;
-                Result.Message = "Đăng ký thành công ";
+                        cmd.Connection = SQLCon;
+                        cmd.ExecuteNonQuery();
+
+
+                    }
+
+                    Result.Status = 1;
+                    Result.Message = "Đăng ký thành công ";
+                }
+               
+               
 
 
             }
@@ -105,6 +116,20 @@ namespace CT.DAL
             }
             return Result;
 
+        }
+        private bool KiemTraTrungTK(DangKyTK item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM [User] WHERE PhoneNumber = @PhoneNumber";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
         }
         public DangKyTK inforTK(String Phonenumber)
         {

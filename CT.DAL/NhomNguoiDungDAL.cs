@@ -82,7 +82,7 @@ namespace CT.DAL
 
                         cmd.ExecuteNonQuery();
                         result.Status = 1;
-                        result.Message = "Them thanh cong";
+                        result.Message = "Thêm thành công";
                         result.Data = 1;
 
                     }
@@ -91,7 +91,7 @@ namespace CT.DAL
 
             }catch(Exception ex){
                 result.Status = -1;
-                result.Message = "Lỗi hệ thống";
+                result.Message = ULT.Constant.API_Error_System;
                 throw;
             }
             return result;
@@ -137,7 +137,7 @@ namespace CT.DAL
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Message = "loi ht";
+                Result.Message = ULT.Constant.API_Error_System;
                 throw;
             }
             return Result;
@@ -170,7 +170,7 @@ namespace CT.DAL
             }catch(Exception ex)
             {
                 result.Status= -1;
-                result.Message = "Lỗi hệ thống" + ex;
+                result.Message = ULT.Constant.API_Error_System + ex;
                 throw;
 
             }

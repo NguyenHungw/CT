@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data.SqlClient;
+using CT.DAL;
 using CT.MOD;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,10 +17,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Security;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static CT.MOD.jwtmod;
+using static CT.MOD.Jwt.jwtmod;
 using Microsoft.AspNetCore.Routing.Patterns;
 using System.Security.Authentication.ExtendedProtection;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using CT.MOD.Jwt;
 
 namespace CT.Services
 {
@@ -29,28 +31,41 @@ namespace CT.Services
     [ApiController]
     public class AuthController : ControllerBase
     {
-        
+
 
         private readonly IConfiguration _configuration;
-     
+        private readonly AuthService authService; // Thêm biến thành viên để lưu thể hiện của AuthService
+        private readonly string _issuer; // Khai báo biến _issuer
+        private readonly string _audience; // Khai báo biến _audience
+        private readonly string _secretKey;
 
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
+            _issuer = _configuration["Jwt:Issuer"]; // Gán giá trị từ cấu hình
+            _audience = _configuration["Jwt:Audience"]; // Gán giá trị từ cấu hình
+            _secretKey = _configuration["Jwt:Key"];
+            authService = new AuthService(
+
+                _configuration["Jwt:Key"],
+                _issuer,
+                _audience
+            );
+
         }
 
-        
+
 
         private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
 
         SqlConnection SQLCon = null;
 
-       
+
 
         [HttpPost("login")]
         [AllowAnonymous]
 
-        public IActionResult Login([FromBody] TaiKhoanMOD item )
+        public IActionResult Login([FromBody] TaiKhoanMOD item)
         {
             try
             {
@@ -78,7 +93,7 @@ namespace CT.Services
                         cmd.Parameters.AddWithValue("@Password", item.Password);
 
                         SqlDataReader reader = cmd.ExecuteReader();
-                        bool isAuthenticated = false; 
+                        bool isAuthenticated = false;
                         string userRole = null;
                         List<string> permissions = new List<string>();
                         List<string> functionalities = new List<string>();
@@ -89,13 +104,13 @@ namespace CT.Services
 
                         while (reader.Read())
                         {
-                         
+
                             string hashedPasswordFromDB = reader.GetString(reader.GetOrdinal("Password"));
 
                             if (BCrypt.Net.BCrypt.Verify(item.Password, hashedPasswordFromDB))
                             {
                                 //cvk = new jwtmod();
-                              
+
                                 cvk.ID = reader.GetInt32(reader.GetOrdinal("idUser"));
                                 cvk.Username = reader.GetString(reader.GetOrdinal("Username"));
                                 cvk.Email = reader.GetString(reader.GetOrdinal("Email"));
@@ -107,18 +122,18 @@ namespace CT.Services
                                 Boolean Them = reader.GetBoolean(reader.GetOrdinal("Them"));
                                 Boolean Sua = reader.GetBoolean(reader.GetOrdinal("Sua"));
                                 Boolean Xoa = reader.GetBoolean(reader.GetOrdinal("Xoa"));
-                                
+
                                 //List<Claim> claims = new List<Claim>();
                                 if (isActive == 1)
                                 {
 
                                     isAuthenticated = true; // người dùng đã xác thực
                                     userRole = reader.GetString(reader.GetOrdinal("TenNND"));
-                                  
+
                                     if (!string.IsNullOrEmpty(ChucNang))
                                     {
 
-/*                                        permissions.Add(ChucNang);*/
+                                        /*                                        permissions.Add(ChucNang);*/
 
                                         if (Xem)
                                         {
@@ -137,7 +152,7 @@ namespace CT.Services
                                             quyen += "Xoa,";
                                         }
                                         quyen = quyen.TrimEnd(',');
-                                        
+
 
 
                                         string chucNangVaQuyen = $"{ChucNang}:{quyen}";
@@ -149,19 +164,13 @@ namespace CT.Services
 
                                 }
                             }
-                        }
-                      
+                        }SQLCon.Close();
+                        
+
 
                         // sau khi xác minh thông tin đăng nhập, tạo mã thông báo JWT và trả về 
-                     if (isAuthenticated){
-           
-
-                            var authService = new AuthService(
-                                _configuration["Jwt:Key"],
-                                _issuer,
-                                _audience
-                            );
-
+                        if (isAuthenticated)
+                        {
                             var taiKhoanMOD = new TaiKhoanMOD
                             {
                                 PhoneNumber = item.PhoneNumber,
@@ -173,12 +182,14 @@ namespace CT.Services
                                     Status = 1,
                                     Message = "Đăng nhập thành công"
                                 };*/
+
+                            
                             List<string> chucNangClaims = claims
                                         .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
                                         .Select(c => c.Value) // Chọn giá trị của các Claim
                                         .ToList();
                             var aidi = claims.FirstOrDefault(n => n.Type == "idUser")?.Value;
-                           
+
                             //var name = claims.FirstOrDefault(n => n.Type == "Username")?.Value; 
                             var time = claims.FirstOrDefault(t => t.Type == "ThoiHanDangNhap")?.Value;
                             var R = claims.FirstOrDefault(r => r.Type == "NhomNguoiDung")?.Value;
@@ -188,24 +199,68 @@ namespace CT.Services
                                 Message = "Đăng nhập thành công",
                                 ID = cvk.ID,
                                 Username = cvk.Username,
-                                Role =R,
+                                Role = R,
                                 PhoneNumber = cvk.PhoneNumber,
                                 Email = cvk.Email,
                                 TimeOut = time,
                                 ChucNangVaQuyen = chucNangClaims,
                                 Token = jwtToken,
                                 RefreshToken = refreshToken
+                               
+                        };
 
+                            /* var response = new
+                             {
+                                 BaseResult = rp,
+                                 Token = token
 
-                            };
-                           /* var response = new
+                             };*/
+                            if (!string.IsNullOrEmpty(cvk.PhoneNumber) && !string.IsNullOrEmpty(refreshToken))
                             {
-                                BaseResult = rp,
-                                Token = token
-                              
-                            };*/
+                                try
+                                {
+                                    using (SqlConnection SQLCon1 = new SqlConnection(strcon))
+                                    {
+                                        SQLCon1.Open(); // Mở kết nối
+
+                                        // Kiểm tra xem dữ liệu có trùng lặp không
+                                        bool isDuplicate = KiemTraTrung(cvk);
+                                        if (isDuplicate)
+                                        {
+                                            string sqlDelete = "DELETE FROM RefreshTokens WHERE UserId = @UserId";
+                                            using (SqlCommand cmdDelete = new SqlCommand(sqlDelete, SQLCon1))
+                                            {
+                                                cmdDelete.Parameters.AddWithValue("@UserId", cvk.PhoneNumber);
+                                                cmdDelete.ExecuteNonQuery();
+                                            }
+                                        }
+
+                                        DateTime expirationDate = DateTime.UtcNow.AddDays(30);
+
+                                        // Thực hiện lệnh INSERT
+                                        string sqlInsert = "INSERT INTO RefreshTokens (UserId, TokenValue, ExpirationDate) VALUES (@UserId, @TokenValue, @ExpirationDate)";
+                                        using (SqlCommand cmdInsert = new SqlCommand(sqlInsert, SQLCon1))
+                                        {
+                                            cmdInsert.Parameters.AddWithValue("@UserId", cvk.PhoneNumber);
+                                            cmdInsert.Parameters.AddWithValue("@TokenValue", refreshToken);
+                                            cmdInsert.Parameters.AddWithValue("@ExpirationDate", expirationDate);
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+
+                                        // Đảm bảo rằng kết nối được đóng sau khi đã sử dụng xong.
+                                        SQLCon1.Close();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    
+                                }
+                            }
+
+
+
                             return Ok(rp);
-                          
+
                         }
                         else
                         {
@@ -215,7 +270,7 @@ namespace CT.Services
                             {
                                 Status = 0,
                                 Message = "Tài khoản hoặc mật khẩu không đúng, hoặc bị vô hiệu hóa"
-                            }) ;
+                            });
 
                         }
                     }
@@ -235,60 +290,167 @@ namespace CT.Services
                 return StatusCode(500);
             }
         }
-
-
-        // Phương thức xử lý cho trang quản trị (Admin)
-        [HttpGet("admin")]
-        public IActionResult AdminDashboard()
+        private bool KiemTraTrung(jwtmod cvk)
         {
-            // Kiểm tra và xác thực mã thông báo JWT từ tiêu đề Authorization của yêu cầu
-            var authHeader = HttpContext.Request.Headers["Authorization"];
-            if (authHeader.ToString().StartsWith("Bearer "))
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
             {
-                var token = authHeader.ToString().Substring(7);
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-
-                try
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM RefreshTokens WHERE UserId = @UserId";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
                 {
-                    // xác thực và giải mã token
-                    tokenHandler.ValidateToken(token, new TokenValidationParameters
+                    checkCmd.Parameters.AddWithValue("@UserId", cvk.PhoneNumber);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+        [HttpPost("refresh")]
+        public IActionResult RefreshToken([FromBody] RefreshTokenRequest refreshTokenRequest)
+        {
+            // Kiểm tra tính hợp lệ của AccessToken và lấy Principal
+            List<Claim> claims = new List<Claim>();
+            var principal = authService.GetPrincipalFromExpiredToken(refreshTokenRequest.AccessToken);
+            var cvk = new jwtmod();
+            if (principal == null)
+            {
+                return Unauthorized(new BaseResultMOD
+                {
+                    Status = 0,
+                    Message = "AccessToken hết hạn hoặc không hợp lệ."
+                });
+            }
+
+            // Lấy secret key từ cấu hình hoặc từ nơi khác
+            string secretKey = _configuration["Jwt:Key"];
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+
+            var handler = new JwtSecurityTokenHandler();
+            SecurityToken token;
+
+            principal = handler.ValidateToken(refreshTokenRequest.AccessToken, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = key,
+                ValidateIssuer = false, // Chỉnh sửa cài đặt theo yêu cầu
+                ValidateAudience = false, // Chỉnh sửa cài đặt theo yêu cầu
+            }, out token);
+            // Lấy UserID từ AccessToken
+
+            var userId = principal.Claims.FirstOrDefault(c => c.Type == "PhoneNumber")?.Value;
+
+            // Kiểm tra Refresh Token có tồn tại và hợp lệ trong cơ sở dữ liệu
+            var refreshTokenFromDb = GetRefreshTokenFromDatabase(userId, refreshTokenRequest.RefreshToken);
+
+            if (refreshTokenFromDb == null)
+            {
+                return Unauthorized(new BaseResultMOD
+                {
+                    Status = 0,
+                    Message = "Refresh Token không tồn tại hoặc không hợp lệ."
+                });
+            }
+
+            // Kiểm tra tính hợp lệ của Refresh Token
+            if (refreshTokenFromDb.ExpirationDate < DateTime.UtcNow)
+            {
+                return Unauthorized(new BaseResultMOD
+                {
+                    Status = 0,
+                    Message = "Refresh Token đã hết hạn."
+                });
+            }
+
+            // Tạo AccessToken mới
+          /*  var taiKhoanMOD = new TaiKhoanMOD
+            {
+                PhoneNumber = refreshTokenRequest.PhoneNumber,
+            };*/
+
+            var (jwtToken, newRefreshToken) = authService.GenerateJwtAndRefreshToken2( refreshTokenFromDb.UserId, principal.Claims.ToList());
+
+            // Cập nhật Refresh Token mới vào cơ sở dữ liệu
+            UpdateRefreshTokenInDatabase(userId, refreshTokenRequest.RefreshToken, newRefreshToken);
+
+            // Trả về AccessToken và Refresh Token mới
+       /*     List<string> chucNangClaimsz = claims
+                                       .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
+                                       .Select(c => c.Value) // Chọn giá trị của các Claim
+                                       .ToList();*/
+            var aidi = principal.Claims.FirstOrDefault(n => n.Type == "idUser")?.Value;
+
+            var name = principal.Claims.FirstOrDefault(n => n.Type == "Username")?.Value; 
+            var time = principal.Claims.FirstOrDefault(t => t.Type == "ThoiHanDangNhap")?.Value;
+            var R = principal.Claims.FirstOrDefault(r => r.Type == "NhomNguoiDung")?.Value;
+
+
+            var response = new jwtRefreshMod
+            {
+                Status = 1,
+                Message = "Refresh Token thành công",
+                Token = jwtToken,
+                RefreshToken = newRefreshToken,
+               // ID = aidi,
+              
+                
+            };
+
+            return Ok(response);
+        }
+
+        private RefreshToken GetRefreshTokenFromDatabase(string userId, string refreshToken)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+
+                string sqlQuery = "SELECT * FROM RefreshTokens WHERE UserId = @UserId AND TokenValue = @TokenValue";
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, SQLCon))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.Parameters.AddWithValue("@TokenValue", refreshToken);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = _configuration["Jwt:Issuer"],
-                        ValidAudience = _configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(key)
-                    }, out SecurityToken validatedToken);
+                        if (reader.Read())
+                        {
+                            var dbRefreshToken = new RefreshToken
 
-                    // Token hợp lệ, tiếp tục xử lý
-
-                    return Ok("Trang quản trị dành cho Admin");
-                }
-                catch (Exception ex)
-                {
-                    // Trả về thông báo lỗi nếu mã thông báo không hợp lệ
-                    return Unauthorized("Token không hợp lệ: " + ex.Message);
+                            {
+                                UserId = userId,
+                            TokenValue = reader.GetString(reader.GetOrdinal("TokenValue")),
+                                ExpirationDate = reader.GetDateTime(reader.GetOrdinal("ExpirationDate"))
+                            };
+                            return dbRefreshToken;
+                        }
+                    }
                 }
             }
-            else
-            {
-                // Trả về thông báo lỗi nếu không có mã thông báo hoặc mã thông báo không đúng định dạng
-                return Unauthorized("Token không hợp lệ");
-            }
+            return null;
         }
 
-
-        // Một hành động ví dụ chỉ dành cho User
-        [HttpGet("user")]
-        [Authorize(Roles = "User")]
-        public IActionResult UserDashboard()
+        private void UpdateRefreshTokenInDatabase(string userId, string oldRefreshToken, string newRefreshToken)
         {
-            return Ok("Trang dàng cho user");
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+
+                string sqlQuery = "UPDATE RefreshTokens SET TokenValue = @NewRefreshToken WHERE UserId = @UserId AND TokenValue = @OldRefreshToken";
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, SQLCon))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.Parameters.AddWithValue("@OldRefreshToken", oldRefreshToken);
+                    cmd.Parameters.AddWithValue("@NewRefreshToken", newRefreshToken);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
     }
+
 }
- 
+
+
+
+
 

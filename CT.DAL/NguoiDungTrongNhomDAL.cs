@@ -28,9 +28,9 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType=CommandType.Text;
                     cmd.CommandText = @"SELECT NND.NNDID,NND.TenNND,u.idUser,u.Username
-FROM [User] u
-inner join NguoiDungTrongNhom NDTN on u.idUser = NDTN.idUser
-inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID";
+                                        FROM [User] u
+                                        inner join NguoiDungTrongNhom NDTN on u.idUser = NDTN.idUser
+                                        inner join NhomNguoiDung NND on NDTN.NNDID = NND.NNDID";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
