@@ -22,8 +22,9 @@ using Microsoft.AspNetCore.Routing.Patterns;
 using System.Security.Authentication.ExtendedProtection;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using CT.MOD.Jwt;
+using CT.Services;
 
-namespace CT.Services
+namespace CT.Controllers.PhanQuyenVaTaiKhoan
 {
     // Khai báo namespace và sử dụng các thư viện cần thiết
 
@@ -118,10 +119,10 @@ namespace CT.Services
                                 int isActive = reader.GetInt32(reader.GetOrdinal("isActive"));
                                 string ChucNang = reader.IsDBNull(reader.GetOrdinal("TenChucNang")) ? null : reader.GetString(reader.GetOrdinal("TenChucNang"));
                                 string quyen = "";
-                                Boolean Xem = reader.GetBoolean(reader.GetOrdinal("Xem"));
-                                Boolean Them = reader.GetBoolean(reader.GetOrdinal("Them"));
-                                Boolean Sua = reader.GetBoolean(reader.GetOrdinal("Sua"));
-                                Boolean Xoa = reader.GetBoolean(reader.GetOrdinal("Xoa"));
+                                bool Xem = reader.GetBoolean(reader.GetOrdinal("Xem"));
+                                bool Them = reader.GetBoolean(reader.GetOrdinal("Them"));
+                                bool Sua = reader.GetBoolean(reader.GetOrdinal("Sua"));
+                                bool Xoa = reader.GetBoolean(reader.GetOrdinal("Xoa"));
 
                                 //List<Claim> claims = new List<Claim>();
                                 if (isActive == 1)
@@ -164,8 +165,9 @@ namespace CT.Services
 
                                 }
                             }
-                        }SQLCon.Close();
-                        
+                        }
+                        SQLCon.Close();
+
 
 
                         // sau khi xác minh thông tin đăng nhập, tạo mã thông báo JWT và trả về 
@@ -176,14 +178,14 @@ namespace CT.Services
                                 PhoneNumber = item.PhoneNumber,
                             };
 
-                            var (jwtToken, refreshToken) = authService.GenerateJwtAndRefreshToken(taiKhoanMOD, userRole, claims);
+                            var (jwtToken, refreshToken ) = authService.GenerateJwtAndRefreshToken(taiKhoanMOD, userRole, claims);
                             /*    var baseResult = new BaseResultMOD
                                 {
                                     Status = 1,
                                     Message = "Đăng nhập thành công"
                                 };*/
 
-                            
+
                             List<string> chucNangClaims = claims
                                         .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
                                         .Select(c => c.Value) // Chọn giá trị của các Claim
@@ -206,8 +208,8 @@ namespace CT.Services
                                 ChucNangVaQuyen = chucNangClaims,
                                 Token = jwtToken,
                                 RefreshToken = refreshToken
-                               
-                        };
+
+                            };
 
                             /* var response = new
                              {
@@ -253,7 +255,7 @@ namespace CT.Services
                                 }
                                 catch (Exception ex)
                                 {
-                                    
+
                                 }
                             }
 
@@ -361,24 +363,24 @@ namespace CT.Services
             }
 
             // Tạo AccessToken mới
-          /*  var taiKhoanMOD = new TaiKhoanMOD
-            {
-                PhoneNumber = refreshTokenRequest.PhoneNumber,
-            };*/
+            /*  var taiKhoanMOD = new TaiKhoanMOD
+              {
+                  PhoneNumber = refreshTokenRequest.PhoneNumber,
+              };*/
 
-            var (jwtToken, newRefreshToken) = authService.GenerateJwtAndRefreshToken2( refreshTokenFromDb.UserId, principal.Claims.ToList());
+            var (jwtToken, newRefreshToken) = authService.GenerateJwtAndRefreshToken2(refreshTokenFromDb.UserId, principal.Claims.ToList());
 
             // Cập nhật Refresh Token mới vào cơ sở dữ liệu
             UpdateRefreshTokenInDatabase(userId, refreshTokenRequest.RefreshToken, newRefreshToken);
 
             // Trả về AccessToken và Refresh Token mới
-       /*     List<string> chucNangClaimsz = claims
-                                       .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
-                                       .Select(c => c.Value) // Chọn giá trị của các Claim
-                                       .ToList();*/
+            /*     List<string> chucNangClaimsz = claims
+                                            .Where(c => c.Type == "CN") // Lọc ra các Claim có kiểu "CN"
+                                            .Select(c => c.Value) // Chọn giá trị của các Claim
+                                            .ToList();*/
             var aidi = principal.Claims.FirstOrDefault(n => n.Type == "idUser")?.Value;
 
-            var name = principal.Claims.FirstOrDefault(n => n.Type == "Username")?.Value; 
+            var name = principal.Claims.FirstOrDefault(n => n.Type == "Username")?.Value;
             var time = principal.Claims.FirstOrDefault(t => t.Type == "ThoiHanDangNhap")?.Value;
             var R = principal.Claims.FirstOrDefault(r => r.Type == "NhomNguoiDung")?.Value;
 
@@ -389,9 +391,9 @@ namespace CT.Services
                 Message = "Refresh Token thành công",
                 Token = jwtToken,
                 RefreshToken = newRefreshToken,
-               // ID = aidi,
-              
-                
+                // ID = aidi,
+
+
             };
 
             return Ok(response);
@@ -417,7 +419,7 @@ namespace CT.Services
 
                             {
                                 UserId = userId,
-                            TokenValue = reader.GetString(reader.GetOrdinal("TokenValue")),
+                                TokenValue = reader.GetString(reader.GetOrdinal("TokenValue")),
                                 ExpirationDate = reader.GetDateTime(reader.GetOrdinal("ExpirationDate"))
                             };
                             return dbRefreshToken;

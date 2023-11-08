@@ -76,10 +76,10 @@ namespace CT.DAL
                     cmd.CommandType = CommandType.Text;
                     //cmd.CommandText = " Select * from ChucNangCuaNhomND ";
                     cmd.CommandText = @"select distinct CNCNND.idChucNangCuaNND,CNCNND.NNDID,NND.TenNND,CNCNND.ChucNangid,CN.TenChucNang, Xem , Them,Sua , Xoa
-From ChucNangCuaNhomND CNCNND
-inner join NhomNguoiDung as NND on  CNCNND.NNDID = NND.NNDID
-inner join ChucNang as CN on CNCNND.ChucNangid = CN.ChucNangid
-";
+                                        From ChucNangCuaNhomND CNCNND
+                                        inner join NhomNguoiDung as NND on  CNCNND.NNDID = NND.NNDID
+                                        inner join ChucNang as CN on CNCNND.ChucNangid = CN.ChucNangid
+                                        ";
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();

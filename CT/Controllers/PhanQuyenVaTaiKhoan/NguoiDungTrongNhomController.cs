@@ -3,60 +3,60 @@ using CT.MOD;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
+using System.Security.Claims;
 
-namespace CT.Controllers
+namespace CT.Controllers.PhanQuyenVaTaiKhoan
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NNDController : ControllerBase
+    public class NguoiDungTrongNhomController : ControllerBase
     {
         [HttpGet]
         [Route("DanhSachNND")]
         [Authorize]
-        public IActionResult DanhSachNND(int page)
+
+        public IActionResult DanhSachNDTN(int page)
         {
-            var userClaims = User.Claims;
-
-            bool hasSecondPermission = false; // Biến này để kiểm tra quyền thứ hai
-
-            foreach (var claim in userClaims)
+            var userClaim = User.Claims;
+            bool check = false;
+            foreach (var claim in userClaim)
             {
-                if (claim.Type == "CN" && claim.Value.Contains("QLNND") && claim.Value.Contains("Xem")) // Kiểm tra quyền thứ hai
+                if (claim.Type == "CN" && claim.Value.Contains("QLNND") && claim.Value.Contains("Xem"))
                 {
-                    hasSecondPermission = true;
-                    break; // Nếu tìm thấy quyền thứ hai, thoát khỏi vòng lặp
+                    check = true;
+                    break;
                 }
             }
-            if (hasSecondPermission)
-            {
 
+            if (check)
+            {
                 if (page < 1) return BadRequest();
                 else
                 {
-                    var Result = new NhomNguoiDungBUS().DanhSachNND(page);
+                    var Result = new NguoiDungTrongNhomBUS().dsNguoiDungTrongNhom(page);
                     if (Result != null) return Ok(Result);
                     else return NotFound();
                 }
-            }else{
+            }
 
+            else
+            {
                 return NotFound(new BaseResultMOD
                 {
                     Status = -99,
                     Message = ULT.Constant.NOT_ACCESS
-
                 });
-
             }
-
         }
         [HttpPost]
-        [Route("ThemNND")]
+        [Route("ThenNDvaoNhom")]
         [Authorize]
-        public IActionResult ThemNND([FromBody] ThemMoiNND item)
+        public IActionResult ThemNDvaoNhom([FromBody] NguoiDungTrongNhomMOD item)
         {
             var userclaim = User.Claims;
             var check = false;
-            foreach(var claim in userclaim)
+            foreach (var claim in userclaim)
             {
                 if (claim.Type == "CN" && claim.Value.Contains("QLNND") && claim.Value.Contains("Them"))
                 {
@@ -64,15 +64,16 @@ namespace CT.Controllers
                     break;
                 }
             }
+
             if (check)
             {
-                if (item == null) return BadRequest();
-                var Result = new NhomNguoiDungBUS().ThemNND(item);
-                if (Result != null) return Ok(Result);
-                else return NotFound();
+                {
+                    if (item == null) return BadRequest();
+                    var Result = new NguoiDungTrongNhomBUS().ThemNDvaoNhom(item);
+                    if (Result != null) return Ok(Result);
+                    else return NotFound();
+                }
             }
-
-
             else
             {
                 return NotFound(new BaseResultMOD
@@ -83,11 +84,13 @@ namespace CT.Controllers
             }
 
 
+
+
         }
+
         [HttpPut]
-        [Route("SuaNND")]
-        [Authorize]
-        public IActionResult SuaNND([FromForm] DanhSachNhomNDMOD item)
+        [Route("SuaNDtrongNhom")]
+        public IActionResult SuaNDtrongNhom([FromBody] NguoiDungTrongNhomMOD item)
         {
             var userclaim = User.Claims;
             var check = false;
@@ -97,17 +100,16 @@ namespace CT.Controllers
                 {
                     check = true;
                     break;
+
                 }
             }
             if (check)
             {
                 if (item == null) return BadRequest();
-                var Result = new NhomNguoiDungBUS().SuaNND(item);
+                var Result = new NguoiDungTrongNhomBUS().SuaNDtrongNhom(item);
                 if (Result != null) return Ok(Result);
                 else return NotFound();
             }
-            
-            
             else
             {
                 return NotFound(new BaseResultMOD
@@ -116,14 +118,16 @@ namespace CT.Controllers
                     Message = ULT.Constant.NOT_ACCESS
                 });
             }
-            
+
+
+
+
 
         }
-        [HttpDelete]
-        [Route("DeleteNND")]
-        [Authorize]
 
-        public IActionResult DeleteNND(int id)
+        [HttpDelete]
+        [Route("XoaNDTrongNhom")]
+        public IActionResult XoaNDtrongNhom([FromBody] NguoiDungTrongNhomMOD item)
         {
             var userclaim = User.Claims;
             var check = false;
@@ -137,13 +141,13 @@ namespace CT.Controllers
             }
             if (check)
             {
-                if (id == null) return BadRequest();
-                var Result = new NhomNguoiDungBUS().XoaNND(id);
-                if (Result != null) return Ok(Result);
+                if (item == null) return BadRequest();
+                var Reuslt = new NguoiDungTrongNhomBUS().XoaNDtrongNhom(item);
+                if (Reuslt != null) return Ok(Reuslt);
                 else return NotFound();
             }
-            
-            
+
+
             else
             {
                 return NotFound(new BaseResultMOD
@@ -152,8 +156,9 @@ namespace CT.Controllers
                     Message = ULT.Constant.NOT_ACCESS
                 });
             }
-      
 
         }
+
     }
+
 }

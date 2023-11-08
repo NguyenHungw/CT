@@ -76,41 +76,28 @@ namespace CT.Services
             return (jwtTokenString, refreshToken);
         }
 
-        public (string jwtToken, string refreshToken) GenerateJwtAndRefreshToken2( string userRole, List<Claim> claims)
+        public ( string jwtToken, string refreshToken) GenerateJwtAndRefreshToken2( string userRole, List<Claim> claims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
             var ThoiGianHetHan = DateTime.Now.AddMinutes(10);
 
-           // var additionalClaims = new List<Claim>
-            //{
+            var additionalClaims = new List<Claim>(); // Khởi tạo danh sách Claims
 
-                /*  new Claim("PhoneNumber", item.PhoneNumber),
-                  new Claim("NhomNguoiDung", userRole),
-                  new Claim("ThoiHanDangNhap", ThoiGianHetHan.ToString(), ClaimValueTypes.Integer),*/
+            additionalClaims.Add(new Claim("ThoiHanDangNhap", ThoiGianHetHan.ToString(), ClaimValueTypes.Integer));
 
-            //};
-          /*  bool phoneNumberClaimExists = additionalClaims.Any(claim => claim.Type == "PhoneNumber");
-            bool NhomNguoiDungClaimExists = additionalClaims.Any(claim => claim.Type == "NhomNguoiDung");
-            bool ThoiHanDangNhapClaimExists = additionalClaims.Any(claim => claim.Type == "ThoiHanDangNhap");*/
-            /*if (!phoneNumberClaimExists)
+            // Xóa tất cả các claim có loại "ThoiHanDangNhap" từ danh sách claims
+            var claimsToRemove = claims.Where(claim => claim.Type == "ThoiHanDangNhap").ToList();
+            foreach (var claim in claimsToRemove)
             {
-                // Nếu claim "PhoneNumber" chưa tồn tại, thêm nó vào danh sách
-                additionalClaims.Add(new Claim("PhoneNumber", item.PhoneNumber));
-            }*/
-           /* if (!NhomNguoiDungClaimExists)
-            {
-                additionalClaims.Add(new Claim("NhomNguoiDung", userRole));
-            }*/
-            /*if (!NhomNguoiDungClaimExists)
-            {
-                additionalClaims.Add(new Claim("ThoiHanDangNhap", ThoiGianHetHan.ToString(), ClaimValueTypes.Integer));
-            }*/
+                claims.Remove(claim);
+            }
+
+            // Thêm các Claim mới vào danh sách claims
+            claims.AddRange(additionalClaims);
 
             var refreshToken = Guid.NewGuid().ToString();
-            //additionalClaims.Add(new Claim("RefreshToken", refreshToken));
-            // Chèn claim vào phía trước danh sách claim hiện tại
-            //claims.InsertRange(0, additionalClaims);
+            
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -135,8 +122,8 @@ namespace CT.Services
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateAudience = false, // Thay đổi tùy theo cấu hình của bạn
-                ValidateIssuer = false, // Thay đổi tùy theo cấu hình của bạn
+                ValidateAudience = false, // Thay đổi tùy theo cấu hình
+                ValidateIssuer = false, // Thay đổi tùy theo cấu hình
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_secretKey)),
                 ValidateLifetime = false // Chú ý rằng AccessToken đã hết hạn

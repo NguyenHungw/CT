@@ -21,35 +21,26 @@ namespace CT.BUS
                 if (item == null || item.MSanPham == null || item.MSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "ma sp k dc de trong";
+                    Result.Message = "Mã sản phẩm không được để trống";
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "ten sp k dc de trong";
+                    Result.Message = "Tên sản phẩm không được để trống";
                 }
-                if (item == null || item.LoaiSanPham == null || item.LoaiSanPham == "")
+                if (item == null || item.LoaiSanPham <=0)
                 {
                     Result.Status = 0;
-                    Result.Message = "LoaiSanPhamk dc de trong";
+                    Result.Message = "Loại sản phẩm không hợp lệ";
                 }
-                if (item == null || item.SoLuong < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "ten sp k dc de trong";
-                }
-                if (item == null || item.SoLuong < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "SoLuong k dc de trong";
-                }
+             
                 else
                 {
                     var checksp = new SanPhamDAL().ThongTinSp(item.MSanPham);
                     if (checksp != null)
                     {
                         Result.Status = -1;
-                        Result.Message = "SP da ton tai";
+                        Result.Message = "Sản phẩm đã tồn tại";
                     }
                     else
                     {
@@ -79,28 +70,19 @@ namespace CT.BUS
                 if (item == null || item.MSanPham == null || item.MSanPham == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "ma sp k dc de trong";
+                    Result.Message = "Mã sản phẩm không được để trống";
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "ten sp k dc de trong";
+                    Result.Message = "Tên sản phẩm không được để trống";
                 }
-                if (item == null || item.LoaiSanPham == null || item.LoaiSanPham == "")
+                if (item == null || item.LoaiSanPham <=0)
                 {
                     Result.Status = 0;
-                    Result.Message = "LoaiSanPhamk dc de trong";
+                    Result.Message = "Loại sản phẩm không hợp lệ";
                 }
-                if (item == null || item.SoLuong < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "ten sp k dc de trong";
-                }
-                if (item == null || item.SoLuong < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "SoLuong k dc de trong";
-                }
+             
                 else
                 {
                     var checksp = new SanPhamDAL().ThongTinSp(item.MSanPham);
@@ -134,38 +116,29 @@ namespace CT.BUS
                 if (item == null || file == null)
                 {
                     Result.Status = 0;
-                    Result.Message = "anh khong duoc de trong";
+                    Result.Message = "Ảnh không được để trống";
 
                 }
                 if (item == null || item.TenSP == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "anh ko dc de trong";
+                    Result.Message = "Tên sản phẩm không được để trống";
 
                 }
                 if (item == null || item.LoaiSanPham == null || item.TenSP == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "loai sp ko dc de trong";
+                    Result.Message = "Loại sản phẩm không đượcc để trống";
 
                 }
-                if (item == null || item.SoLuong < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "So luong ko dc de trong";
-                }
-                if (item == null || item.DonGia < 0)
-                {
-                    Result.Status = 0;
-                    Result.Message = "don gia ko dc de trong";
-                }
+             
                 else
                 {
                     var sua = new SanPhamDAL().ThongTinSp(item.MSanPham);
                     if (sua == null)
                     {
                         Result.Status = 0;
-                        Result.Message = "ma sp ko dung";
+                        Result.Message = "Mã sản phẩm không tồn tại";
                         return Result;
                     }
                     else
@@ -188,7 +161,7 @@ namespace CT.BUS
             if (msp == null || msp == "")
             {
                 Result.Status = 0;
-                Result.Message = "vui long nhap sp";
+                Result.Message = "Vui lòng nhập mã sản phẩm";
                 return Result;
             }
             else
@@ -197,7 +170,7 @@ namespace CT.BUS
                 if (chitietsp == null)
                 {
                     Result.Status = 0;
-                    Result.Message = "Ma sp ko ton tai";
+                    Result.Message = "mã sản phẩm không tồn tại";
                     return Result;
 
                 }
@@ -205,7 +178,7 @@ namespace CT.BUS
 
                 {
                     Result.Status = 1;
-                    Result.Message = "xoa thanh cong";
+                    Result.Message = "Xóa thành công";
                     return new SanPhamDAL().XoaSp(msp);
                 }
 
@@ -226,7 +199,7 @@ namespace CT.BUS
                 {
                     // Xử lý dữ liệu và gán vào Result
                     Result.Status = 1;
-                    Result.Message = "Xoa thanh cong";
+                    Result.Message = "Xóa thành công";
                    
                 }
                 else
@@ -254,7 +227,7 @@ namespace CT.BUS
                 if (page == 0)
                 {
                     Result.Status = 0;
-                    Result.Message = "Vui long nhap so trang";
+                    Result.Message = "Vui lòng nhập số trang";
 
                 }
                 else
@@ -268,7 +241,7 @@ namespace CT.BUS
             {
                 Result.Status = -1;
                 Result.Data = null;
-                Result.Message = "Loi khi lay ds sp" + ex.Message;
+                Result.Message = "Lỗi khi lấy danh sách sản phẩm" + ex.Message;
 
             }
             return Result;
@@ -312,7 +285,7 @@ namespace CT.BUS
                 if (name == null || name == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "vui long nhap ten sp";
+                    Result.Message = "Vui lòng nhập tên sản phẩm";
                 }
                 else
                 {
@@ -322,7 +295,7 @@ namespace CT.BUS
                     if (checksp == null)
                     {
                         Result.Status = 0;
-                        Result.Message = "ko tim thay sp";
+                        Result.Message = "Không tìm thấy sản phẩm";
 
                     }
                     else
@@ -352,7 +325,7 @@ namespace CT.BUS
                 if(name == null|| name == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "vui long nhap ten sp";
+                    Result.Message = "Vui lòng nhập tên sản phẩm";
                 }
                 else
                 {
@@ -361,7 +334,7 @@ namespace CT.BUS
                             if (checksp == null)
                             {
                         Result.Status = 0;
-                        Result.Message = "ko tim thay sp";
+                        Result.Message = "Không tìm thấy sản phẩm";
 
                             }
                             else
@@ -390,7 +363,7 @@ namespace CT.BUS
                 if(msp == null|| msp == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "MSP ko dc de trong";
+                    Result.Message = "Mã sản phẩm không được để trống";
 
                 }
                 else
@@ -399,7 +372,7 @@ namespace CT.BUS
                         if(checksp == null)
                         {
                             Result.Status = 0;
-                            Result.Message = "SP ko ton tai";
+                            Result.Message = "Sản phẩm không tồn tại";
                         }
                         else
                         {
@@ -424,7 +397,7 @@ namespace CT.BUS
                 if(loaisp == null || loaisp == "")
                 {
                     Result.Status = 0;
-                    Result.Message = "vui long chon lai loai sp";
+                    Result.Message = "Vui lòng chọn loại sản phẩm";
 
 
                 }
@@ -436,7 +409,7 @@ namespace CT.BUS
             catch (Exception ex )
             {
                 Result.Status = -1;
-                Result.Message = "Loi khi lay ds san pham " + ex.Message;
+                Result.Message = "Lỗi khi lấy danh sách sản phẩm " + ex.Message;
                 throw;
 
             }

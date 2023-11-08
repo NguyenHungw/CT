@@ -15,19 +15,15 @@ namespace CT.MOD
         public string Picture { get; set; }
 
         public string TenSP { get; set; }
-        public string LoaiSanPham { get; set; }
+        public int LoaiSanPham { get; set; }
 
-        public int SoLuong { get; set; }
-        public float DonGia { get; set; }
+
     }
     public class SanPhamMOD
     {
         public string MSanPham { get; set; }
         public string TenSP { get; set; }
-        public string LoaiSanPham { get; set; }
-
-        public int SoLuong { get; set; }
-        public float DonGia { get; set; }
+        public int LoaiSanPham { get; set; }
 
         public IFormFile file;
 
@@ -42,10 +38,9 @@ namespace CT.MOD
         public string Picture {get; set; }
 
         public string TenSP { get; set; }
-        public string LoaiSanPham { get; set; }
+        public string TenLoaiSP { get; set; }
 
-        public int SoLuong { get; set; }
-        public float DonGia { get; set; }
+      
 
     }
 
@@ -74,4 +69,5 @@ namespace CT.MOD
         public int SoLuong { get; set; }
         public float DonGia { get; set; }
     }
+    
 }

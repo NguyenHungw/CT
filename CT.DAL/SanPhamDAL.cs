@@ -32,7 +32,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     // cmd.CommandText = "SELECT * FROM SanPham";
-                    cmd.CommandText = "SELECT MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia FROM SanPham ORDER BY id OFFSET @StartPage ROWS FETCH NEXT @ProductPerPage ROWS ONLY";
+                    cmd.CommandText = "SELECT MSanPham, Picture, TenSanPham, ID_LoaiSanPham FROM SanPham ORDER BY id OFFSET @StartPage ROWS FETCH NEXT @ProductPerPage ROWS ONLY";
                     cmd.Parameters.AddWithValue("@StartPage", startPage);
                     cmd.Parameters.AddWithValue("@ProductPerPage", ProductPerPage);
                     cmd.Connection = SQLCon;
@@ -40,16 +40,15 @@ namespace CT.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        DanhSachModel Result = new DanhSachModel();
+                        DanhSachModel item = new DanhSachModel();
 
 
-                        Result.MSanPham = reader.GetString(0);
-                        Result.Picture = "https://localhost:7177/" + reader.GetString(1);
-                        Result.TenSP = reader.GetString(2);
-                        Result.LoaiSanPham = reader.GetString(3);
-                        Result.SoLuong = reader.GetInt32(4);
-                        Result.DonGia = (float)reader.GetDecimal(5);
-                        dssp.Add(Result);
+                        item.MSanPham = reader.GetString(0);
+                        item.Picture = "https://localhost:7177/" + reader.GetString(1);
+                        item.TenSP = reader.GetString(2);
+                        item.LoaiSanPham = reader.GetInt32(3);
+                      
+                        dssp.Add(item);
                     }
 
                     reader.Close();
@@ -80,8 +79,15 @@ namespace CT.DAL
 
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "v1_SanPham_DanhSach";
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType= CommandType.Text;
+                        //cmd.CommandText = "v1_SanPham_DanhSach";
+                        cmd.CommandText = @"SELECT sp.MSanPham, sp.Picture, sp.TenSanPham, lsp.TenLoaiSP
+                                            FROM SanPham sp
+                                            INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                            ORDER BY sp.id
+                                            OFFSET @StartPage ROWS
+                                            FETCH NEXT @ProductPerPage ROWS ONLY;";
                         cmd.Parameters.AddWithValue("@StartPage", startPage);
                         cmd.Parameters.AddWithValue("@ProductPerPage", ProductPerPage);
                         cmd.Connection = sqlCon;
@@ -106,9 +112,8 @@ namespace CT.DAL
                                 }
                                 //item.Picture =  reader.GetString(1);
                                 item.TenSP = reader.GetString(2);
-                                item.LoaiSanPham = reader.GetString(3);
-                                item.SoLuong = reader.GetInt32(4);
-                                item.DonGia = (float)reader.GetDecimal(5);
+                                item.TenLoaiSP = reader.GetString(3);
+                              
                                 productList.Add(item);
                             }
                         }
@@ -159,15 +164,17 @@ namespace CT.DAL
                     Picture = "";
                 }
                 using (SqlConnection SQLCon = new SqlConnection(strcon)) {
-                sqlcmd.CommandType = CommandType.StoredProcedure;
-                sqlcmd.CommandText = "v1_SanPham_ThemMoi";
-                sqlcmd.Connection = SQLCon;
+                //sqlcmd.CommandType = CommandType.StoredProcedure;
+                    //sqlcmd.CommandText = "v2_SanPham_ThemMoi";
+                    sqlcmd.CommandType = CommandType.Text;
+                    sqlcmd.CommandText = " INSERT INTO SanPham (MSanPham, Picture, TenSanPham, ID_LoaiSanPham) VALUES (@MSanPham, @Picture, @TenSanPham, @ID_LoaiSanPham)";
+                    //sqlcmd.CommandText = " INSERT INTO SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia) VALUES (@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong, @DonGia)";
+                    sqlcmd.Connection = SQLCon;
                 sqlcmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                 sqlcmd.Parameters.AddWithValue("@Picture", Picture);
                 sqlcmd.Parameters.AddWithValue("@TenSanPham", item.TenSP);
-                sqlcmd.Parameters.AddWithValue("@LoaiSanPham", item.LoaiSanPham);
-                sqlcmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
-                sqlcmd.Parameters.AddWithValue("@DonGia", item.DonGia);
+                sqlcmd.Parameters.AddWithValue("@ID_LoaiSanPham", item.LoaiSanPham);
+  
                 SQLCon.Open();
                 sqlcmd.ExecuteNonQuery();
                 SQLCon.Close();
@@ -216,8 +223,7 @@ namespace CT.DAL
                     sqlcmd.Parameters.AddWithValue("@Picture", Picture);
                     sqlcmd.Parameters.AddWithValue("@TenSanPham", item.TenSP);
                     sqlcmd.Parameters.AddWithValue("@LoaiSanPham", item.LoaiSanPham);
-                    sqlcmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
-                    sqlcmd.Parameters.AddWithValue("@DonGia", item.DonGia);
+              
 
                     SQLCon.Open();
                     sqlcmd.ExecuteNonQuery();
@@ -269,20 +275,18 @@ namespace CT.DAL
                     }
                     SqlCommand sqlcmd = new SqlCommand();
                     sqlcmd.CommandType = CommandType.Text;
-                    sqlcmd.CommandText = "UPDATE [SanPham] SET Picture=@Picture ,TenSanPham=@TenSanPham, LoaiSanPham=@LoaiSanPham, SoLuong=@Soluong, DonGia=@Dongia WHERE MSanPham=@MSanPham";
+                    sqlcmd.CommandText = "UPDATE [SanPham] SET Picture=@Picture ,TenSanPham=@TenSanPham,ID_LoaiSanPham=@ID_LoaiSanPham,WHERE MSanPham=@MSanPham";
                     sqlcmd.Connection = SQLCon;
 
                     sqlcmd.Parameters.AddWithValue("@Picture", Picture);
                     sqlcmd.Parameters.AddWithValue("@TenSanPham", editsp.TenSP);
-                    sqlcmd.Parameters.AddWithValue("@LoaiSanPham", editsp.LoaiSanPham);
-                    sqlcmd.Parameters.AddWithValue("@SoLuong", editsp.SoLuong);
-                    sqlcmd.Parameters.AddWithValue("@DonGia", editsp.DonGia);
+                    sqlcmd.Parameters.AddWithValue("@ID_LoaiSanPham", editsp.LoaiSanPham);
+                
                     sqlcmd.Parameters.AddWithValue("@MSanPham", editsp.MSanPham);
-
                     sqlcmd.ExecuteNonQuery();
                  
                         Result.Status = 1;
-                        Result.Message = "Chinh sua thong tin thanh cong";
+                        Result.Message = "Chỉnh sửa thông tin thành công";
                         Result.Data = 1;
                 }
 
@@ -290,7 +294,7 @@ namespace CT.DAL
             catch (Exception ex)
             {
                 Result.Status = -1;
-                Result.Message = "San pham ko ton tai";
+                Result.Message = ULT.Constant.API_Error_System;
                 
             }
             return Result;
@@ -355,12 +359,12 @@ namespace CT.DAL
                 if (SQLCon != null)
                 {
                     Result.Status = 1;
-                    Result.Message = "xoa sp thanh cong";
+                    Result.Message = "Xóa sản phẩm thành công";
                 }
                 else
                 {
                     Result.Status = -1;
-                    Result.Message = "Ko co sp de xoa";
+                    Result.Message = "Không có sản phẩm để xóa";
 
                 }
 
@@ -435,8 +439,7 @@ namespace CT.DAL
                     item.Picture = reader.GetString(2);
                     item.TenSP = reader.GetString(3);
                     item.LoaiSanPham = reader.GetString(4);
-                    item.SoLuong = reader.GetInt32(5);
-                    item.DonGia = (float)reader.GetDecimal(6);
+              
                 }
                 reader.Close();
 
@@ -552,9 +555,8 @@ namespace CT.DAL
                         item.MSanPham = reader.GetString(0);
                         item.Picture = reader.GetString(1);
                         item.TenSP = reader.GetString(2);
-                        item.LoaiSanPham = reader.GetString(3);
-                        item.SoLuong = reader.GetInt32(4);
-                        item.DonGia = (float)reader.GetDecimal(5);
+                        item.TenLoaiSP = reader.GetString(3);
+                  
                         Danhsachloaisp.Add(item);
 
                     }

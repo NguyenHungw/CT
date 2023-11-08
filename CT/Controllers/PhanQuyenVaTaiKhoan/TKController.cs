@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 using System.Security.Claims;
 using System.Text;
 
-namespace CT.Controllers
+namespace CT.Controllers.PhanQuyenVaTaiKhoan
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -45,13 +45,13 @@ namespace CT.Controllers
         }
         [HttpGet]
         [Route("admin/DanhSachTK")]
-     /*   [Authorize(Policy = "CanViewTK")]*/
+        /*   [Authorize(Policy = "CanViewTK")]*/
         [Authorize]
         public IActionResult DanhSachTK(int page)
         {
             var userclaim = User.Claims;
             var check = false;
-            foreach(var claim in userclaim)
+            foreach (var claim in userclaim)
             {
                 if (claim.Type == "CN" && claim.Value.Contains("QLTK") && claim.Value.Contains("Xem"))
                 {
@@ -79,11 +79,11 @@ namespace CT.Controllers
                 {
                     Status = -99,
                     Message = ULT.Constant.NOT_ACCESS
-                    
+
                 });
             }
-                
-                             
+
+
         }
         [HttpPost]
         [Route("DoiMK")]
@@ -112,15 +112,15 @@ namespace CT.Controllers
         }
         [HttpDelete]
         [Route("XoaTK")]
-        public IActionResult XoaTK( string sdt)
+        public IActionResult XoaTK(string sdt)
         {
-            if(sdt == null || sdt ==" ") return BadRequest();
+            if (sdt == null || sdt == " ") return BadRequest();
             var Result = new TaiKhoanBUS().XoaTK(sdt);
             if (Result != null) return Ok(Result);
             else return NotFound();
-            
+
         }
-        
+
 
     }
 

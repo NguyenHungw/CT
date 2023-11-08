@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using System.Net.WebSockets;
 using System.Security.Claims;
 
-namespace CT.Controllers
+namespace CT.Controllers.PhanQuyenVaTaiKhoan
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,9 +21,9 @@ namespace CT.Controllers
         {
             var userclaim = User.Claims;
             var check = false;
-            foreach(var claim in userclaim)
+            foreach (var claim in userclaim)
             {
-                if(claim.Type=="CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Xem"))
+                if (claim.Type == "CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Xem"))
                 {
                     check = true;
                     break;
@@ -47,9 +47,9 @@ namespace CT.Controllers
                     Message = ULT.Constant.NOT_ACCESS
                 });
             }
-            
-             
-       
+
+
+
         }
         [HttpGet]
         [Route("DanhSachCNCuaNND2")]
@@ -95,9 +95,9 @@ namespace CT.Controllers
         {
             var userclaim = User.Claims;
             var check = false;
-            foreach(var claim  in userclaim)
+            foreach (var claim in userclaim)
             {
-                if(claim.Type=="CN"  && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Them"))
+                if (claim.Type == "CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Them"))
                 {
                     check = true;
                     break;
@@ -122,8 +122,8 @@ namespace CT.Controllers
                     Message = ULT.Constant.NOT_ACCESS
                 });
             }
-                
-            
+
+
         }
         [HttpPut]
         [Route("SuaCNCN")]
@@ -133,9 +133,9 @@ namespace CT.Controllers
 
             var userclain = User.Claims;
             var check = false;
-            foreach( var claim in userclain)
+            foreach (var claim in userclain)
             {
-                if( claim.Type=="CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Sua"))
+                if (claim.Type == "CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Sua"))
                 {
                     check = true;
                     break;
@@ -172,9 +172,9 @@ namespace CT.Controllers
 
             var userclain = User.Claims;
             var check = false;
-            foreach(var claim in userclain)
+            foreach (var claim in userclain)
             {
-                if(claim.Type=="CN" && claim.Value.Contains("QLQuyen")&& claim.Value.Contains("Xoa"))
+                if (claim.Type == "CN" && claim.Value.Contains("QLQuyen") && claim.Value.Contains("Xoa"))
                 {
                     check = true;
                     break;
@@ -201,7 +201,7 @@ namespace CT.Controllers
 
             }
 
-           
+
         }
 
         [HttpPost]
@@ -228,7 +228,7 @@ namespace CT.Controllers
                 if (Result != null) return Ok(Result);
                 else return NotFound();
             }
-            
+
             else
             {
                 return NotFound(new BaseResultMOD
@@ -237,8 +237,8 @@ namespace CT.Controllers
                     Message = ULT.Constant.NOT_ACCESS
                 });
             }
-            
-           
+
+
         }
     }
 }

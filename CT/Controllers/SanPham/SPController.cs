@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Security.Claims;
 
-namespace CT.Controllers
+namespace CT.Controllers.SanPham
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -54,16 +54,16 @@ namespace CT.Controllers
                     return NotFound();
                 }
             }
-         
-          
-            
+
+
+
             else
             {
 
                 return NotFound(new BaseResultMOD
                 {
                     Status = -99,
-                    Message= Constant.NOT_ACCESS
+                    Message = Constant.NOT_ACCESS
                 });
             }
         }
@@ -72,11 +72,11 @@ namespace CT.Controllers
         [HttpPost]
         [Route("ThemSPBase64")]
         [Authorize]
-        public IActionResult ThemSPBase64( IFormFile file, [FromForm] SanPhamMOD item )
+        public IActionResult ThemSPBase64(IFormFile file, [FromForm] SanPhamMOD item)
         {
             var userclaim = User.Claims;
-                var check = false;
-            foreach(var claim in userclaim)
+            var check = false;
+            foreach (var claim in userclaim)
             {
                 if (claim.Type == "CN" && claim.Value.Contains("QLSP") && claim.Value.Contains("Them"))
                 {
@@ -95,7 +95,7 @@ namespace CT.Controllers
                 else return NotFound();
             }
 
-                else
+            else
             {
                 return NotFound(new BaseResultMOD
                 {
@@ -140,7 +140,7 @@ namespace CT.Controllers
                     return NotFound();
                 }
             }
-            
+
             else
             {
                 return NotFound(new BaseResultMOD
@@ -149,7 +149,7 @@ namespace CT.Controllers
                     Message = Constant.NOT_ACCESS
                 });
             }
-           
+
         }
         [HttpDelete]
         [Route("XoaSP")]
@@ -169,12 +169,12 @@ namespace CT.Controllers
             if (check)
             {
 
-                
-                    if (msp == null || msp == "") return BadRequest();
-                    var Result = new SanPhamBUS().XoaSP(msp);
-                    if (Result != null) return Ok(Result);
-                    else return NotFound();
-                
+
+                if (msp == null || msp == "") return BadRequest();
+                var Result = new SanPhamBUS().XoaSP(msp);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+
             }
 
             else
@@ -185,7 +185,7 @@ namespace CT.Controllers
                     Message = Constant.NOT_ACCESS
                 });
             }
-           
+
         }
         [HttpDelete]
         [Route("XoaALLSP")]
@@ -208,7 +208,7 @@ namespace CT.Controllers
                 if (Result != null) return Ok(Result);
                 else return NotFound();
             }
-            
+
             else
             {
                 return NotFound(new BaseResultMOD
@@ -217,14 +217,14 @@ namespace CT.Controllers
                     Message = Constant.NOT_ACCESS
                 });
             }
-           
+
         }
         [HttpGet]
         [Route("DanhSachSP")]
         [AllowAnonymous]
-        public IActionResult DanhSachSP (int page)
+        public IActionResult DanhSachSP(int page)
         {
-            if(page<1) return BadRequest();
+            if (page < 1) return BadRequest();
             else
             {
                 var Result = new SanPhamBUS().DanhSachSP(page);
@@ -236,7 +236,7 @@ namespace CT.Controllers
         [Route("DanhSachSP-2-")]
         public IActionResult DanhSachSPKP(int page)
         {
-            var result = new SanPhamBUS().DanhSachSPKP(page); 
+            var result = new SanPhamBUS().DanhSachSPKP(page);
 
             if (result.Status == 1)
             {
@@ -290,7 +290,7 @@ namespace CT.Controllers
         [AllowAnonymous]
         public IActionResult PhanLoaiSP(string loaisp, int page)
         {
-            if(page<1) return BadRequest();
+            if (page < 1) return BadRequest();
             else
             {
                 var Result = new SanPhamBUS().PhanLoaiSP(loaisp, page);
