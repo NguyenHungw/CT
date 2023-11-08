@@ -44,6 +44,7 @@ namespace CT.DAL
                         item.SoLuong = reader.GetInt32(3);
                         item.DonGia = reader.GetDecimal(4);
                         item.ThanhTien = reader.GetDecimal(5);
+                        item.GiaBan = reader.GetDecimal(6);
                         dsctnhap.Add(item);
                     }reader.Close();
                     result.Status = 1;
@@ -68,12 +69,13 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien)";
+                    cmd.CommandText = "Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien,GiaBan) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien,@GiaBan)";
                     cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                     cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                     cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
                     cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
                     cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
+                    cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
 
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
@@ -108,6 +110,8 @@ namespace CT.DAL
                     cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
                     cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
                     cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
+                    cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
+
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "F7+UUGtA7fL57HWvNTkj+VUgqsJZLK90yJpJKyQaT48=",
+  "Hash": "e7S9YcIiGTFTAKhXrlaRY/EBEMu+DFj1qsSrsMtO70w=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\898_body_gi_2.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\898_napyy.gif",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/898_napyy.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\898_napyy.gif"
     },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\9898_body_gi_2.png",

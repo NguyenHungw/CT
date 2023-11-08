@@ -275,7 +275,7 @@ namespace CT.DAL
                     }
                     SqlCommand sqlcmd = new SqlCommand();
                     sqlcmd.CommandType = CommandType.Text;
-                    sqlcmd.CommandText = "UPDATE [SanPham] SET Picture=@Picture ,TenSanPham=@TenSanPham,ID_LoaiSanPham=@ID_LoaiSanPham,WHERE MSanPham=@MSanPham";
+                    sqlcmd.CommandText = "UPDATE [SanPham] SET Picture=@Picture ,TenSanPham=@TenSanPham,ID_LoaiSanPham=@ID_LoaiSanPham WHERE MSanPham=@MSanPham";
                     sqlcmd.Connection = SQLCon;
 
                     sqlcmd.Parameters.AddWithValue("@Picture", Picture);

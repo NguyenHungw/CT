@@ -57,7 +57,12 @@ namespace CT.BUS
                 if (item == null || item.DonGia == null)
                 {
                     result.Status = 0;
-                    result.Message = " SoLuong Không được để trống ";
+                    result.Message = " Đơn giá Không được để trống ";
+                }
+                if(item==null || item.GiaBan == null)
+                {
+                    result.Status = 0;
+                    result.Message = " Giá bán Không được để trống ";
                 }
                 else
                 {
@@ -95,7 +100,12 @@ namespace CT.BUS
                 if (item == null || item.DonGia == null)
                 {
                     result.Status = 0;
-                    result.Message = " SoLuong Không được để trống ";
+                    result.Message = " Đơn giá Không được để trống ";
+                }
+                if (item == null || item.GiaBan == null)
+                {
+                    result.Status = 0;
+                    result.Message = " Giá bán Không được để trống ";
                 }
                 else
                 {

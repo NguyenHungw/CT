@@ -10,7 +10,7 @@ namespace CT.Controllers.SanPham
     public class ChiTietPhieuNhapController : ControllerBase
     {
         [HttpGet]
-        [Route("ChiTietNhap")]
+        [Route("DanhSachChiTietNhap")]
         public IActionResult DanhSachChiTietPhieuNHap(int page)
         {
             if (page < 1) return BadRequest();
