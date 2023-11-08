@@ -426,19 +426,21 @@ namespace CT.DAL
                 }
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = " SELECT * FROM SanPham WHERE MSanPham=@MSanPham  ";
+                cmd.CommandText = @"SELECT sp.MSanPham, sp.Picture, sp.TenSanPham, lsp.TenLoaiSP
+                                            FROM SanPham sp
+                                            INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham;";
                 cmd.Parameters.AddWithValue("@MSanPham", msp);
                 cmd.Connection = SQLCon;
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     item = new ChiTietSP();
-                    item.id = reader.GetInt32(0);
+                   
                     item.MSanPham = msp;
 
-                    item.Picture = reader.GetString(2);
-                    item.TenSP = reader.GetString(3);
-                    item.LoaiSanPham = reader.GetString(4);
+                    item.Picture = reader.GetString(1);
+                    item.TenSP = reader.GetString(2);
+                    item.LoaiSanPham = reader.GetString(3);
               
                 }
                 reader.Close();
@@ -500,12 +502,16 @@ namespace CT.DAL
             var Result = new TimSp();
             try
             {
+                List<string> list = new List<string>();
                 using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "SELECT MSanPham, Picture, LoaiSanPham, SoLuong, DonGia FROM SanPham WHERE TenSanPham = @TenSanPham";
+                    cmd.CommandText= @"SELECT sp.MSanPham, sp.Picture, sp.TenSanPham, lsp.TenLoaiSP
+                        FROM SanPham sp
+                        INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham WHERE TenSanPham = @TenSanPham ;";
+                    //cmd.CommandText = "SELECT MSanPham, Picture, LoaiSanPham FROM SanPham WHERE TenSanPham = @TenSanPham";
                     cmd.Parameters.AddWithValue("@TenSanPham", name);
                     cmd.Connection = SQLCon;
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -516,8 +522,7 @@ namespace CT.DAL
                         Result.Picture = reader.GetString(1);
                         Result.TenSP = name;
                         Result.LoaiSanPham = reader.GetString(2);
-                        Result.SoLuong = reader.GetInt32(3);
-                        Result.DonGia = (float)reader.GetDecimal(4);
+                        
                     }
                     reader.Close();
                 }

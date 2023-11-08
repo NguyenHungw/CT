@@ -25,15 +25,16 @@ namespace CT.DAL
             try
             {
 
-                List<PhieuNhapMOD> dspn = new List<PhieuNhapMOD>();
+                List<DanhSachPhieuNhapMOD> dspn = new List<DanhSachPhieuNhapMOD>();
                 using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT *
-										FROM PhieuNhap
+                    cmd.CommandText = @"select pn.ID_PhieuNhap, pn.NgayNhap,pn.NguoiNhapHang,dv.TenDonVi
+from PhieuNhap pn
+join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
 										ORDER BY ID_PhieuNhap
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -44,12 +45,11 @@ namespace CT.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        PhieuNhapMOD item = new PhieuNhapMOD();
+                        DanhSachPhieuNhapMOD item = new DanhSachPhieuNhapMOD();
                         item.ID_PhieuNhap = reader.GetInt32(0);
                         item.NgayNhap = reader.GetDateTime(1);
                         item.NguoiNhapHang = reader.GetString(2);
-                        item.TongGiaTri = reader.GetDecimal(3);
-                        item.ID_DonVi = reader.GetInt32(4);
+                        item.TenDonVi = reader.GetString(3);
                         dspn.Add(item);
 
 
@@ -81,10 +81,9 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "INSERT INTO PhieuNhap (NgayNhap,NguoiNhapHang,TongGiaTri,ID_DonVi) VALUES(@NgayNhap,@NguoiNhapHang,@TongGiaTri,@ID_DonVi)";
+                    cmd.CommandText = "INSERT INTO PhieuNhap (NgayNhap,NguoiNhapHang,ID_DonVi) VALUES(@NgayNhap,@NguoiNhapHang,@TongGiaTri,@ID_DonVi)";
                     cmd.Parameters.AddWithValue("@NgayNhap", DateTime.Now);
                     cmd.Parameters.AddWithValue("@NguoiNhapHang", item.NguoiNhapHang);
-                    cmd.Parameters.AddWithValue("@TongGiaTri", item.TongGiaTri);
                     cmd.Parameters.AddWithValue("@ID_DonVi", item.ID_DonVi);
                     cmd.ExecuteNonQuery();
                     result.Status = 1;
@@ -148,10 +147,10 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "UPDATE [PhieuNhap] SET NgayNhap=@NgayNhap ,NguoiNhapHang=@NguoiNhapHang ,TongGiaTri=@TongGiaTri ,ID_DonVi=@ID_DonVi WHERE ID_PhieuNhap=@ID_PhieuNhap";
+                    cmd.CommandText = "UPDATE [PhieuNhap] SET NgayNhap=@NgayNhap ,NguoiNhapHang=@NguoiNhapHang ,ID_DonVi=@ID_DonVi WHERE ID_PhieuNhap=@ID_PhieuNhap";
                     cmd.Parameters.AddWithValue("@NgayNhap", DateTime.Now);
                     cmd.Parameters.AddWithValue("@NguoiNhapHang", item.NguoiNhapHang);
-                    cmd.Parameters.AddWithValue("@TongGiaTri", item.TongGiaTri);
+            
                     cmd.Parameters.AddWithValue("@ID_DonVi", item.ID_DonVi);
                     cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                     cmd.ExecuteNonQuery();

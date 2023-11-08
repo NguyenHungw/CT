@@ -41,9 +41,6 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win-x64\na
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
@@ -113,3 +110,12 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Microsoft.IdentityM
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\CT.ULT.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\CT.ULT.pdb
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\CT.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\EPPlus.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\EPPlus.Interfaces.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\EPPlus.System.Drawing.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

@@ -53,12 +53,7 @@ namespace CT.BUS
                     Result.Message = "Người nhập không được để trống";
 
                 }
-                if (item == null || item.TongGiaTri == null)
-                {
-                    Result.Status = 0;
-                    Result.Message = "Tổng giá trị được để trống";
-
-                }
+               
                 if (item == null || item.ID_DonVi == null)
                 {
                     Result.Status = 0;
@@ -103,12 +98,7 @@ namespace CT.BUS
                     Result.Message = "Người nhập không được để trống";
 
                 }
-                if (item == null || item.TongGiaTri == null )
-                {
-                    Result.Status = 0;
-                    Result.Message = "Tổng giá trị được để trống";
-
-                }
+               
                 if (item == null || item.ID_DonVi == null )
                 {
                     Result.Status = 0;

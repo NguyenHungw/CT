@@ -22,7 +22,7 @@ namespace CT.DAL
             try
             {
                 List<ChiTietNhapMOD> dsctnhap = new List<ChiTietNhapMOD>();
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -31,8 +31,8 @@ namespace CT.DAL
                     cmd.CommandText = @"SELECT * from ChiTietNhap ORDER BY ID_ChiTietNhap
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
-                    cmd.Parameters.AddWithValue("@StartPage",startpage);
-                    cmd.Parameters.AddWithValue("@ProductPerPage",Productperpage);
+                    cmd.Parameters.AddWithValue("@StartPage", startpage);
+                    cmd.Parameters.AddWithValue("@ProductPerPage", Productperpage);
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -46,42 +46,59 @@ namespace CT.DAL
                         item.ThanhTien = reader.GetDecimal(5);
                         item.GiaBan = reader.GetDecimal(6);
                         dsctnhap.Add(item);
-                    }reader.Close();
+                    }
+                    reader.Close();
                     result.Status = 1;
-                    result.Data=dsctnhap;
+                    result.Data = dsctnhap;
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.Status = -1;
                 result.Message = ULT.Constant.API_Error_System;
             }
             return result;
         }
-        public BaseResultMOD ThemChiTietNhap(ThemChiTietNhap2 item)
+        public BaseResultMOD ThemChiTietNhap(ThemChiTietNhap item)
         {
             var result = new BaseResultMOD();
             try
             {
-                // Thêm chức năng vào cơ sở dữ liệu
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                bool checkMSanPham = KiemTraTrungMSanPham(item);
+                bool checkIDPhieu = KiemTraTrungIDPhieu(item);
+                if (!checkMSanPham)
                 {
-                    SQLCon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien,GiaBan) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien,@GiaBan)";
-                    cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
-                    cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
-                    cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
-                    cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
-                    cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
-                    cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
+                    result.Status = -1;
+                    result.Message = "Mã sản phẩm không tồn tại";
+                }
+                else if (!checkIDPhieu)
+                {
+                    result.Status = -1;
+                    result.Message = "ID Phiếu nhập không tồn tại";
+                }
+                else
+                {
+                    // Thêm chức năng vào cơ sở dữ liệu
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SQLCon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien,GiaBan) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien,@GiaBan)";
+                        cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
+                        cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
+                        cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
+                        cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
+                        cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
+                        cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
 
-                    cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
-                    result.Status = 1;
-                    result.Message = "Thêm thành công";
-                    result.Data = 1;
+                        cmd.Connection = SQLCon;
+                        cmd.ExecuteNonQuery();
+                        result.Status = 1;
+                        result.Message = "Thêm thành công";
+                        result.Data = 1;
+                    }
                 }
 
             }
@@ -93,33 +110,47 @@ namespace CT.DAL
             return result;
         }
 
-        public BaseResultMOD SuaChiTietPhieuNhap(SuaChiTietNhapMOD item)
+        public BaseResultMOD SuaChiTietPhieuNhap(ThemChiTietNhap item)
         {
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                bool checkMSanPham = KiemTraTrungMSanPham(item);
+                bool checkIDPhieu = KiemTraTrungIDPhieu(item);
+                if (!checkMSanPham)
                 {
-                    SQLCon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien where ID_ChiTietNhap =@ID_ChiTietNhap";
-                    cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
-                    cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
-                    cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
-                    cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
-                    cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
-                    cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
-                    cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
-
-                    cmd.Connection = SQLCon;
-                    cmd.ExecuteNonQuery();
-
-                    result.Status = 1;
-                    result.Message = "Sửa thành công";
-                    result.Data = 1;
+                    result.Status = -1;
+                    result.Message = "Mã sản phẩm không tồn tại";
                 }
+                else if (!checkIDPhieu)
+                {
+                    result.Status = -1;
+                    result.Message = "ID Phiếu nhập không tồn tại";
+                }
+                else
+                {
+                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    {
+                        SQLCon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien,GiaBan=@GiaBan where ID_ChiTietNhap =@ID_ChiTietNhap";
+                        cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
+                        cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
+                        cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
+                        cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
+                        cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
+                        cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
+                        cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
 
+                        cmd.Connection = SQLCon;
+                        cmd.ExecuteNonQuery();
+
+                        result.Status = 1;
+                        result.Message = "Sửa thành công";
+                        result.Data = 1;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -156,6 +187,238 @@ namespace CT.DAL
                     }
                 }
 
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+            }
+            return result;
+        }
+
+        public BaseResultMOD GetDSKho(int page)
+        {
+            const int Productperpage = 20;
+            int startpage = Productperpage * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+                List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = SQLCon;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"select ct.MSanPham,sp.TenSanPham,ct.GiaBan,ct.SoLuong,lsp.TenLoaiSP
+                                        from ChiTietNhap ct
+                                        inner join SanPham sp on ct.MSanPham = sp.MSanPham
+                                        inner join LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                        Order by ct.MSanPham
+                                        OFFSET @StartPage ROWS
+                                        FETCH NEXT @ProductPerPage ROWS ONLY;";
+                    cmd.Parameters.AddWithValue("@StartPage", startpage);
+                    cmd.Parameters.AddWithValue("@ProductPerPage", Productperpage);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        QuanLyKho item = new QuanLyKho();
+                        item.MSanPham = reader.GetString(0);
+                        item.TenSanPham = reader.GetString(1);
+                        item.GiaBan = reader.GetDecimal(2);
+                        item.SoLuong = reader.GetInt32(3);
+                        item.LoaiSanPham = reader.GetString(4);
+                        dsctnhap.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = dsctnhap;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+            }
+            return result;
+        }
+        private bool KiemTraTrungMSanPham(ThemChiTietNhap item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM SanPham WHERE MSanPham = @MSanPham";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
+
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+        private bool KiemTraTrungIDPhieu(ThemChiTietNhap item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM PhieuNhap WHERE ID_PhieuNhap = @ID_PhieuNhap";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
+
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+        public BaseResultMOD GetDSKhoSapHetHang(int page)
+        {
+            const int Productperpage = 20;
+            int startpage = Productperpage * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+                List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = SQLCon;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, ct.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                                        FROM ChiTietNhap ct
+                                        INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
+                                        INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                        WHERE ct.SoLuong > 0 AND ct.SoLuong < 10  
+                                        ORDER BY ct.MSanPham
+                                        OFFSET @StartPage ROWS
+                                        FETCH NEXT @ProductPerPage ROWS ONLY;
+                                        ";
+                    cmd.Parameters.AddWithValue("@StartPage", startpage);
+                    cmd.Parameters.AddWithValue("@ProductPerPage", Productperpage);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        QuanLyKho item = new QuanLyKho();
+                        item.MSanPham = reader.GetString(0);
+                        item.TenSanPham = reader.GetString(1);
+                        item.GiaBan = reader.GetDecimal(2);
+                        item.SoLuong = reader.GetInt32(3);
+                        item.LoaiSanPham = reader.GetString(4);
+                        dsctnhap.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = dsctnhap;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+            }
+            return result;
+        }
+        public BaseResultMOD GetDSKhoDaHetHang(int page)
+        {
+            const int Productperpage = 20;
+            int startpage = Productperpage * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+
+                List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = SQLCon;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, ct.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                                        FROM ChiTietNhap ct
+                                        INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
+                                        INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                        WHERE ct.SoLuong <= 0 
+                                        ORDER BY ct.MSanPham
+                                        OFFSET @StartPage ROWS
+                                        FETCH NEXT @ProductPerPage ROWS ONLY;
+                                        ";
+                    cmd.Parameters.AddWithValue("@StartPage", startpage);
+                    cmd.Parameters.AddWithValue("@ProductPerPage", Productperpage);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        QuanLyKho item = new QuanLyKho();
+                        item.MSanPham = reader.GetString(0);
+                        item.TenSanPham = reader.GetString(1);
+                        item.GiaBan = reader.GetDecimal(2);
+                        item.SoLuong = reader.GetInt32(3);
+                        item.LoaiSanPham = reader.GetString(4);
+                        dsctnhap.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = dsctnhap;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+            }
+            return result;
+        }
+        public BaseResultMOD GetDSPhieuNhapKho(int page)
+        {
+            const int Productperpage = 20;
+            int startpage = Productperpage * (page - 1);
+            var result = new BaseResultMOD();
+            try
+            {
+
+                List<DanhSachPhieuNhapKho> dsctnhap = new List<DanhSachPhieuNhapKho>();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = SQLCon;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"select pn.ID_PhieuNhap,sp.MSanPham,sp.TenSanPham,lsp.TenLoaiSP,pn.NgayNhap,ct.SoLuong,dv.TenDonVi,ct.DonGia,ct.ThanhTien
+                                        from ChiTietNhap ct
+                                        join SanPham sp on ct.MSanPham =sp.MSanPham
+                                        join LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                        join PhieuNhap pn on ct.ID_PhieuNhap = pn.ID_PhieuNhap
+                                        join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
+                                        ORDER BY ct.MSanPham
+                                        OFFSET @StartPage ROWS
+                                        FETCH NEXT @ProductPerPage ROWS ONLY;
+                                        ";
+                    cmd.Parameters.AddWithValue("@StartPage", startpage);
+                    cmd.Parameters.AddWithValue("@ProductPerPage", Productperpage);
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        DanhSachPhieuNhapKho item = new DanhSachPhieuNhapKho();
+                        item.ID_PhieuNhap = reader.GetInt32(0);
+                        item.MSanPham = reader.GetString(1);
+                        item.TenSanPham = reader.GetString(2);
+                        item.TenLoaiSP = reader.GetString(3);
+                        item.NgayNhap = reader.GetDateTime(4);
+                        item.SoLuong = reader.GetInt32(5);
+                        item.TenDonVi = reader.GetString(6);
+                        item.DonGia = reader.GetDecimal(7);
+                        item.ThanhTien = reader.GetDecimal(8);
+                        dsctnhap.Add(item);
+                    }
+                    reader.Close();
+                    result.Status = 1;
+                    result.Data = dsctnhap;
+                }
             }
             catch (Exception ex)
             {

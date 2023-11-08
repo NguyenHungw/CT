@@ -58,7 +58,7 @@ namespace CT.MOD
     }
     public class ChiTietSP
     {
-        public int id { get; set; }
+       // public int id { get; set; }
         public string MSanPham { get; set; }
 
         public string Picture { get; set; }
@@ -66,8 +66,7 @@ namespace CT.MOD
         public string TenSP { get; set; }
         public string LoaiSanPham { get; set; }
 
-        public int SoLuong { get; set; }
-        public float DonGia { get; set; }
+        
     }
     
 }

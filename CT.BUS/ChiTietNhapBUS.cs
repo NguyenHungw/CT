@@ -34,7 +34,7 @@ namespace CT.BUS
             return result;
 
         }
-        public BaseResultMOD ThemChiTietNhap(ThemChiTietNhap2 item)
+        public BaseResultMOD ThemChiTietNhap(ThemChiTietNhap item)
         {
             var result = new BaseResultMOD();
             try
@@ -77,7 +77,7 @@ namespace CT.BUS
             }
             return result;
         }
-        public BaseResultMOD SuaChiTietNhap(SuaChiTietNhapMOD item)
+        public BaseResultMOD SuaChiTietNhap(ThemChiTietNhap item)
         {
             var result = new BaseResultMOD();
             try
@@ -143,7 +143,98 @@ namespace CT.BUS
 
             return result;
         }
+        public BaseResultMOD DanhSachKho(int page)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                if (page > 0) { result = new ChiTietNhapDAL().GetDSKho(page); }
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "Lỗi page";
+                }
+            }
+            catch (Exception)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+                result.Data = null;
+                throw;
 
+            }
+            return result;
+
+        }
+        public BaseResultMOD DanhSachKhoSapHetHang(int page)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                if (page > 0) { result = new ChiTietNhapDAL().GetDSKhoSapHetHang(page); }
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "Lỗi page";
+                }
+            }
+            catch (Exception)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+                result.Data = null;
+                throw;
+
+            }
+            return result;
+
+        }
+        public BaseResultMOD DanhSachKhoDaHetHang(int page)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                if (page > 0) { result = new ChiTietNhapDAL().GetDSKhoDaHetHang(page); }
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "Lỗi page";
+                }
+            }
+            catch (Exception)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+                result.Data = null;
+                throw;
+
+            }
+            return result;
+
+        }
+        public BaseResultMOD DanhSachPhieuNhapKho(int page)
+        {
+            var result = new BaseResultMOD();
+            try
+            {
+                if (page > 0) { result = new ChiTietNhapDAL().GetDSPhieuNhapKho(page); }
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "Lỗi page";
+                }
+            }
+            catch (Exception)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+                result.Data = null;
+                throw;
+
+            }
+            return result;
+
+        }
     }
 }
 

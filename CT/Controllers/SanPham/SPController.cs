@@ -264,7 +264,7 @@ namespace CT.Controllers.SanPham
         }
 
         [HttpPost]
-        [Route("TimKiemSP")]
+        [Route("TimKiemSP {name}")]
         [AllowAnonymous]
         public IActionResult TimKiemSP(string name)
         {
@@ -275,7 +275,7 @@ namespace CT.Controllers.SanPham
         }
 
         [HttpPost]
-        [Route("ChiTietSp")]
+        [Route("ChiTietSP {id}")]
         [AllowAnonymous]
         public IActionResult ChiTietSP(string msp)
         {

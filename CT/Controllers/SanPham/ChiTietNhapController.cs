@@ -24,7 +24,7 @@ namespace CT.Controllers.SanPham
 
         [HttpPut]
         [Route("SuaChiTietNhap")]
-        public IActionResult SuaChiTietNhap([FromBody] SuaChiTietNhapMOD item)
+        public IActionResult SuaChiTietNhap([FromBody] ThemChiTietNhap item)
         {
             if (item == null) return BadRequest();
             else
@@ -37,7 +37,7 @@ namespace CT.Controllers.SanPham
         }
         [HttpPost]
         [Route("ThemChiTietNhap")]
-        public IActionResult ThemDonVi([FromBody] ThemChiTietNhap2 item)
+        public IActionResult ThemDonVi([FromBody] ThemChiTietNhap item)
         {
             if (item == null) return BadRequest();
             var Result = new ChiTietNhapBUS().ThemChiTietNhap(item);
@@ -53,6 +53,55 @@ namespace CT.Controllers.SanPham
             var Result = new ChiTietNhapBUS().XoaChiTietNhap(id);
             if (Result != null) return Ok(Result);
             else return NotFound();
+        }
+
+        [HttpGet]
+        [Route("DanhSachKho")]
+        public IActionResult DanhSachKho(int page)
+        {
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new ChiTietNhapBUS().DanhSachKho(page);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+        }
+        [HttpGet]
+        [Route("DanhSachKhoSapHetHang")]
+        public IActionResult DanhSachKhoSapHetHang(int page)
+        {
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new ChiTietNhapBUS().DanhSachKhoSapHetHang(page);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+        }
+        [HttpGet]
+        [Route("DanhSachKhoDaHetHang")]
+        public IActionResult DanhSachKhoDaHetHang(int page)
+        {
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new ChiTietNhapBUS().DanhSachKhoDaHetHang(page);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+        }
+        [HttpGet]
+        [Route("DanhSachPhieuNhapKho")]
+        public IActionResult DanhSachPhieuNhapKho(int page)
+        {
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new ChiTietNhapBUS().DanhSachPhieuNhapKho(page);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
         }
     }
 }

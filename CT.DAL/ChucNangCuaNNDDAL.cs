@@ -28,7 +28,6 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = " Select * from ChucNangCuaNhomND ";
-                    
                     cmd.Connection = SQLCon;
                     cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -42,9 +41,7 @@ namespace CT.DAL
                         item.Xem = reader.GetBoolean(3);
                         item.Them = reader.GetBoolean(4);
                         item.Sua = reader.GetBoolean(5);
-
                         item.Xoa = reader.GetBoolean(6);
-
                         listcncnnd.Add(item);
                     }
                     reader.Close();
@@ -91,13 +88,10 @@ namespace CT.DAL
                         item.TenNND = reader.GetString(2);
                         item.ChungNangid = reader.GetInt32(3);
                         item.TenChucNang = reader.GetString(4);
-
                         item.Xem = reader.GetBoolean(5);
                         item.Them = reader.GetBoolean(6);
                         item.Sua = reader.GetBoolean(7);
-
                         item.Xoa = reader.GetBoolean(8);
-
                         listcncnnd.Add(item);
                     }
                     reader.Close();
@@ -144,7 +138,6 @@ namespace CT.DAL
                         cmd.Parameters.AddWithValue("@Xoa", item.Xoa);
                         cmd.Connection = SQLCon;
                         cmd.ExecuteNonQuery();
-
                         result.Status = 1;
                         result.Message = "Thêm quyền chức năng thành công";
                         result.Data = 1;
@@ -158,7 +151,6 @@ namespace CT.DAL
             }
             return result;
         }
-
         private bool KiemTraTrungChucNang(ThemChucNangCuaNNDMOD item)
         {
             using (SqlConnection SQLCon = new SqlConnection(strcon))
@@ -253,11 +245,11 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = @"SELECT idChucNangCuaNND ,ND.NNDID, ND.TenNND,CN.ChucNangid, CN.TenChucNang , Xem,Them , Sua ,Xoa
-FROM ChucNangCuaNhomND CNND
-INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
-INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
-INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
-where idChucNangCuaNND = @idChucNangCuaNND;";
+                                        FROM ChucNangCuaNhomND CNND
+                                        INNER JOIN NhomNguoiDung as ND ON CNND.NNDID = ND.NNDID
+                                        INNER JOIN ChucNang as CN ON CNND.ChucNangid = CN.ChucNangid
+                                        INNER JOIN NguoiDungTrongNhom as NDTN ON ND.NNDID = NDTN.NNDID
+                                        where idChucNangCuaNND = @idChucNangCuaNND;";
                     cmd.Parameters.AddWithValue("@idChucNangCuaNND", id);
                    
 
