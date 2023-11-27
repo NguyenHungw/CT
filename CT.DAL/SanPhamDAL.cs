@@ -107,7 +107,6 @@ namespace CT.DAL
                                 else
                                 {
                                     // nếu ko phải là kiểu ảnh thì là base64
-                                  
                                     item.Picture = reader.GetString(1);
                                 }
                                 //item.Picture =  reader.GetString(1);
@@ -224,7 +223,6 @@ namespace CT.DAL
                     sqlcmd.Parameters.AddWithValue("@TenSanPham", item.TenSP);
                     sqlcmd.Parameters.AddWithValue("@LoaiSanPham", item.LoaiSanPham);
               
-
                     SQLCon.Open();
                     sqlcmd.ExecuteNonQuery();
                     SQLCon.Close();
@@ -277,7 +275,6 @@ namespace CT.DAL
                     sqlcmd.CommandType = CommandType.Text;
                     sqlcmd.CommandText = "UPDATE [SanPham] SET Picture=@Picture ,TenSanPham=@TenSanPham,ID_LoaiSanPham=@ID_LoaiSanPham WHERE MSanPham=@MSanPham";
                     sqlcmd.Connection = SQLCon;
-
                     sqlcmd.Parameters.AddWithValue("@Picture", Picture);
                     sqlcmd.Parameters.AddWithValue("@TenSanPham", editsp.TenSP);
                     sqlcmd.Parameters.AddWithValue("@ID_LoaiSanPham", editsp.LoaiSanPham);

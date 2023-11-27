@@ -54,7 +54,7 @@ namespace CT.BUS
 
                 }
                
-                if (item == null || item.ID_DonVi == null)
+                if (item == null || item.ID_NhaCungCap == null)
                 {
                     Result.Status = 0;
                     Result.Message = "ID đơn vị không được để trống";
@@ -64,7 +64,7 @@ namespace CT.BUS
 
                 else
                 {
-                    var sua = new DonViDAL().ThongTinDonVi(item.ID_DonVi);
+                    var sua = new DonViDAL().ThongTinDonVi(item.ID_NhaCungCap);
                     if (sua == null)
                     {
                         Result.Status = 0;
@@ -99,7 +99,7 @@ namespace CT.BUS
 
                 }
                
-                if (item == null || item.ID_DonVi == null )
+                if (item == null || item.ID_NhaCungCap == null )
                 {
                     Result.Status = 0;
                     Result.Message = "ID đơn vị không được để trống";

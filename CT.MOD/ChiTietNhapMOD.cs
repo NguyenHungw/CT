@@ -15,7 +15,6 @@ namespace CT.MOD
         public int SoLuong { get; set; }
         public Decimal DonGia { get; set; }
         public decimal ThanhTien { get; set; }
-        public decimal GiaBan { get; set; }
 
     }
     public class ThemChiTietNhap
@@ -26,7 +25,6 @@ namespace CT.MOD
         public int SoLuong { get; set; }
         public Decimal DonGia { get; set; }
         public decimal ThanhTien { get; set; }
-        public decimal GiaBan { get; set; }
 
     }
     public class ThemChiTietNhap2
@@ -35,7 +33,6 @@ namespace CT.MOD
         public string MSanPham { get; set; }
         public int SoLuong { get; set; }
         public Decimal DonGia { get; set; }
-        public decimal GiaBan { get; set; }
 
 
     }
@@ -46,15 +43,14 @@ namespace CT.MOD
         public string MSanPham { get; set; }
         public int SoLuong { get; set; }
         public Decimal DonGia { get; set; }
-        public decimal GiaBan { get; set; }
 
     }
     public class QuanLyKho
     {
         public string MSanPham { get; set; }
         public string TenSanPham { get; set; }
-        public decimal GiaBan { get; set; }
-        public int SoLuong { get; set; }
+        public decimal? GiaBan { get; set; }
+        public int? SoLuong { get; set; }
         public string LoaiSanPham { get; set; }
     }
     public class DanhSachPhieuNhapKho
@@ -65,7 +61,7 @@ namespace CT.MOD
         public string TenLoaiSP { get; set; }
         public DateTime NgayNhap { get; set; }
         public int SoLuong { get; set; }
-        public string TenDonVi { get; set; }
+        public string TenNhaCungCap { get; set; }
         public decimal DonGia { get; set; }
         public decimal ThanhTien { get; set; }
 

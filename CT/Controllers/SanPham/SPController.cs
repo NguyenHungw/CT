@@ -275,7 +275,7 @@ namespace CT.Controllers.SanPham
         }
 
         [HttpPost]
-        [Route("ChiTietSP {id}")]
+        [Route("ChiTietSP {msp}")]
         [AllowAnonymous]
         public IActionResult ChiTietSP(string msp)
         {

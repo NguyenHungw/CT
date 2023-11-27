@@ -44,7 +44,6 @@ namespace CT.DAL
                         item.SoLuong = reader.GetInt32(3);
                         item.DonGia = reader.GetDecimal(4);
                         item.ThanhTien = reader.GetDecimal(5);
-                        item.GiaBan = reader.GetDecimal(6);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -91,7 +90,6 @@ namespace CT.DAL
                         cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
                         cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
                         cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
-                        cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
 
                         cmd.Connection = SQLCon;
                         cmd.ExecuteNonQuery();
@@ -141,7 +139,6 @@ namespace CT.DAL
                         cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
                         cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
                         cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
-                        cmd.Parameters.AddWithValue("GiaBan", item.GiaBan);
 
                         cmd.Connection = SQLCon;
                         cmd.ExecuteNonQuery();
@@ -210,10 +207,11 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"select ct.MSanPham,sp.TenSanPham,ct.GiaBan,ct.SoLuong,lsp.TenLoaiSP
-                                        from ChiTietNhap ct
-                                        inner join SanPham sp on ct.MSanPham = sp.MSanPham
-                                        inner join LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                                        FROM ChiTietNhap ct
+                                        LEFT JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
+                                        LEFT JOIN GiaBanSanPham gbsp ON sp.MSanPham = gbsp.MSanPham
+                                        INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
                                         Order by ct.MSanPham
                                         OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -224,11 +222,11 @@ namespace CT.DAL
                     while (reader.Read())
                     {
                         QuanLyKho item = new QuanLyKho();
-                        item.MSanPham = reader.GetString(0);
-                        item.TenSanPham = reader.GetString(1);
-                        item.GiaBan = reader.GetDecimal(2);
-                        item.SoLuong = reader.GetInt32(3);
-                        item.LoaiSanPham = reader.GetString(4);
+                        item.MSanPham = reader.IsDBNull(0) ? null : reader.GetString(0);
+                        item.TenSanPham = reader.IsDBNull(1) ? null : reader.GetString(1);
+                        item.GiaBan = reader.IsDBNull(2) ? (decimal?)null : reader.GetDecimal(2);
+                        item.SoLuong = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3);
+                        item.LoaiSanPham = reader.IsDBNull(4) ? null : reader.GetString(4);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -287,10 +285,11 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, ct.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
                                         FROM ChiTietNhap ct
                                         INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
                                         INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                        join GiaBanSanPham gbsp on sp.MSanPham = gbsp.MSanPham
                                         WHERE ct.SoLuong > 0 AND ct.SoLuong < 10  
                                         ORDER BY ct.MSanPham
                                         OFFSET @StartPage ROWS
@@ -337,10 +336,11 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, ct.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
                                         FROM ChiTietNhap ct
                                         INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
                                         INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+										join GiaBanSanPham gbsp on sp.MSanPham = gbsp.MSanPham
                                         WHERE ct.SoLuong <= 0 
                                         ORDER BY ct.MSanPham
                                         OFFSET @StartPage ROWS
@@ -387,12 +387,12 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"select pn.ID_PhieuNhap,sp.MSanPham,sp.TenSanPham,lsp.TenLoaiSP,pn.NgayNhap,ct.SoLuong,dv.TenDonVi,ct.DonGia,ct.ThanhTien
+                    cmd.CommandText = @"select pn.ID_PhieuNhap,sp.MSanPham,sp.TenSanPham,lsp.TenLoaiSP,pn.NgayNhap,ct.SoLuong,nc.TenNhaCungCap,ct.DonGia,ct.ThanhTien
                                         from ChiTietNhap ct
                                         join SanPham sp on ct.MSanPham =sp.MSanPham
                                         join LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
                                         join PhieuNhap pn on ct.ID_PhieuNhap = pn.ID_PhieuNhap
-                                        join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
+                                        join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
                                         ORDER BY ct.MSanPham
                                         OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;
@@ -410,7 +410,7 @@ namespace CT.DAL
                         item.TenLoaiSP = reader.GetString(3);
                         item.NgayNhap = reader.GetDateTime(4);
                         item.SoLuong = reader.GetInt32(5);
-                        item.TenDonVi = reader.GetString(6);
+                        item.TenNhaCungCap = reader.GetString(6);
                         item.DonGia = reader.GetDecimal(7);
                         item.ThanhTien = reader.GetDecimal(8);
                         dsctnhap.Add(item);

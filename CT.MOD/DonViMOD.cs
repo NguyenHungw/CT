@@ -10,9 +10,11 @@ namespace CT.MOD
     {
         public int ID_DonVi { get; set; }
         public string TenDonVi { get; set; }
+        public string GhiChu { get; set; }
     }
     public class ThemMoiDonVi
     {
         public string TenDonVi { get; set; }
+        public string? GhiChu { get; set; }
     }
 }

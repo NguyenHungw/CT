@@ -59,11 +59,7 @@ namespace CT.BUS
                     result.Status = 0;
                     result.Message = " Đơn giá Không được để trống ";
                 }
-                if(item==null || item.GiaBan == null)
-                {
-                    result.Status = 0;
-                    result.Message = " Giá bán Không được để trống ";
-                }
+               
                 else
                 {
                     result = new ChiTietNhapDAL().ThemChiTietNhap(item);
@@ -102,11 +98,7 @@ namespace CT.BUS
                     result.Status = 0;
                     result.Message = " Đơn giá Không được để trống ";
                 }
-                if (item == null || item.GiaBan == null)
-                {
-                    result.Status = 0;
-                    result.Message = " Giá bán Không được để trống ";
-                }
+             
                 else
                 {
                     result = new ChiTietNhapDAL().SuaChiTietPhieuNhap(item);

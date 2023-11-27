@@ -15,14 +15,14 @@ namespace CT.MOD
         public int ID_PhieuNhap { get; set; }
         public DateTime NgayNhap { get; set; }
         public string NguoiNhapHang { get; set; }
-        public int ID_DonVi { get; set; }
+        public int ID_NhaCungCap { get; set; }
     }
     public class DanhSachPhieuNhapMOD
     {
         public int ID_PhieuNhap { get; set; }
         public DateTime NgayNhap { get; set; }
         public string NguoiNhapHang { get; set; }
-        public string TenDonVi { get; set; }
+        public string TenNhaCungCap { get; set; }
     }
 
     public class ThemMoiPhieuNhapMOD
@@ -30,6 +30,6 @@ namespace CT.MOD
      
         public DateTime NgayNhap { get; set; }
         public string NguoiNhapHang { get; set; }
-        public int ID_DonVi { get; set; }
+        public int ID_NhaCungCap { get; set; }
     }
 }

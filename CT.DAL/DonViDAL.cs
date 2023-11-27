@@ -27,7 +27,7 @@ namespace CT.DAL
 					SqlCommand cmd = new SqlCommand();
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = @"SELECT *
-										FROM DanhMuc_DonVi
+										FROM DonViTinh
 										ORDER BY ID_DonVi
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -42,6 +42,7 @@ namespace CT.DAL
 						DonViMOD item = new DonViMOD();
 						item.ID_DonVi = read.GetInt32(0);
 						item.TenDonVi = read.GetString(1);
+						item.GhiChu = read.GetString(2);
 
 						dsdv.Add(item);
 					}
@@ -71,9 +72,11 @@ namespace CT.DAL
 					SqlCommand cmd = new SqlCommand();
 					cmd.CommandType = CommandType.Text;
 					cmd.Connection = SQLCon;
-					cmd.CommandText = "UPDATE [DanhMuc_DonVi] SET TenDonVi=@TenDonVi where ID_DonVi=@ID_DonVi";
+					cmd.CommandText = "UPDATE [DonViTinh] SET TenDonVi=@TenDonVi,GhiChu=@GhiChu where ID_DonVi=@ID_DonVi";
 					cmd.Parameters.AddWithValue("@ID_DonVi", item.ID_DonVi);
 					cmd.Parameters.AddWithValue("@TenDonVi", item.TenDonVi);
+					cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
+					
 
 					cmd.ExecuteNonQuery();
 					result.Status = 1;
@@ -108,7 +111,7 @@ namespace CT.DAL
 				}
 				SqlCommand cmd = new SqlCommand();
 				cmd.CommandType = CommandType.Text;
-				cmd.CommandText = "SELECT ID_DonVi from DanhMuc_DonVi where ID_DonVi ='" + id + "'";
+				cmd.CommandText = "SELECT ID_DonVi from DonViTinh where ID_DonVi ='" + id + "'";
 				cmd.Connection = SQLCon;
 				SqlDataReader reader = cmd.ExecuteReader();
 				while (reader.Read())
@@ -136,9 +139,9 @@ namespace CT.DAL
 					SqlCommand cmd = new SqlCommand();
 					cmd.Connection = SQLCon;
 					cmd.CommandType = CommandType.Text;
-					cmd.CommandText = "INSERT INTO DanhMuc_DonVi (TenDonVi) VALUES (@TenDonVi)";
+					cmd.CommandText = "INSERT INTO DonViTinh (TenDonVi,GhiChu) VALUES (@TenDonVi,@GhiChu)";
 					cmd.Parameters.AddWithValue("@TenDonVi", item.TenDonVi);
-
+					cmd.Parameters.AddWithValue("@GhiChu", item.GhiChu);
 					cmd.ExecuteNonQuery();
 
 					result.Status = 1;
@@ -167,7 +170,7 @@ namespace CT.DAL
 					SqlCommand cmd = new SqlCommand();
 					cmd.Connection = SQLCon;
 					cmd.CommandType = CommandType.Text;
-					cmd.CommandText = "DELETE from DanhMuc_DonVi where ID_DonVi=@ID_DonVi";
+					cmd.CommandText = "DELETE from DonViTinh where ID_DonVi=@ID_DonVi";
 					cmd.Parameters.AddWithValue("@ID_DonVi", id);
 					cmd.ExecuteReader();
 

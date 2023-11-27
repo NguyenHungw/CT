@@ -32,9 +32,9 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"select pn.ID_PhieuNhap, pn.NgayNhap,pn.NguoiNhapHang,dv.TenDonVi
+                    cmd.CommandText = @"select pn.ID_PhieuNhap, pn.NgayNhap,pn.NguoiNhapHang,nc.TenNhaCungCap
 from PhieuNhap pn
-join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
+join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
 										ORDER BY ID_PhieuNhap
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -49,7 +49,7 @@ join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
                         item.ID_PhieuNhap = reader.GetInt32(0);
                         item.NgayNhap = reader.GetDateTime(1);
                         item.NguoiNhapHang = reader.GetString(2);
-                        item.TenDonVi = reader.GetString(3);
+                        item.TenNhaCungCap = reader.GetString(3);
                         dspn.Add(item);
 
 
@@ -81,10 +81,10 @@ join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "INSERT INTO PhieuNhap (NgayNhap,NguoiNhapHang,ID_DonVi) VALUES(@NgayNhap,@NguoiNhapHang,@TongGiaTri,@ID_DonVi)";
+                    cmd.CommandText = "INSERT INTO PhieuNhap (NgayNhap,NguoiNhapHang,id_NhaCungCap) VALUES(@NgayNhap,@NguoiNhapHang,@id_NhaCungCap)";
                     cmd.Parameters.AddWithValue("@NgayNhap", DateTime.Now);
                     cmd.Parameters.AddWithValue("@NguoiNhapHang", item.NguoiNhapHang);
-                    cmd.Parameters.AddWithValue("@ID_DonVi", item.ID_DonVi);
+                    cmd.Parameters.AddWithValue("@id_NhaCungCap", item.ID_NhaCungCap);
                     cmd.ExecuteNonQuery();
                     result.Status = 1;
                     result.Message = "Thêm phiếu nhập thành công";
@@ -147,11 +147,11 @@ join DanhMuc_DonVi dv on pn.ID_DonVi = dv.ID_DonVi
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "UPDATE [PhieuNhap] SET NgayNhap=@NgayNhap ,NguoiNhapHang=@NguoiNhapHang ,ID_DonVi=@ID_DonVi WHERE ID_PhieuNhap=@ID_PhieuNhap";
+                    cmd.CommandText = "UPDATE [PhieuNhap] SET NgayNhap=@NgayNhap ,NguoiNhapHang=@NguoiNhapHang ,id_NhaCungCap=@id_NhaCungCap WHERE ID_PhieuNhap=@ID_PhieuNhap";
                     cmd.Parameters.AddWithValue("@NgayNhap", DateTime.Now);
                     cmd.Parameters.AddWithValue("@NguoiNhapHang", item.NguoiNhapHang);
             
-                    cmd.Parameters.AddWithValue("@ID_DonVi", item.ID_DonVi);
+                    cmd.Parameters.AddWithValue("@id_NhaCungCap", item.ID_NhaCungCap);
                     cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                     cmd.ExecuteNonQuery();
 
