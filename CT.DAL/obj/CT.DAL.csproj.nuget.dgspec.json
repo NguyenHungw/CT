@@ -79,6 +79,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"
@@ -174,6 +178,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.32.1, )"
@@ -238,6 +246,10 @@
             "EPPlus": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",

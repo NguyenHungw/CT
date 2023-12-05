@@ -11,11 +11,14 @@ namespace CT.MOD
         public int ID_GioHang { get; set; }
         public int idUser { get; set; }
         public string MSanPham { get; set; }
+        public int GioSoLuong { get; set; }
     }
     public class ThemSP_Gio
     {
         public int idUser { get; set; }
         public string MSanPham { get; set; }
+        public int GioSoLuong { get; set; }
+
 
     }
 }

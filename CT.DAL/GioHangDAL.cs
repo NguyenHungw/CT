@@ -57,7 +57,7 @@ namespace CT.DAL
                                 item.ID_GioHang = reader.GetInt32(0);
                                 item.idUser = reader.GetInt32(1);
                                 item.MSanPham = reader.GetString(2);
-
+                                item.GioSoLuong = reader.GetInt32(3);
 
                               
 
@@ -96,11 +96,12 @@ namespace CT.DAL
                 //sqlcmd.CommandType = CommandType.StoredProcedure;
                     //sqlcmd.CommandText = "v2_SanPham_ThemMoi";
                 sqlcmd.CommandType = CommandType.Text;
-                sqlcmd.CommandText = " INSERT INTO GioHang (idUser,MSanPham) VALUES (@idUser,@MSanPham)";
+                sqlcmd.CommandText = " INSERT INTO GioHang (idUser,MSanPham,GioSoLuong) VALUES (@idUser,@MSanPham,@GioSoLuong)";
                     //sqlcmd.CommandText = " INSERT INTO SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia) VALUES (@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong, @DonGia)";
                 sqlcmd.Connection = SQLCon;
                 sqlcmd.Parameters.AddWithValue("@idUser", item.idUser);
                 sqlcmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
+                    sqlcmd.Parameters.AddWithValue("@GioSoLuong", item.GioSoLuong);
              
   
                 SQLCon.Open();

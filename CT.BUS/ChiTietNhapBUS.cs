@@ -73,7 +73,7 @@ namespace CT.BUS
             }
             return result;
         }
-        public BaseResultMOD SuaChiTietNhap(ThemChiTietNhap item)
+        public BaseResultMOD SuaChiTietNhap(SuaChiTietNhapMOD item)
         {
             var result = new BaseResultMOD();
             try

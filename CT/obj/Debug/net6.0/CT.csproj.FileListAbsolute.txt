@@ -119,3 +119,12 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\ne
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\PayPalCheckoutSdk.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\PayPalHttp-Dotnet.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Raven.Abstractions.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Raven.Client.Lightweight.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Sparrow.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Raven.Database.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\System.ServiceModel.Primitives.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\unix\lib\netstandard1.3\System.Private.ServiceModel.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win7\lib\netstandard1.3\System.Private.ServiceModel.dll

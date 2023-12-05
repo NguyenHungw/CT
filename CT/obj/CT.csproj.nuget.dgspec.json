@@ -73,6 +73,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.32.1, )"
@@ -173,6 +177,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"
@@ -268,6 +276,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.32.1, )"
@@ -332,6 +344,10 @@
             "EPPlus": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -430,6 +446,18 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
+            "PayPalHttp": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "RavenDB.Database": {
+              "target": "Package",
+              "version": "[3.5.9, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

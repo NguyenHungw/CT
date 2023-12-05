@@ -424,8 +424,9 @@ namespace CT.DAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = @"SELECT sp.MSanPham, sp.Picture, sp.TenSanPham, lsp.TenLoaiSP
-                                            FROM SanPham sp
-                                            INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham;";
+                                    FROM SanPham sp
+                                    INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+                                    where MSanPham = @MSanPham;";
                 cmd.Parameters.AddWithValue("@MSanPham", msp);
                 cmd.Connection = SQLCon;
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -434,8 +435,16 @@ namespace CT.DAL
                     item = new ChiTietSP();
                    
                     item.MSanPham = msp;
-
-                    item.Picture = reader.GetString(1);
+                    string picture = reader.GetString(1);
+                    if (picture.EndsWith(".jpg") || picture.EndsWith(".png") || picture.EndsWith(".gif"))
+                    {
+                        item.Picture = "https://localhost:7177/" + reader.GetString(1);
+                    }
+                    else
+                    {
+                        // nếu ko phải là kiểu ảnh thì là base64
+                        item.Picture = reader.GetString(1);
+                    }
                     item.TenSP = reader.GetString(2);
                     item.LoaiSanPham = reader.GetString(3);
               

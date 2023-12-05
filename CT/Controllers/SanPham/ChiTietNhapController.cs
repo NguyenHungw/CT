@@ -24,7 +24,7 @@ namespace CT.Controllers.SanPham
 
         [HttpPut]
         [Route("SuaChiTietNhap")]
-        public IActionResult SuaChiTietNhap([FromBody] ThemChiTietNhap item)
+        public IActionResult SuaChiTietNhap([FromBody] SuaChiTietNhapMOD item)
         {
             if (item == null) return BadRequest();
             else

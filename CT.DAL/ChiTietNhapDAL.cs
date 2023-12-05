@@ -84,7 +84,7 @@ namespace CT.DAL
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien,GiaBan) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien,@GiaBan)";
+                        cmd.CommandText = @"Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien)";
                         cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                         cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                         cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
@@ -108,46 +108,35 @@ namespace CT.DAL
             return result;
         }
 
-        public BaseResultMOD SuaChiTietPhieuNhap(ThemChiTietNhap item)
+        public BaseResultMOD SuaChiTietPhieuNhap(SuaChiTietNhapMOD item)
         {
             var result = new BaseResultMOD();
             try
             {
-                bool checkMSanPham = KiemTraTrungMSanPham(item);
-                bool checkIDPhieu = KiemTraTrungIDPhieu(item);
-                if (!checkMSanPham)
-                {
-                    result.Status = -1;
-                    result.Message = "Mã sản phẩm không tồn tại";
-                }
-                else if (!checkIDPhieu)
-                {
-                    result.Status = -1;
-                    result.Message = "ID Phiếu nhập không tồn tại";
-                }
-                else
-                {
-                    using (SqlConnection SQLCon = new SqlConnection(strcon))
-                    {
-                        SQLCon.Open();
-                        SqlCommand cmd = new SqlCommand();
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien,GiaBan=@GiaBan where ID_ChiTietNhap =@ID_ChiTietNhap";
-                        cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
-                        cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
-                        cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
-                        cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
-                        cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
-                        cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
+              
 
-                        cmd.Connection = SQLCon;
-                        cmd.ExecuteNonQuery();
+                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien where ID_ChiTietNhap =@ID_ChiTietNhap";
+                    cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
+                    cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
+                    cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
+                    cmd.Parameters.AddWithValue("@DonGia", item.DonGia);
+                    cmd.Parameters.AddWithValue("@ThanhTien", item.SoLuong * item.DonGia);
+                    cmd.Parameters.AddWithValue("@ID_ChiTietNhap", item.ID_ChiTietNhap);
 
-                        result.Status = 1;
-                        result.Message = "Sửa thành công";
-                        result.Data = 1;
-                    }
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+
+                    result.Status = 1;
+                    result.Message = "Sửa thành công";
+                    result.Data = 1;
                 }
+            
+                
             }
             catch (Exception ex)
             {
