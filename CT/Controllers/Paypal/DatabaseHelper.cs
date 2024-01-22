@@ -52,9 +52,7 @@ namespace CT.Controllers.Paypal
                                         inner join SanPham sp on gh.MSanPham = sp.MSanPham
                                         inner join GiaBanSanPham gb on sp.MSanPham = gb.MSanPham
                                         inner join [User] u on gh.idUser = u.idUser
-                                        where gh.idUser = @idUser;
-                                        
-                                        ";
+                                        where gh.idUser = @idUser;";
                     cmd.Parameters.AddWithValue("@idUser", idUser);
                     cmd.Connection = sqlCon;
 
@@ -68,7 +66,6 @@ namespace CT.Controllers.Paypal
                             item.MSanPham = reader.GetString(2);
                             item.GioSoLuong = reader.GetInt32(3);
                             item.GiaBan = reader.GetDecimal(4);
-
                             productCart.Add(item);
                         }
                     }
@@ -77,8 +74,6 @@ namespace CT.Controllers.Paypal
 
             return productCart;
         }
-
-
     }
 
         

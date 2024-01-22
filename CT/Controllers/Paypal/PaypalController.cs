@@ -8,7 +8,7 @@ using Raven.Database.Util;
 using System.Net;
 using System.ServiceModel.Channels;
 
-
+using System.Text;
 [ApiController]
 [Route("api/[controller]")]
 public class PaymentController : ControllerBase
@@ -16,6 +16,7 @@ public class PaymentController : ControllerBase
     private readonly PayPalService payPalService;
     private readonly DatabaseHelper1 databaseHelper;
     private const string DefaultCurrencyCode = "USD";
+    
     public PaymentController()
     {
         // Khởi tạo PayPalService và DatabaseHelper với các thông số cần thiết.
@@ -94,15 +95,19 @@ public class PaymentController : ControllerBase
     [HttpGet("start-payment/{orderId}")]
     public IActionResult StartPayment(string orderId)
     {
-        // Gọi phương thức trong PayPalService để lấy URL thanh toán từ OrderId
+        // gọi phương thức trong PayPalService để lấy URL thanh toán từ OrderId
         var paymentUrl = payPalService.GetPaymentUrl(orderId).GetAwaiter().GetResult();
 
-        // Chuyển hướng người dùng đến trang thanh toán PayPal
-        return Redirect(paymentUrl);
+        // Lưu orderId vào Session hoặc cơ sở dữ liệu để sử dụng sau này khi người dùng quay lại
+        HttpContext.Session.SetString("OrderId", orderId);
+        // trả về link thanh toán paypal
+
+        return Ok(paymentUrl);
         
      
     }
-
+  
+    //api check thu tiền
     [HttpPost("capture-order/{orderId}")]
     public async Task<IActionResult> CaptureOrder(string orderId)
     {
@@ -124,6 +129,8 @@ public class PaymentController : ControllerBase
             return StatusCode(500, new { Message = "Internal server error" });
         }
     }
+
+
    /* private void UpdateProductQuantity(int productId, decimal purchasedAmount)
     {
         try
@@ -139,7 +146,7 @@ public class PaymentController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Xử lý lỗi nếu có
+          
             Console.WriteLine($"Error updating product quantity: {ex.Message}");
             throw;
         }

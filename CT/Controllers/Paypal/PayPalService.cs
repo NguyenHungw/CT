@@ -11,6 +11,8 @@ using PayPalCheckoutSdk.Orders;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using CT.MOD;
+using HttpRequest = Microsoft.AspNetCore.Http.HttpRequest;
+using static Raven.Client.Linq.LinqPathProvider;
 
 namespace CT.Controllers.Paypal
 {
@@ -45,12 +47,12 @@ namespace CT.Controllers.Paypal
                 // Kiểm tra trạng thái của response để xác định xem thu tiền thành công hay không
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    // Capture thành công
+                    // thu tiền thành công
                     return true;
                 }
                 else
                 {
-                    // Capture không thành công
+                    // thu tiền không thành công
                     return false;
                 }
             }
@@ -64,21 +66,28 @@ namespace CT.Controllers.Paypal
 
         public async Task<string> GetPaymentUrl(string orderId)
         {
+            var result = "";
             var request = new OrdersGetRequest(orderId);
             var response = await payPalHttpClient.Execute(request);
             var order = response.Result<Order>();
 
             var links = order.Links;
-
-            foreach (var link in links)
+            if (links != null && links.Count > 0)
             {
-                if (link.Rel.ToLower() == "approve")
-                {
-                    return link.Href;
-                }
+                var crLink = links.FirstOrDefault(x => x.Rel == "approve");
+                if (crLink != null)
+                    result = crLink.Href;
             }
 
-            return null;
+            //foreach (var link in links)
+            //{
+            //	if (link.Rel.ToLower() == "approve")
+            //	{
+            //		return link.Href;
+            //	}
+            //}
+
+            return result;
         }
 
         public async Task<Order> CreateOrder( decimal value, string currencyCode)
@@ -91,7 +100,7 @@ namespace CT.Controllers.Paypal
                 var request = new OrdersCreateRequest();
                 request.Prefer("return=representation");
 
-                var requestBody = BuildRequestBody(value, currencyCode);
+                var requestBody = await BuildRequestBody(value, currencyCode);
 
                 // Truyền đối tượng OrderRequest vào phương thức RequestBody
                 request.RequestBody(requestBody);
@@ -115,8 +124,9 @@ namespace CT.Controllers.Paypal
         }
 
         // Thêm thông tin địa chỉ giao hàng vào hàm BuildRequestBody trong class PayPalService
-        private OrderRequest BuildRequestBody(decimal value, string currencyCode)
+        private async Task<OrderRequest> BuildRequestBody(decimal value, string currencyCode)
         {
+
             var orderRequest = new OrderRequest()
             {
                 CheckoutPaymentIntent = "CAPTURE",
@@ -127,9 +137,13 @@ namespace CT.Controllers.Paypal
                     LandingPage = "BILLING",
                     UserAction = "CONTINUE",
                     ShippingPreference = "SET_PROVIDED_ADDRESS",
+                    CancelUrl = "https://your-website.com/cancel",  //huy
+                    ReturnUrl = "https://www.youtube.com/watch?v=mnQMvKnvEKs&list=RDmcSkYa8HND4&index=2", //continue thanh toan
                 },
+
             };
 
+          
             orderRequest.PurchaseUnits = new List<PurchaseUnitRequest>{
         new PurchaseUnitRequest
         {
@@ -150,12 +164,15 @@ namespace CT.Controllers.Paypal
                     CountryCode = "US",
                 },
             },
+            //Description = $"Order ID: {orderId}\nAdditional Information...", // Thêm thông tin đơn hàng vào Description
+
             //Items = itemList, // Thêm danh sách Item vào đơn hàng
         },
     };
 
             return orderRequest;
         }
+       
 
     }
 }

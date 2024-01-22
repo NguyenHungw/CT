@@ -38,6 +38,17 @@ builder.Services.AddCors(options =>
                       });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:3000")
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod()
+                                 .AllowCredentials(); // Bổ sung AllowCredentials nếu bạn cần chấp nhận cookie từ client
+                      });
+});
 // JWT Authentication Configuration
 var jwtKey = Encoding.UTF8.GetBytes("YourSuperSecretKey");
 builder.Services.AddAuthentication(options =>
@@ -104,9 +115,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddDistributedMemoryCache(); // Thêm cache cho Session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian chờ trước khi Session hết hạn
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
+app.UseSession();
 // Configure middleware
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
