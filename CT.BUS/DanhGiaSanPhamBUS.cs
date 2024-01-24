@@ -132,7 +132,7 @@ namespace CT.BUS
             }
             else
             {
-                var chitietsp = new DanhGiaSanPhamDAL().ThongTinDanhGia(id);
+                var chitietsp = new TrangChu_DSSPDAL().ThongTinDanhGia(id);
                 if (chitietsp == null)
                 {
                     Result.Status = 0;

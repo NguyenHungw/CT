@@ -117,16 +117,22 @@ public class PaymentController : ControllerBase
 
             if (captureResult)
             {
-                return Ok(new { Message = "Payment captured successfully" });
+                return Ok(new { 
+                    Status=1,
+                    Message = "Payment captured successfully" });
             }
             else
             {
-                return BadRequest(new { Message = "Payment capture failed" });
+                return BadRequest(new { 
+                    Status =0,
+                    Message = "Payment capture failed" });
             }
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { Message = "Internal server error" });
+            return StatusCode(500, new {
+                Status =-1,
+                Message = "Internal server error" });
         }
     }
 
