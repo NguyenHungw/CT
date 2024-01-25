@@ -14,7 +14,8 @@ namespace CT.MOD.TrangChuMOD
         public string MaSanPham { get; set; }
         public string Picture { get; set; }
         public string TenSanPham { get; set; }
-
+        public string LoaiSanPham { get; set; }
+        
         public int? DiemDanhGia { get; set; }
         public Decimal? Giaban { get; set; }
     }

@@ -29,10 +29,11 @@ namespace CT.DAL
 					SQLCon.Open();
 					SqlCommand cmd = new SqlCommand();
 					cmd.CommandType = CommandType.Text;
-					cmd.CommandText = @"select sp.id,sp.MSanPham,sp.Picture , sp.TenSanPham ,dgsp.DiemDanhGia, gbsp.GiaBan
+					cmd.CommandText = @"select sp.id,sp.MSanPham,sp.Picture , sp.TenSanPham,lsp.TenLoaiSP ,dgsp.DiemDanhGia, gbsp.GiaBan
 										from SanPham sp
 										left join GiaBanSanPham gbsp on sp.MSanPham = gbsp.MSanPham
 										left join DanhGiaSanPham dgsp on sp.MSanPham = dgsp.MSanPham
+										left join LoaiSanPham lsp on sp.ID_LoaiSanPham =lsp.ID_LoaiSanPham
 										ORDER BY id
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -58,18 +59,19 @@ namespace CT.DAL
                             item.Picture = read.GetString(2);
                         }
                         item.TenSanPham = read.GetString(3);
-                        if (!read.IsDBNull(4))
+                        item.LoaiSanPham = read.GetString(4);
+                        if (!read.IsDBNull(5))
                         {
-                            item.DiemDanhGia = Convert.ToInt32(read.GetValue(4));
+                            item.DiemDanhGia = Convert.ToInt32(read.GetValue(5));
                         }
                         else
                         {
                             item.DiemDanhGia = null;
                         }
 
-                        if (!read.IsDBNull(5))
+                        if (!read.IsDBNull(6))
                         {
-                            item.Giaban = Convert.ToDecimal(read.GetValue(5));
+                            item.Giaban = Convert.ToDecimal(read.GetValue(6));
                         }
                         else
                         {
