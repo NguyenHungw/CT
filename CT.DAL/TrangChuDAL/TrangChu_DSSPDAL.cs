@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,8 +47,17 @@ namespace CT.DAL
                         TrangChu_DSSPMOD item = new TrangChu_DSSPMOD();
 						item.id = read.GetInt32(0);
 						item.MaSanPham = read.GetString(1);
-						item.Picture = read.GetString(2);
-						item.TenSanPham = read.GetString(3);
+                        string picture = read.GetString(2);
+                        if (picture.EndsWith(".jpg") || picture.EndsWith(".png") || picture.EndsWith(".gif"))
+                        {
+                            item.Picture = "https://localhost:7177/" + read.GetString(2);
+                        }
+                        else
+                        {
+                            // nếu ko phải là kiểu ảnh thì là base64
+                            item.Picture = read.GetString(2);
+                        }
+                        item.TenSanPham = read.GetString(3);
                         if (!read.IsDBNull(4))
                         {
                             item.DiemDanhGia = Convert.ToInt32(read.GetValue(4));
