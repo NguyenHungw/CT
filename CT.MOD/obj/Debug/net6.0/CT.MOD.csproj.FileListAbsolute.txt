@@ -12,3 +12,4 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.pdb
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\ref\CT.MOD.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.runtimeconfig.json
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.genruntimeconfig.cache
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.sourcelink.json

@@ -91,4 +91,13 @@ namespace CT.MOD
         public string Password {get; set;}
     }
     
+    public class RegisterModel
+    {
+        public string Email { get; set; }
+    }
+    public class VerifyModel
+    {
+        public string Email { get; set; }
+        public string Code { get; set; }
+    }
 }

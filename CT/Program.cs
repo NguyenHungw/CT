@@ -8,8 +8,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Text.Json.Serialization;
+using CT.Controllers.PhanQuyenVaTaiKhoan;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using CT.DAL.ScheduledTask;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddSingleton<RefreshTokenStore>();
@@ -37,6 +47,65 @@ builder.Services.AddCors(options =>
                           builder.WithOrigins("http://localhost:3000").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                       });
 });
+
+//config stmp gửi mail
+/*builder.Services.AddTransient<SmtpClient>(provider =>
+{
+    var smtpClient = new SmtpClient("smtp.gmail.com")
+    {
+        Port = 587,
+        Credentials = new NetworkCredential("vuacomputer.vjppro@gmail.com", "ebuvtbajmhgldomi"),
+        EnableSsl = true,
+    };
+    return smtpClient;
+});*/
+// ... (Các phần code khác)
+
+// Thêm dịch vụ SmtpClient vào DI container
+
+//config stmp gửi mail
+
+// Cấu hình Facebook OAuth để đăng nhập bằng fb / mới cấu hình app id và pass chưa làm
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = "Facebook";
+})
+.AddCookie()
+.AddOAuth("Facebook", options =>
+{
+    options.ClientId = "275201555380486";//app id
+    options.ClientSecret = "a4e19ccf209202913a46fbe84457c1cd";//appsecret
+    options.CallbackPath = "/signin-facebook"; // Đường dẫn callback tùy chọn
+    options.AuthorizationEndpoint = "https://www.facebook.com/v13.0/dialog/oauth";
+    options.TokenEndpoint = "https://graph.facebook.com/v13.0/oauth/access_token";
+    options.UserInformationEndpoint = "https://graph.facebook.com/v13.0/me";
+
+    //Được sử dụng để ánh xạ các thuộc tính từ thông tin người dùng được trả về từ Facebook API thành các Claims trong chuỗi xác thực (token).
+    options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+    options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+
+    options.Events = new OAuthEvents
+    {
+        OnCreatingTicket = context =>
+        {
+            // Customize the claims mapping here if needed
+            return Task.CompletedTask;
+        }
+    };
+});
+
+//send mail
+builder.Services.AddTransient<SmtpClient>(provider =>
+{
+   
+    return new SmtpClient("smtp.gmail.com", 587, "vuacomputer.vjppro@gmail.com", "ebuvtbajmhgldomi");
+});
+
+
+builder.Services.AddMemoryCache(); // Thêm dịch vụ IMemoryCache
+builder.Services.AddTransient<TKController>(); // Đảm bảo đăng ký controller của bạn
 
 builder.Services.AddCors(options =>
 {
@@ -71,6 +140,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//check quyền nhưng chưa làm dc
 // Other Authorization Policies
 builder.Services.AddAuthorization(options =>
 {
@@ -122,8 +192,13 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+///
+//config scheduled task xóa data mỗi ngày của phần đăng ký nếu ko active tài khoản
 
 var app = builder.Build();
+var scheTask = new ScheTask(app.Configuration);
+scheTask.Start();
+
 
 app.UseSession();
 // Configure middleware

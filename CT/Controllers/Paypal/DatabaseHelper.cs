@@ -46,6 +46,8 @@ namespace CT.Controllers.Paypal
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     //int idUser = 1;
+
+                    //check gio hang xem co sp hay ko
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = @"select u.Username,sp.TenSanPham,gh.MSanPham, gh.GioSoLuong, gb.GiaBan
                                         from GioHang gh

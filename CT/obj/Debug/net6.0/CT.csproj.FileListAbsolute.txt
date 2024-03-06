@@ -128,3 +128,13 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\Raven.Database.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\System.ServiceModel.Primitives.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\unix\lib\netstandard1.3\System.Private.ServiceModel.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\runtimes\win7\lib\netstandard1.3\System.Private.ServiceModel.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\MailKit.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\MimeKit.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\System.Formats.Asn1.dll
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\CT.sourcelink.json
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.CT.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.build.CT.props
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CT.props
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CT.props
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets.pack.json

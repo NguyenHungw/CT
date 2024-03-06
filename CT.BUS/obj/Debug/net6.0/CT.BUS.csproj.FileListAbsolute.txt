@@ -19,3 +19,4 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.BUS\bin\Debug\net6.0\CT.BUS.runtimec
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.BUS\obj\Debug\net6.0\CT.BUS.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.BUS\bin\Debug\net6.0\CT.ULT.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.BUS\bin\Debug\net6.0\CT.ULT.pdb
+C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.BUS\obj\Debug\net6.0\CT.BUS.sourcelink.json

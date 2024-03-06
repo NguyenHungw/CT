@@ -152,7 +152,7 @@ public class PaymentController : ControllerBase
         }
         catch (Exception ex)
         {
-          
+
             Console.WriteLine($"Error updating product quantity: {ex.Message}");
             throw;
         }

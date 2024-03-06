@@ -407,6 +407,7 @@ namespace CT.ULT
 
     public static class Utils
     {
+      
         public static DateTime ConvertLongToDate(long Ticks)
         {
             try
@@ -1321,6 +1322,16 @@ namespace CT.ULT
             return Space;
         }
 
+        public static class Utilities
+        {
+            public static string GenerateRandomCode(int length)
+            {
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var random = new Random();
+                return new string(Enumerable.Repeat(chars, length)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+            }
+        }
 
         #region DataTable
         public static List<T> ConvertDataTable<T>(DataTable dt)
