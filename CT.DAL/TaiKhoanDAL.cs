@@ -76,11 +76,25 @@ namespace CT.DAL
             string hash = BCrypt.Net.BCrypt.HashPassword(item.Password, salt);
             try
             {
-                bool check = KiemTraTrungTK(item);
-                    if (check)
+                bool checknum = KiemTraTrungTK(item);
+                bool checkem = KiemTraTrungEM(item);
+                bool checkem2 = KiemTraTrungEM2(item);
+                    if (checknum)
                 {
-                    Result.Status = -1;
+                    Result.Status = 0;
                     Result.Message = "Số điện thoại "+item.PhoneNumber+" đã được đăng ký";
+                }else if (checkem)
+                {
+                    if (checkem2)
+                    {
+                        Result.Status = 0;
+                        Result.Message = "Email " + item.Email + " đã được đăng ký";
+                    }
+                    else
+                    {
+                        Result.Status = 0;
+                        Result.Message = "Email " + item.Email + " đã được đăng ký nhưng chưa xác thực";
+                    }
                 }
                 else
                 {
@@ -94,7 +108,6 @@ namespace CT.DAL
                         cmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
                         cmd.Parameters.AddWithValue("@Password", hash);
                         cmd.Parameters.AddWithValue("@Email", item.Email);
-
                         cmd.Connection = SQLCon;
                         cmd.ExecuteNonQuery();
 
@@ -122,10 +135,38 @@ namespace CT.DAL
             using (SqlConnection SQLCon = new SqlConnection(strcon))
             {
                 SQLCon.Open();
-                string checkQuery = "SELECT COUNT(*) FROM [User] WHERE PhoneNumber = @PhoneNumber";
+                string checkQuery = "SELECT COUNT(*) FROM [User] WHERE PhoneNumber = @PhoneNumber and isActive = 1";
                 using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
                 {
                     checkCmd.Parameters.AddWithValue("@PhoneNumber", item.PhoneNumber);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+        private bool KiemTraTrungEM(DangKyTK item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM [User] WHERE Email = @Email";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@Email", item.Email);
+                    int existingCount = (int)checkCmd.ExecuteScalar();
+                    return existingCount > 0;
+                }
+            }
+        }
+        private bool KiemTraTrungEM2(DangKyTK item)
+        {
+            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            {
+                SQLCon.Open();
+                string checkQuery = "SELECT COUNT(*) FROM [User] WHERE Email = @Email and isActive = 1";
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, SQLCon))
+                {
+                    checkCmd.Parameters.AddWithValue("@Email", item.Email);
                     int existingCount = (int)checkCmd.ExecuteScalar();
                     return existingCount > 0;
                 }
