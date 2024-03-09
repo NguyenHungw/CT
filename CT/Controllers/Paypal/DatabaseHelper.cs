@@ -85,12 +85,12 @@ namespace CT.Controllers.Paypal
             {
                 connection.Open();
 
-                string query = "UPDATE Products SET Quantity = @NewQuantity WHERE ProductId = @ProductId";
+                string query = "UPDATE ChiTietNhap SET SoLuong = @NewSoLuong WHERE ProductId = @ProductId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ProductId", productId);
-                    command.Parameters.AddWithValue("@NewQuantity", newQuantity);
+                    command.Parameters.AddWithValue("@NewSoLuong", newQuantity);
 
                     command.ExecuteNonQuery();
                 }

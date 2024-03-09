@@ -103,7 +103,6 @@ public class PaymentController : ControllerBase
         // trả về link thanh toán paypal
 
         return Ok(paymentUrl);
-        
      
     }
   
@@ -117,6 +116,7 @@ public class PaymentController : ControllerBase
 
             if (captureResult)
             {
+                //var order = databaseHelper.GetCartItems();
                 return Ok(new { 
                     Status=1,
                     Message = "Payment captured successfully" });
@@ -137,7 +137,7 @@ public class PaymentController : ControllerBase
     }
 
 
-   /* private void UpdateProductQuantity(int productId, decimal purchasedAmount)
+    private void UpdateProductQuantity(int productId, decimal purchasedAmount)
     {
         try
         {
@@ -156,5 +156,5 @@ public class PaymentController : ControllerBase
             Console.WriteLine($"Error updating product quantity: {ex.Message}");
             throw;
         }
-    }*/
+    }
 }

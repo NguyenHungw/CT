@@ -42,8 +42,9 @@ namespace CT.DAL
                         item.ID_PhieuNhap = reader.GetInt32(1);
                         item.MSanPham = reader.GetString(2);
                         item.SoLuong = reader.GetInt32(3);
-                        item.DonGia = reader.GetDecimal(4);
-                        item.ThanhTien = reader.GetDecimal(5);
+                        item.TongSoLuong = reader.GetInt32(4);
+                        item.DonGia = reader.GetDecimal(5);
+                        item.ThanhTien = reader.GetDecimal(6);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -84,7 +85,7 @@ namespace CT.DAL
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
                         cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = @"Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,DonGia,ThanhTien) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@DonGia,@ThanhTien)";
+                        cmd.CommandText = @"Insert into ChiTietNhap (ID_PhieuNhap,MSanPham,SoLuong,TongSoLuong,DonGia,ThanhTien) VALUES(@ID_PhieuNhap,@MSanPham,@SoLuong,@SoLuong,@DonGia,@ThanhTien)";
                         cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                         cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                         cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
@@ -120,7 +121,7 @@ namespace CT.DAL
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien where ID_ChiTietNhap =@ID_ChiTietNhap";
+                    cmd.CommandText = "Update [ChiTietNhap] set ID_PhieuNhap =@ID_PhieuNhap,MSanPham=@MSanPham,SoLuong=@SoLuong,TongSoLuong=@SoLuong,DonGia=@DonGia,ThanhTien=@ThanhTien where ID_ChiTietNhap =@ID_ChiTietNhap";
                     cmd.Parameters.AddWithValue("@ID_PhieuNhap", item.ID_PhieuNhap);
                     cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
                     cmd.Parameters.AddWithValue("@SoLuong", item.SoLuong);
@@ -196,7 +197,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong,ct.TongSoLuong , lsp.TenLoaiSP
                                         FROM ChiTietNhap ct
                                         LEFT JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
                                         LEFT JOIN GiaBanSanPham gbsp ON sp.MSanPham = gbsp.MSanPham
@@ -215,7 +216,8 @@ namespace CT.DAL
                         item.TenSanPham = reader.IsDBNull(1) ? null : reader.GetString(1);
                         item.GiaBan = reader.IsDBNull(2) ? (decimal?)null : reader.GetDecimal(2);
                         item.SoLuong = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3);
-                        item.LoaiSanPham = reader.IsDBNull(4) ? null : reader.GetString(4);
+                        item.TongSoLuong = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4);
+                        item.LoaiSanPham = reader.IsDBNull(5) ? null : reader.GetString(5);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -274,7 +276,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong,ct.TongSoLuong, lsp.TenLoaiSP
                                         FROM ChiTietNhap ct
                                         INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
                                         INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
@@ -295,7 +297,8 @@ namespace CT.DAL
                         item.TenSanPham = reader.GetString(1);
                         item.GiaBan = reader.GetDecimal(2);
                         item.SoLuong = reader.GetInt32(3);
-                        item.LoaiSanPham = reader.GetString(4);
+                        item.TongSoLuong = reader.GetInt32(4);
+                        item.LoaiSanPham = reader.GetString(5);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -325,7 +328,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong, lsp.TenLoaiSP
+                    cmd.CommandText = @"SELECT ct.MSanPham, sp.TenSanPham, gbsp.GiaBan, ct.SoLuong,ct.TongSoLuong, lsp.TenLoaiSP
                                         FROM ChiTietNhap ct
                                         INNER JOIN SanPham sp ON ct.MSanPham = sp.MSanPham
                                         INNER JOIN LoaiSanPham lsp ON sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
@@ -346,7 +349,8 @@ namespace CT.DAL
                         item.TenSanPham = reader.GetString(1);
                         item.GiaBan = reader.GetDecimal(2);
                         item.SoLuong = reader.GetInt32(3);
-                        item.LoaiSanPham = reader.GetString(4);
+                        item.TongSoLuong = reader.GetInt32(4);
+                        item.LoaiSanPham = reader.GetString(5);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
@@ -376,7 +380,7 @@ namespace CT.DAL
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"select pn.ID_PhieuNhap,sp.MSanPham,sp.TenSanPham,lsp.TenLoaiSP,pn.NgayNhap,ct.SoLuong,nc.TenNhaCungCap,ct.DonGia,ct.ThanhTien
+                    cmd.CommandText = @"select pn.ID_PhieuNhap,sp.MSanPham,sp.TenSanPham,lsp.TenLoaiSP,pn.NgayNhap,ct.SoLuong,ct.SoLuong,nc.TenNhaCungCap,ct.DonGia,ct.ThanhTien
                                         from ChiTietNhap ct
                                         join SanPham sp on ct.MSanPham =sp.MSanPham
                                         join LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
@@ -399,9 +403,10 @@ namespace CT.DAL
                         item.TenLoaiSP = reader.GetString(3);
                         item.NgayNhap = reader.GetDateTime(4);
                         item.SoLuong = reader.GetInt32(5);
-                        item.TenNhaCungCap = reader.GetString(6);
-                        item.DonGia = reader.GetDecimal(7);
-                        item.ThanhTien = reader.GetDecimal(8);
+                        item.TongSoLuong = reader.GetInt32(6);
+                        item.TenNhaCungCap = reader.GetString(7);
+                        item.DonGia = reader.GetDecimal(8);
+                        item.ThanhTien = reader.GetDecimal(9);
                         dsctnhap.Add(item);
                     }
                     reader.Close();
