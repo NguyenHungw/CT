@@ -49,10 +49,25 @@ namespace CT.Controllers.SanPham
         [Route("XoaDanhGiaSP")]
         public IActionResult XoaLoaiSP([FromBody] int id)
         {
-            if (id == null ) return BadRequest();
+            if (id == null) return BadRequest();
             var Result = new DanhGiaSanPhamBUS().XoaDonVi(id);
             if (Result != null) return Ok(Result);
             else return NotFound();
+        }
+
+        [HttpGet]
+        [Route("ChiTietDanhSachDGSP")]
+        public IActionResult DanhSachDGSP(int page,string msp)
+        {
+            if(page <0) return BadRequest();
+            else
+            {
+                var Result = new DanhGiaSanPhamBUS().ChiTietDSDGSP(page,msp);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+           
+
         }
     }
 }

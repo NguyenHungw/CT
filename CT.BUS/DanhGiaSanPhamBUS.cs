@@ -127,7 +127,7 @@ namespace CT.BUS
             if (id == null)
             {
                 Result.Status = 0;
-                Result.Message = "Vui lòng nhập mã vị ";
+                Result.Message = "Vui lòng nhập mã đơn vị ";
                 return Result;
             }
             else
@@ -148,6 +148,39 @@ namespace CT.BUS
                     return new DonViDAL().XoaDonVi(id);
                 }
 
+            }
+            return Result;
+        }
+        public BaseResultMOD ChiTietDSDGSP(int page, string msp)
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if(page == null || page == 0)
+                {
+                    Result.Status = 0;
+                    Result.Message = "Vui lòng nhập số trang";
+
+                }
+                else
+                {
+                    if (msp == null || msp == "")
+                    {
+                        Result.Status = 0;
+                        Result.Message = "Vui lòng nhập mã sản phẩm";
+                        return Result;
+                    }
+                    else
+                    {
+                        return new DanhGiaSanPhamDAL().ChiTietDSDGSP(page, msp);
+                    }
+                }
+               
+                
+            }catch(Exception e)
+            {
+                Result.Status = -1;
+                Result.Message = ULT.Constant.API_Error_System;
             }
             return Result;
         }

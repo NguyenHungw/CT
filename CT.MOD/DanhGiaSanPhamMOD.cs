@@ -31,4 +31,16 @@ namespace CT.MOD
         public int DiemDanhGia { get; set; }
         public string NhanXet { get; set; }
     }
+    public class ChiTietDGSanPhamMOD
+    {
+        public int id { get; set; }
+        public string MSanPham { get; set; }
+     
+        public int idUser { get; set; }
+        public string AvatarUser { get; set; }
+        public string Username { get; set; }
+        public int DiemDanhGia { get; set; }
+        public string NhanXet { get; set; }
+        public DateTime NgayDanhGia { get; set; }
+    }
 }

@@ -225,11 +225,8 @@ namespace CT.DAL
                         item.GiaBan = null;
                     }
 
-                  
-
                 }
                 reader.Close();
-
 
             }
             catch (Exception)
@@ -238,6 +235,6 @@ namespace CT.DAL
             }
             return item;
         }
-
+     
     }
 }

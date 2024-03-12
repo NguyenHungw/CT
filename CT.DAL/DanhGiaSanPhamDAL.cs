@@ -64,7 +64,7 @@ namespace CT.DAL
 			}
 			return result;
 		}
-		public BaseResultMOD SuaDanhGia(SuaDanhGiaSanPhamMOD item )
+		public BaseResultMOD SuaDanhGia(SuaDanhGiaSanPhamMOD item)
 		{
 			var result = new BaseResultMOD();
 			try
@@ -84,7 +84,7 @@ namespace CT.DAL
 					cmd.Parameters.AddWithValue("@id", item.id);
 
 
-                    cmd.ExecuteNonQuery();
+					cmd.ExecuteNonQuery();
 					result.Status = 1;
 					result.Message = "Chỉnh sửa thông tin thành công";
 					result.Data = 1;
@@ -102,7 +102,7 @@ namespace CT.DAL
 
 		public DanhGiaSanPhamMOD ThongTinDanhGia(int id)
 		{
-            DanhGiaSanPhamMOD item = null;
+			DanhGiaSanPhamMOD item = null;
 
 			try
 			{
@@ -148,10 +148,10 @@ namespace CT.DAL
 					cmd.CommandText = "INSERT INTO DanhGiaSanPham (MSanPham,idUser,DiemDanhGia,NhanXet,NgayDanhGia) VALUES (@MSanPham,@idUser,@DiemDanhGia,@NhanXet,@NgayDanhGia)";
 					cmd.Parameters.AddWithValue("@MSanPham", item.MSanPham);
 					cmd.Parameters.AddWithValue("@idUser", item.idUser);
-                    cmd.Parameters.AddWithValue("@DiemDanhGia", item.DiemDanhGia);
-                    cmd.Parameters.AddWithValue("@NhanXet", item.NhanXet);
-                    cmd.Parameters.AddWithValue("@NgayDanhGia", item.NgayDanhGia);
-                    cmd.ExecuteNonQuery();
+					cmd.Parameters.AddWithValue("@DiemDanhGia", item.DiemDanhGia);
+					cmd.Parameters.AddWithValue("@NhanXet", item.NhanXet);
+					cmd.Parameters.AddWithValue("@NgayDanhGia", item.NgayDanhGia);
+					cmd.ExecuteNonQuery();
 
 					result.Status = 1;
 					result.Message = "Đánh giá sản phẩm thành công";
@@ -196,5 +196,98 @@ namespace CT.DAL
 			}
 			return result;
 		}
+		public BaseResultMOD ChiTietDSDGSP(int page, string msp)
+		{
+			const int soSanPhamMoiTrang = 20;
+			int viTriBatDau = soSanPhamMoiTrang * (page - 1);
+			var ketQua = new BaseResultMOD();
+
+			try
+			{
+				List<ChiTietDGSanPhamMOD> danhSachDanhGia = new List<ChiTietDGSanPhamMOD>();
+
+				using (SqlConnection ketNoiSQL = new SqlConnection(strcon))
+				{
+					ketNoiSQL.Open();
+
+					using (SqlCommand lenhSQL = new SqlCommand())
+					{
+						lenhSQL.CommandType = CommandType.Text;
+						lenhSQL.CommandText = @"SELECT dgsp.id, dgsp.MSanPham, dgsp.idUser, ctu.AvatarUser, u.Username, dgsp.DiemDanhGia, dgsp.NhanXet, dgsp.NgayDanhGia
+                                        FROM DanhGiaSanPham dgsp
+                                        LEFT JOIN SanPham sp ON dgsp.MSanPham = sp.MSanPham
+                                        LEFT JOIN [User] u ON dgsp.idUser = u.idUser
+                                        LEFT JOIN [ChiTietUsers] ctu ON u.idUser = ctu.idUser
+                                        WHERE sp.MSanPham = @MSanPham
+                                        ORDER BY id
+                                        OFFSET @ViTriBatDau ROWS
+                                        FETCH NEXT @SoSanPhamMoiTrang ROWS ONLY;";
+
+						lenhSQL.Parameters.AddWithValue("@ViTriBatDau", viTriBatDau);
+						lenhSQL.Parameters.AddWithValue("@SoSanPhamMoiTrang", soSanPhamMoiTrang);
+						lenhSQL.Parameters.AddWithValue("@MSanPham", msp);
+						lenhSQL.Connection = ketNoiSQL;
+
+						using (SqlDataReader docDuLieu = lenhSQL.ExecuteReader())
+						{
+							while (docDuLieu.Read())
+							{
+								ChiTietDGSanPhamMOD item = new ChiTietDGSanPhamMOD();
+								item.id = docDuLieu.GetInt32(0);
+								item.MSanPham = msp;
+								item.idUser = docDuLieu.GetInt32(2);
+
+								// Kiểm tra xem cột có tồn tại và không phải là null
+								if (!docDuLieu.IsDBNull(3))
+								{
+									string AvatarUser = docDuLieu.GetString(3);
+									if (AvatarUser.EndsWith(".jpg") || AvatarUser.EndsWith(".png") || AvatarUser.EndsWith(".gif"))
+									{
+										item.AvatarUser = "https://localhost:7177/" + AvatarUser;
+									}
+									else
+									{
+										item.AvatarUser = AvatarUser;
+									}
+								}
+
+								// Kiểm tra xem cột có tồn tại và không phải là null
+								if (!docDuLieu.IsDBNull(4))
+								{
+									item.Username = docDuLieu.GetString(4);
+								}
+
+								item.DiemDanhGia = docDuLieu.GetInt32(5);
+
+								// Kiểm tra xem cột có tồn tại và không phải là null
+								if (!docDuLieu.IsDBNull(6))
+								{
+									item.NhanXet = docDuLieu.GetString(6);
+								}
+
+								// Kiểm tra xem cột có tồn tại và không phải là null
+								if (!docDuLieu.IsDBNull(7))
+								{
+									item.NgayDanhGia = docDuLieu.GetDateTime(7);
+								}
+
+								danhSachDanhGia.Add(item);
+							}
+						}
+					}
+
+					ketQua.Status = 1;
+					ketQua.Data = danhSachDanhGia;
+				}
+			}
+			catch (Exception ex)
+			{
+				ketQua.Status = -1;
+				ketQua.Message = ULT.Constant.API_Error_System;
+			}
+
+			return ketQua;
+		}
+
 	}
 }
