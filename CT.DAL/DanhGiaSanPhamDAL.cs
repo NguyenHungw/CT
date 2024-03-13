@@ -259,13 +259,11 @@ namespace CT.DAL
 
 								item.DiemDanhGia = docDuLieu.GetInt32(5);
 
-								// Kiểm tra xem cột có tồn tại và không phải là null
 								if (!docDuLieu.IsDBNull(6))
 								{
 									item.NhanXet = docDuLieu.GetString(6);
 								}
 
-								// Kiểm tra xem cột có tồn tại và không phải là null
 								if (!docDuLieu.IsDBNull(7))
 								{
 									item.NgayDanhGia = docDuLieu.GetDateTime(7);

@@ -146,12 +146,17 @@ namespace CT.DAL
                 }
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = @"select sp.id,sp.MSanPham as MaSanPham ,sp.Picture , sp.TenSanPham,dgsp.idUser,u.Username,dgsp.DiemDanhGia,dgsp.NhanXet,dgsp.NgayDanhGia, gbsp.GiaBan
+                cmd.CommandText = @"select sp.id,sp.MSanPham,sp.Picture , sp.TenSanPham,SUM(ctn.SoLuong) as SoLuong,SUM(ctn.TongSoLuong) as TongSoLuong, gbsp.GiaBan
 									from SanPham sp
 									left join GiaBanSanPham gbsp on sp.MSanPham = gbsp.MSanPham
-									left join DanhGiaSanPham dgsp on sp.MSanPham = dgsp.MSanPham
-									left join [User] u on dgsp.idUser = u.idUser
-                                    where sp.MSanPham = @MSanPham;";
+									left join ChiTietNhap ctn on sp.MSanPham = ctn.MSanPham
+                                    where sp.MSanPham = @MSanPham
+                                    GROUP BY 
+                                        sp.id,
+                                        sp.MSanPham,
+                                        sp.Picture,
+                                        sp.TenSanPham,
+                                        gbsp.GiaBan;";
                 cmd.Parameters.AddWithValue("@MSanPham", msp);
                 cmd.Connection = SQLCon;
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -168,62 +173,35 @@ namespace CT.DAL
                     else
                     {
                         // nếu ko phải là kiểu ảnh thì là base64
-                        item.Picture = reader.GetString(1);
+                        item.Picture = reader.GetString(2);
                     }
                     item.TenSanPham = reader.GetString(3);
 
                     if (!reader.IsDBNull(4))
                     {
-                        item.idUser =Convert.ToInt32(reader.GetValue(4));   
+                        item.SoLuong = Convert.ToInt32(reader.GetValue(4));
                     }
                     else
                     {
-                        item.idUser = null;
+                        item.SoLuong = null;
                     }
                     if (!reader.IsDBNull(5))
                     {
-                        item.Username = Convert.ToString(reader.GetValue(5));
+                        item.TongSoLuong = Convert.ToInt32(reader.GetValue(5));
                     }
                     else
                     {
-                        item.Username = null;
+                        item.TongSoLuong = null;
                     }
-
                     if (!reader.IsDBNull(6))
                     {
-                        item.DiemDanhGia = Convert.ToInt32(reader.GetValue(6));
-                    }
-                    else
-                    {
-                        item.DiemDanhGia = null;
-                    }
-
-                    if (!reader.IsDBNull(7))
-                    {
-                        item.NhanXet = Convert.ToString(reader.GetValue(7));
-                    }
-                    else
-                    {
-                        item.NhanXet = null;
-                    }
-
-                    if (!reader.IsDBNull(8))
-                    {
-                        item.NgayDanhGia = Convert.ToDateTime(reader.GetValue(8));
-                    }
-                    else
-                    {
-                        item.NgayDanhGia = null;
-                    }
-
-                    if (!reader.IsDBNull(9))
-                    {
-                        item.GiaBan = Convert.ToDecimal(reader.GetValue(9));
+                        item.GiaBan = Convert.ToDecimal(reader.GetValue(6));
                     }
                     else
                     {
                         item.GiaBan = null;
                     }
+
 
                 }
                 reader.Close();

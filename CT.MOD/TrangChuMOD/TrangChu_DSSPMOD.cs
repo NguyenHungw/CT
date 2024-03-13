@@ -26,11 +26,8 @@ namespace CT.MOD.TrangChuMOD
         public string MaSanPham { get; set; }
         public string Picture { get; set; }
         public string TenSanPham { get; set; }
-        public int? idUser { get; set; }
-        public string? Username { get; set; }
-        public int? DiemDanhGia { get; set; }
-        public string? NhanXet { get; set; }
-        public DateTime? NgayDanhGia { get; set; }
+        public int? SoLuong { get; set; }
+        public int? TongSoLuong { get; set; }
         public Decimal? GiaBan { get; set; }
     }
 }
