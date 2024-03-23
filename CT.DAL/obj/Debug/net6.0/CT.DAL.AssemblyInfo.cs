@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CT.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3cfa3123be817a5004a6347e7c35e399b605c46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c98321ddd4d8fc24a80ab2f5ceb6f7b4a2b51232")]
 [assembly: System.Reflection.AssemblyProductAttribute("CT.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CT.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

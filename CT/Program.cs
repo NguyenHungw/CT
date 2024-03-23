@@ -199,7 +199,7 @@ var app = builder.Build();
 var scheTask = new ScheTask(app.Configuration);
 scheTask.Start();
 
-
+CT.ULT.SQLHelper.appConnectionStrings = app.Configuration.GetConnectionString("DefaultConnection");
 app.UseSession();
 // Configure middleware
 app.UseRouting();

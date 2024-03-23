@@ -18,7 +18,7 @@ namespace CT.ULT
     public class SQLHelper
     {
         [Obsolete]
-        public static string appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456";
+        public static string appConnectionStrings = "";
 
         public static string backupPath = "";
         public static string dbName = "";
