@@ -1,11 +1,18 @@
 ﻿using CT.Controllers.Paypal;
 using CT.Controllers.Paypal;
 using CT.MOD;
+using CT.ULT;
+using MailKit.Search;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.Caching.Memory;
 using PayPalCheckoutSdk.Orders;
 using Raven.Database.Util;
+using System.Data.SqlClient;
 using System.Net;
+using System.Net.WebSockets;
 using System.ServiceModel.Channels;
 
 using System.Text;
@@ -16,14 +23,18 @@ public class PaymentController : ControllerBase
     private readonly PayPalService payPalService;
     private readonly DatabaseHelper1 databaseHelper;
     private const string DefaultCurrencyCode = "USD";
-    
-    public PaymentController()
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IMemoryCache _memoryCache;
+
+    public PaymentController(IHttpContextAccessor httpContextAccessor, IMemoryCache memoryCache)
     {
         // Khởi tạo PayPalService và DatabaseHelper với các thông số cần thiết.
         this.payPalService = new PayPalService("AUGz-LsUJYmCrwMprlEBzVb8h1YqPYOy6SHxSiMwQ267_252ijLgL0zFMP5bPejg0C2VnaS-JgmBchkP", "EN0hJnc1RiX4UHz4lsduRWJ7ve1jh7aMZZ9NHZlaEhjTOX61L2uGNUt4xsJGqN8E4HAcA5tFQiPAZu-S");
         this.databaseHelper = new DatabaseHelper1("Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100");
+        _httpContextAccessor = httpContextAccessor;
+   
     }
-
+    
 
     [HttpPost("process-payment")]
     public async Task<IActionResult> ProcessPayment(int idUser)
@@ -52,35 +63,27 @@ public class PaymentController : ControllerBase
                 {
                     Items = cartItems.Select(item => new OrderItem
                     {
+                        idUser=idUser,
                         UserName = item.Username,
                         ProductName = item.TenSanPham,
                         ProductId = item.MSanPham,
                         Quantity = item.GioSoLuong,
                         Price = item.GiaBan,
                     }).ToList(),
-                    /*    ItemList = new ItemList
-                        {
-                            Items = cartItems.Select(item => new Item
-                            {
-                                Name = item.TenSanPham,
-                                Description = item.MSanPham,
-                                Quantity = item.GioSoLuong.ToString(),
-                                Price = item.GiaBan.ToString(),
-                                Currency = DefaultCurrencyCode,
-                            }).ToList(),
-                        },*/
+                   
                 };
 
 
-                // Cập nhật tổng số tiền của đơn hàng
+               
+                _httpContextAccessor.HttpContext.Session.SetObjectAsJson("Order", order);
 
 
-                var orderResponse = await payPalService.CreateOrder(order.TotalAmount, DefaultCurrencyCode);
-
-
+                var orderResponse = await payPalService.CreateOrder( order.TotalAmount, DefaultCurrencyCode);
+               
                 return Ok(new { OrderId = orderResponse.Id, Items = order.Items });
+
             }
-            
+
 
             //return Ok(new { OrderId = order.ID });
         }
@@ -93,13 +96,30 @@ public class PaymentController : ControllerBase
     
     [AllowAnonymous]
     [HttpGet("start-payment/{orderId}")]
-    public IActionResult StartPayment(string orderId)
+    public IActionResult StartPayment(int iduser,string orderId)
     {
         // gọi phương thức trong PayPalService để lấy URL thanh toán từ OrderId
         var paymentUrl = payPalService.GetPaymentUrl(orderId).GetAwaiter().GetResult();
+        /* _httpContextAccessor.HttpContext.Session.SetString("OrderId", orderId);
+         var test = HttpContext.Session.GetString("OrderId");*/
+        bool check = false;
 
-        // Lưu orderId vào Session hoặc cơ sở dữ liệu để sử dụng sau này khi người dùng quay lại
-        HttpContext.Session.SetString("OrderId", orderId);
+        var DonHang = new DonHangp
+        {
+            OrderID = orderId, // Lưu idUser vào đối tượng Order
+            idUser = iduser,
+            PhuongThucThanhToan = "PayPal",
+            NgayMua = DateTime.UtcNow ,// Ngày mua là thời điểm hiện tại
+            Status = "Pending", // Trạng thái thanh toán là chờ xử lý ban đầu
+            
+        };
+        
+            databaseHelper.SaveOrder(orderId, iduser, DonHang.PhuongThucThanhToan, DonHang.NgayMua, DonHang.Status);
+       
+       
+        // Lưu OrderId vào Session
+        _httpContextAccessor.HttpContext.Session.SetString("OrderId", orderId);
+       
         // trả về link thanh toán paypal
 
         return Ok(paymentUrl);
@@ -117,6 +137,40 @@ public class PaymentController : ControllerBase
             if (captureResult)
             {
                 //var order = databaseHelper.GetCartItems();
+                var order = HttpContext.Session.GetObjectFromJson<Order1>("Order");
+
+                // Kiểm tra xem session có tồn tại hay không
+                if (order == null)
+                {
+                    return BadRequest("Order information not found in session");
+                }
+
+                // Lặp qua từng sản phẩm trong đơn hàng và lưu thông tin chi tiết đơn hàng
+                foreach (var product in order.Items)
+                {
+                    var chitietdonhang = new ChiTietDonHang
+                    {
+                        idUser =product.idUser,
+                        
+                        OrderId = orderId,
+                        MSanPham = product.ProductId,
+                        SoLuong = product.Quantity,
+                        DonGia = product.Price, // Giá mặc định hoặc lấy từ sản phẩm
+                        TrietKhau = 0, // Triết khấu mặc định hoặc tính toán từ sản phẩm
+                        ThanhTien = product.Quantity * product.Price,
+                        // Cập nhật các thông tin khác nếu cần
+                    };
+
+                    // Gọi phương thức trong repository để lưu chi tiết đơn hàng vào cơ sở dữ liệu
+                    databaseHelper.SaveOrderDetail(orderId, chitietdonhang.MSanPham, chitietdonhang.SoLuong, chitietdonhang.DonGia, chitietdonhang.TrietKhau, chitietdonhang.ThanhTien);
+
+                    databaseHelper.TruSoLuongSanPham(chitietdonhang.MSanPham, chitietdonhang.SoLuong);
+                    databaseHelper.RemoveProductFromCart(product.idUser);
+                }
+
+                // Cập nhật trạng thái thanh toán cho đơn hàng thành công
+                databaseHelper.UpdatePaymentStatus(orderId, "Completed");
+
                 return Ok(new { 
                     Status=1,
                     Message = "Payment captured successfully" });
@@ -132,29 +186,7 @@ public class PaymentController : ControllerBase
         {
             return StatusCode(500, new {
                 Status =-1,
-                Message = "Internal server error" });
-        }
-    }
-
-
-    private void UpdateProductQuantity(int productId, decimal purchasedAmount)
-    {
-        try
-        {
-            // Lấy số lượng hiện tại từ cơ sở dữ liệu
-            int currentQuantity = databaseHelper.GetProductQuantity(productId);
-
-            // Trừ đi số lượng đã mua
-            int updatedQuantity = currentQuantity - Convert.ToInt32(purchasedAmount);
-
-            // Cập nhật số lượng mới vào cơ sở dữ liệu
-            databaseHelper.UpdateProductQuantity(productId, updatedQuantity);
-        }
-        catch (Exception ex)
-        {
-
-            Console.WriteLine($"Error updating product quantity: {ex.Message}");
-            throw;
+                Message = CT.ULT.Constant.API_Error_System });
         }
     }
 }

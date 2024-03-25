@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg",
+      "PackagePath": "staticwebassets\\upload\\1_Anh-Avatar-den-600x600.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\2_2.gif",
       "PackagePath": "staticwebassets\\upload\\2_2.gif"
     },

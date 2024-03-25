@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tj0Zh9Vf95npZV4xCG6sSx5LVilaRKlFUoG4w6gMq9Q=",
+  "Hash": "9NLliICUURyY+V0GJOGl9kkp3OoEpf7ubOqrXlGuYP0=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg",
+      "SourceId": "CT",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\",
+      "BasePath": "_content/CT",
+      "RelativePath": "upload/1_Anh-Avatar-den-600x600.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg"
+    },
     {
       "Identity": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT\\wwwroot\\upload\\2_2.gif",
       "SourceId": "CT",

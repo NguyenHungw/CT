@@ -147,6 +147,7 @@ namespace CT.Controllers.Paypal
             orderRequest.PurchaseUnits = new List<PurchaseUnitRequest>{
         new PurchaseUnitRequest
         {
+            
             AmountWithBreakdown = new AmountWithBreakdown
             {
                 CurrencyCode = currencyCode,

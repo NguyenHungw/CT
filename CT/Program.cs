@@ -24,6 +24,7 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddSingleton<RefreshTokenStore>();
 // Add services to the container.
+
 builder.Services.AddControllers(options =>
 {
     options.RespectBrowserAcceptHeader = true;
@@ -194,6 +195,7 @@ builder.Services.AddSession(options =>
 });
 ///
 //config scheduled task xóa data mỗi ngày của phần đăng ký nếu ko active tài khoản
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 var scheTask = new ScheTask(app.Configuration);
