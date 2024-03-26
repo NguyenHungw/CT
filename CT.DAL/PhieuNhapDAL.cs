@@ -1,4 +1,5 @@
 ﻿using CT.MOD;
+using CT.ULT;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,7 +15,7 @@ namespace CT.DAL
 {
     public class PhieuNhapDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
 
         public BaseResultMOD getDSPhieuNhap(int page)
@@ -26,15 +27,15 @@ namespace CT.DAL
             {
 
                 List<DanhSachPhieuNhapMOD> dspn = new List<DanhSachPhieuNhapMOD>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.CommandText = @"select pn.ID_PhieuNhap, pn.NgayNhap,pn.NguoiNhapHang,nc.TenNhaCungCap
-from PhieuNhap pn
-join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
+                                        from PhieuNhap pn
+                                        join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
 										ORDER BY ID_PhieuNhap
 										OFFSET @StartPage ROWS
                                         FETCH NEXT @ProductPerPage ROWS ONLY;";
@@ -76,7 +77,7 @@ join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
             try
             {
 
-                    using (SqlConnection SQLCon = new SqlConnection(strcon)){
+                    using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings)){
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = SQLCon;
@@ -110,7 +111,7 @@ join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
 
                 }
                 if (SQLCon.State == ConnectionState.Closed)
@@ -141,7 +142,7 @@ join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -172,7 +173,7 @@ join NhaCungCap nc on pn.id_NhaCungCap = nc.id_NhaCungCap
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();

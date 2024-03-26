@@ -1,5 +1,6 @@
 ﻿using CT.MOD;
 using CT.MOD.TrangChuMOD;
+using CT.ULT;
 using Microsoft.Data.SqlClient;
 using OfficeOpenXml.Drawing.Chart;
 using System;
@@ -14,7 +15,7 @@ namespace CT.DAL
 {
 	public class TrangChu_DSSPDAL
 	{
-		private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+		//private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
 		SqlConnection SQLCon = null;
 		public BaseResultMOD getdssp(int page)
 		{
@@ -24,7 +25,7 @@ namespace CT.DAL
 			try
 			{
 				List<TrangChu_DSSPMOD> dssp = new List<TrangChu_DSSPMOD>();
-				using (SqlConnection SQLCon = new SqlConnection(strcon))
+				using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
 				{
 					SQLCon.Open();
 					SqlCommand cmd = new SqlCommand();
@@ -105,7 +106,7 @@ namespace CT.DAL
 			{
 				if (SQLCon == null)
 				{
-					SQLCon = new SqlConnection(strcon);
+					SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
 
 				}
 				if (SQLCon.State == ConnectionState.Closed)
@@ -138,7 +139,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {

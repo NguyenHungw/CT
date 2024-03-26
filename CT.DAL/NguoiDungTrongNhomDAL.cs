@@ -12,7 +12,7 @@ namespace CT.DAL
 {
     public class NguoiDungTrongNhomDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
 
         public BaseResultMOD getdsndtn(int page)
         {
@@ -22,7 +22,7 @@ namespace CT.DAL
             try
             {
                 List<NguoiDungTrongNhomMOD2> dsndtn = new List<NguoiDungTrongNhomMOD2>();
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -59,7 +59,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
@@ -87,7 +87,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -113,7 +113,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();

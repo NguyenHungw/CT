@@ -1,4 +1,5 @@
 ﻿using CT.MOD;
+using CT.ULT;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Data.SqlClient;
@@ -14,7 +15,7 @@ namespace CT.DAL
 {
     public class GioHangDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+       // private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
      
         public BaseResultMOD GetDanhSachSP_Gio(int page)
@@ -28,7 +29,7 @@ namespace CT.DAL
                 const int ProductPerPage = 20;
                 int startPage = ProductPerPage * (page - 1);
 
-                using (SqlConnection sqlCon = new SqlConnection(strcon))
+                using (SqlConnection sqlCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     sqlCon.Open();
 
@@ -92,7 +93,7 @@ namespace CT.DAL
             
                 SqlCommand sqlcmd = new SqlCommand();
             
-                using (SqlConnection SQLCon = new SqlConnection(strcon)) {
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings)) {
                 //sqlcmd.CommandType = CommandType.StoredProcedure;
                     //sqlcmd.CommandText = "v2_SanPham_ThemMoi";
                 sqlcmd.CommandType = CommandType.Text;
@@ -128,7 +129,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {
@@ -167,7 +168,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {
@@ -208,7 +209,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
 
                 }
                 if (SQLCon.State == ConnectionState.Closed)

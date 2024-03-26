@@ -13,7 +13,7 @@ namespace CT.DAL
 {
     public class ChucNangCuaNNDDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;";
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;";
         public BaseResultMOD getDSChucNangCuaNND(int page)
         {
             const int ProductPerPage = 10;
@@ -22,7 +22,7 @@ namespace CT.DAL
             try
             {
                 List<ChucNangCuaNNDMOD> listcncnnd = new List<ChucNangCuaNNDMOD>();
-                using(SqlConnection SQLCon =  new SqlConnection(strcon))
+                using(SqlConnection SQLCon =  new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -66,7 +66,7 @@ namespace CT.DAL
             try
             {
                 List<ChucNangCuaNNDMOD2> listcncnnd = new List<ChucNangCuaNNDMOD2>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -124,7 +124,7 @@ namespace CT.DAL
                 }
                 else
                 {
-                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                     {
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
@@ -153,7 +153,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungChucNang(ThemChucNangCuaNNDMOD item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM ChucNangCuaNhomND WHERE ChucNangid = @ChucNangid AND NNDID = @NNDID";
@@ -172,7 +172,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -207,7 +207,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -239,7 +239,7 @@ namespace CT.DAL
             ChucNangCuaNNDMOD2 item = null;
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();

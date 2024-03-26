@@ -57,9 +57,9 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
 
 
 
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+       // private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
 
-        SqlConnection SQLCon = null;
+        //SqlConnection SQLCon = null;
 
 
 
@@ -77,7 +77,7 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
                 string _issuer = _configuration["Jwt:Issuer"];
                 string _audience = _configuration["Jwt:Audience"];
 
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
 
@@ -221,7 +221,7 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
                             {
                                 try
                                 {
-                                    using (SqlConnection SQLCon1 = new SqlConnection(strcon))
+                                    using (SqlConnection SQLCon1 = new SqlConnection(SQLHelper.appConnectionStrings))
                                     {
                                         SQLCon1.Open(); // Mở kết nối
 
@@ -294,7 +294,7 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
         }
         private bool KiemTraTrung(jwtmod cvk)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM RefreshTokens WHERE UserId = @UserId";
@@ -401,7 +401,7 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
 
         private RefreshToken GetRefreshTokenFromDatabase(string userId, string refreshToken)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
 
@@ -432,7 +432,7 @@ namespace CT.Controllers.PhanQuyenVaTaiKhoan
 
         private void UpdateRefreshTokenInDatabase(string userId, string oldRefreshToken, string newRefreshToken)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
 

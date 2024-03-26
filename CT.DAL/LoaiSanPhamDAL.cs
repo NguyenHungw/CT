@@ -1,4 +1,5 @@
 ﻿using CT.MOD;
+using CT.ULT;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace CT.DAL
 {
     public class LoaiSanPhamDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
         public BaseResultMOD getDanhSachLoaiSP(int page)
         {
@@ -21,7 +22,7 @@ namespace CT.DAL
             try
             {
                 List<LoaiSanPhamMOD> dslsp = new List<LoaiSanPhamMOD>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -59,7 +60,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
 
@@ -95,7 +96,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
 
                 }
                 if (SQLCon.State == ConnectionState.Closed)
@@ -126,7 +127,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -157,7 +158,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();

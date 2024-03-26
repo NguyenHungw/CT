@@ -12,12 +12,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Mvc;
+using CT.ULT;
 
 namespace CT.DAL
 {
     public class TaiKhoanDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
 
 
@@ -28,7 +29,7 @@ namespace CT.DAL
             
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -98,7 +99,7 @@ namespace CT.DAL
                 }
                 else
                 {
-                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                     {
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
@@ -132,7 +133,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungTK(DangKyTK item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM [User] WHERE PhoneNumber = @PhoneNumber and isActive = 1";
@@ -146,7 +147,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungEM(DangKyTK item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM [User] WHERE Email = @Email";
@@ -160,7 +161,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungEM2(DangKyTK item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM [User] WHERE Email = @Email and isActive = 1";
@@ -177,7 +178,7 @@ namespace CT.DAL
             DangKyTK item = null;
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -212,7 +213,7 @@ namespace CT.DAL
             try
             {
                 List<DanhSachNhomND> dsnhomnd = new List<DanhSachNhomND>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -278,7 +279,7 @@ namespace CT.DAL
             try
             {
                 List<TaiKhoanModel> ListAccounts = new List<TaiKhoanModel>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     const int ProductPerPage = 20; 
                     int startPage = ProductPerPage * (page - 1);
@@ -329,7 +330,7 @@ namespace CT.DAL
             try
             {
                
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     string salt = BCrypt.Net.BCrypt.GenerateSalt();
                     string hash = BCrypt.Net.BCrypt.HashPassword(item.Password, salt);
@@ -360,7 +361,7 @@ namespace CT.DAL
             var Result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -391,7 +392,7 @@ namespace CT.DAL
             var Result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
 

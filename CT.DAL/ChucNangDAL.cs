@@ -12,7 +12,7 @@ namespace CT.DAL
 {
     public class ChucNangDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+       // private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         public BaseResultMOD getdsChucNang(int page)
         {
             const int ProductPerPage = 10;
@@ -21,7 +21,7 @@ namespace CT.DAL
             try
             {
                 List<ChucNangMOD> dscn = new List<ChucNangMOD>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -70,7 +70,7 @@ namespace CT.DAL
                 else
                 {
                     // Thêm chức năng vào cơ sở dữ liệu
-                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                     {
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
@@ -96,7 +96,7 @@ namespace CT.DAL
         // Hàm để kiểm tra trùng chức năng
         private bool KiemTraTrungChucNang(string namecn)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM ChucNang WHERE TenChucNang = @TenChucNang";
@@ -114,7 +114,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon = new SqlConnection(strcon))
+                using(SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -143,7 +143,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using(SqlConnection SQLCon =new SqlConnection(strcon)){
+                using(SqlConnection SQLCon =new SqlConnection(SQLHelper.appConnectionStrings)){
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;

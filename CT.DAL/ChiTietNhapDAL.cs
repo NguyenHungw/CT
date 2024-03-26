@@ -1,4 +1,5 @@
 ﻿using CT.MOD;
+using CT.ULT;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using System;
@@ -12,8 +13,8 @@ namespace CT.DAL
 {
     public class ChiTietNhapDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;";
-        SqlConnection SQLCon = null;
+        //private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;";
+        //SqlConnection SQLCon = null;
         public BaseResultMOD getDSChiTietNhap(int page)
         {
             const int Productperpage = 20;
@@ -22,7 +23,7 @@ namespace CT.DAL
             try
             {
                 List<ChiTietNhapMOD> dsctnhap = new List<ChiTietNhapMOD>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -80,7 +81,7 @@ namespace CT.DAL
                 else
                 {
                     // Thêm chức năng vào cơ sở dữ liệu
-                    using (SqlConnection SQLCon = new SqlConnection(strcon))
+                    using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                     {
                         SQLCon.Open();
                         SqlCommand cmd = new SqlCommand();
@@ -116,7 +117,7 @@ namespace CT.DAL
             {
               
 
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -152,7 +153,7 @@ namespace CT.DAL
             var result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -191,7 +192,7 @@ namespace CT.DAL
             try
             {
                 List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -234,7 +235,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungMSanPham(ThemChiTietNhap item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM SanPham WHERE MSanPham = @MSanPham";
@@ -249,7 +250,7 @@ namespace CT.DAL
         }
         private bool KiemTraTrungIDPhieu(ThemChiTietNhap item)
         {
-            using (SqlConnection SQLCon = new SqlConnection(strcon))
+            using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
             {
                 SQLCon.Open();
                 string checkQuery = "SELECT COUNT(*) FROM PhieuNhap WHERE ID_PhieuNhap = @ID_PhieuNhap";
@@ -270,7 +271,7 @@ namespace CT.DAL
             try
             {
                 List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -322,7 +323,7 @@ namespace CT.DAL
             {
 
                 List<QuanLyKho> dsctnhap = new List<QuanLyKho>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -374,7 +375,7 @@ namespace CT.DAL
             {
 
                 List<DanhSachPhieuNhapKho> dsctnhap = new List<DanhSachPhieuNhapKho>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();

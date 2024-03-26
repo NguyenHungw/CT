@@ -1,4 +1,5 @@
 ﻿using CT.MOD;
+using CT.ULT;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Data.SqlClient;
@@ -14,7 +15,7 @@ namespace CT.DAL
 {
     public class SanPhamDAL
     {
-        private string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
+       // private string SQLHelper.appConnectionStrings = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100";
         SqlConnection SQLCon = null;
         public List<DanhSachModel> DSDAL(int page)
         {
@@ -26,7 +27,7 @@ namespace CT.DAL
                 const int ProductPerPage = 20;
                 int startPage = ProductPerPage * (page - 1);
 
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -73,7 +74,7 @@ namespace CT.DAL
                 const int ProductPerPage = 20;
                 int startPage = ProductPerPage * (page - 1);
 
-                using (SqlConnection sqlCon = new SqlConnection(strcon))
+                using (SqlConnection sqlCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     sqlCon.Open();
 
@@ -162,7 +163,7 @@ namespace CT.DAL
                 {
                     Picture = "";
                 }
-                using (SqlConnection SQLCon = new SqlConnection(strcon)) {
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings)) {
                 //sqlcmd.CommandType = CommandType.StoredProcedure;
                     //sqlcmd.CommandText = "v2_SanPham_ThemMoi";
                     sqlcmd.CommandType = CommandType.Text;
@@ -213,7 +214,7 @@ namespace CT.DAL
                     }
                 }
 
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SqlCommand sqlcmd = new SqlCommand();
                     sqlcmd.CommandText = "INSERT INTO SanPham (MSanPham, Picture, TenSanPham, LoaiSanPham, SoLuong, DonGia) VALUES (@MSanPham, @Picture, @TenSanPham, @LoaiSanPham, @SoLuong, @DonGia)";
@@ -250,7 +251,7 @@ namespace CT.DAL
             var Result = new BaseResultMOD();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     if (file.Length > 0)
@@ -303,7 +304,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {
@@ -342,7 +343,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {
@@ -382,7 +383,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
 
                 }
                 if (SQLCon.State == ConnectionState.Closed)
@@ -415,7 +416,7 @@ namespace CT.DAL
             {
                 if (SQLCon == null)
                 {
-                    SQLCon = new SqlConnection(strcon);
+                    SQLCon = new SqlConnection(SQLHelper.appConnectionStrings);
                 }
                 if (SQLCon.State == ConnectionState.Closed)
                 {
@@ -466,7 +467,7 @@ namespace CT.DAL
             try
             {
 
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -509,7 +510,7 @@ namespace CT.DAL
             try
             {
                 List<string> list = new List<string>();
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
@@ -550,7 +551,7 @@ namespace CT.DAL
             List<DanhSachSP> Danhsachloaisp = new List<DanhSachSP>();
             try
             {
-                using (SqlConnection SQLCon = new SqlConnection(strcon))
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
                 {
                     SQLCon.Open();
                     SqlCommand cmd = new SqlCommand();
