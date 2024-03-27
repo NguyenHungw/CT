@@ -137,8 +137,8 @@ namespace CT.Controllers.Paypal
                     LandingPage = "BILLING",
                     UserAction = "CONTINUE",
                     ShippingPreference = "SET_PROVIDED_ADDRESS",
-                    CancelUrl = "https://your-website.com/cancel",  //huy
-                    ReturnUrl = "https://www.youtube.com/watch?v=mnQMvKnvEKs&list=RDmcSkYa8HND4&index=2", //continue thanh toan
+                    CancelUrl = "http://localhost:3000/GioHang",  //huy
+                    ReturnUrl = "http://localhost:3000/waitting", //continue thanh toan
                 },
 
             };
