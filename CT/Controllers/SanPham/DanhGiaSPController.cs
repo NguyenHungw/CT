@@ -21,6 +21,18 @@ namespace CT.Controllers.SanPham
                 else return NotFound();
             }
         }
+        [HttpGet]
+        [Route("DiemDanhGiaTB")]
+        public IActionResult DiemDanhGiaTB(string MSanPham)
+        {
+            if (MSanPham ==null) return BadRequest();
+            else
+            {
+                var Result = new DanhGiaSanPhamBUS().DiemDanhGiaTBBUS(MSanPham);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+        }
 
         [HttpPut]
         [Route("SuaDanhGiaSP")]

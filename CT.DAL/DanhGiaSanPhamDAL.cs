@@ -65,7 +65,51 @@ namespace CT.DAL
 			}
 			return result;
 		}
-		public BaseResultMOD SuaDanhGia(SuaDanhGiaSanPhamMOD item)
+        public BaseResultMOD DiemDanhGiaTB(string MSanPham)
+        {
+           
+            var result = new BaseResultMOD();
+            try
+            {
+               
+                using (SqlConnection SQLCon = new SqlConnection(SQLHelper.appConnectionStrings))
+                {
+                    SQLCon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"SELECT AVG(CAST(dgsp.DiemDanhGia AS DECIMAL(9,2))) AS DiemDanhGia
+										FROM DanhGiaSanPham dgsp
+										LEFT JOIN SanPham sp ON dgsp.MSanPham = sp.MSanPham
+										WHERE sp.MSanPham = @MSanPham";
+					cmd.Parameters.AddWithValue("@MSanPham", MSanPham);
+                    cmd.Connection = SQLCon;
+                    cmd.ExecuteNonQuery();
+                    SqlDataReader read = cmd.ExecuteReader();
+                    if (read.Read())
+                    {
+                        DiemDanhGiaTB item = new DiemDanhGiaTB();
+                        item.Diem = read.GetDecimal(0);
+
+                        result.Status = 1;
+						result.Data=item;
+                    }
+                    read.Close();
+                   
+
+					
+                   
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = -1;
+                result.Message = ULT.Constant.API_Error_System;
+            }
+            return result;
+        }
+        public BaseResultMOD SuaDanhGia(SuaDanhGiaSanPhamMOD item)
 		{
 			var result = new BaseResultMOD();
 			try

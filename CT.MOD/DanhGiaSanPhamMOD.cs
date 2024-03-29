@@ -43,4 +43,8 @@ namespace CT.MOD
         public string NhanXet { get; set; }
         public DateTime NgayDanhGia { get; set; }
     }
+    public class DiemDanhGiaTB
+    {
+        public Decimal Diem { get; set; }
+    }
 }

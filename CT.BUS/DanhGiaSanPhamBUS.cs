@@ -41,6 +41,36 @@ namespace CT.BUS
             }
             return Result;
         }
+        public BaseResultMOD DiemDanhGiaTBBUS(string MSanPham)
+
+
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if (MSanPham ==null)
+                {
+                    Result.Status = 0;
+                    Result.Message = "Vui lòng nhập mã sản phẩm";
+
+                }
+                else
+                {
+
+                    Result = new DanhGiaSanPhamDAL().DiemDanhGiaTB(MSanPham);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.Status = -1;
+                Result.Data = null;
+                Result.Message = "Lỗi khi lấy danh loại sản phẩm" + ex.Message;
+
+            }
+            return Result;
+        }
+
 
         public BaseResultMOD SuaDanhGia([FromBody]SuaDanhGiaSanPhamMOD item)
         {
