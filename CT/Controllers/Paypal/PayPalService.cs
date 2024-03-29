@@ -62,7 +62,27 @@ namespace CT.Controllers.Paypal
                 return false;
             }
         }
+        public async Task<BaseResultMOD> IsOrderPaid(string orderId)
+        {
+            try
+            {
+                var request = new OrdersGetRequest(orderId);
+                var response = await payPalHttpClient.Execute(request);
+                var order = response.Result<Order>();
 
+                // Kiểm tra trạng thái của đơn hàng
+                var isPaid = order.Status == "COMPLETED";
+                var statusMessage = isPaid ? "Đơn hàng đã được thanh toán" : "Đơn hàng chưa được thanh toán";
+
+                return new BaseResultMOD { Status = 1, Message = statusMessage };
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ
+                Console.WriteLine(ex.Message);
+                return new BaseResultMOD { Status = 0, Message = "An error occurred while processing the request" };
+            }
+        }
 
         public async Task<string> GetPaymentUrl(string orderId)
         {
