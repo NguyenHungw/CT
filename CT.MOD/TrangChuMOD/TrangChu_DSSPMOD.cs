@@ -17,7 +17,6 @@ namespace CT.MOD.TrangChuMOD
         public int ID_LoaiSanPham { get; set; }
         public string LoaiSanPham { get; set; }
         
-        public int? DiemDanhGia { get; set; }
         public Decimal? Giaban { get; set; }
     }
    public class TrangChu_CTSPMOD

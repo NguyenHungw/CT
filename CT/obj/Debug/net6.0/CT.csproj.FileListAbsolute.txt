@@ -132,7 +132,6 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\BouncyCastle.Crypto
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\MailKit.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\MimeKit.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\bin\Debug\net6.0\System.Formats.Asn1.dll
-C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\CT.sourcelink.json
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.CT.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.build.CT.props
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CT.props
