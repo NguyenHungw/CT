@@ -153,7 +153,35 @@ namespace CT.BUS
             }
             return Result;
         }
-      
+        public BaseResultMOD GioHangUserBUS(int page,int iduser)
+
+
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if (page == 0)
+                {
+                    Result.Status = 0;
+                    Result.Message = "Vui lòng nhập số trang";
+
+                }
+                else
+                {
+
+                    Result = new GioHangDAL().GioHang_User(page, iduser);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.Status = -1;
+                Result.Data = null;
+                Result.Message = "Lỗi khi lấy danh sách sản phẩm" + ex.Message;
+
+            }
+            return Result;
+        }
 
 
         public ChiTietSP ChiTSP(string msp)

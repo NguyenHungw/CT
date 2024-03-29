@@ -83,7 +83,85 @@ namespace CT.DAL
         }
 
 
+        public BaseResultMOD GioHang_User(int page,int idUser)
+        {
+            var result = new BaseResultMOD();
+            List<ChiTietGioHang_User> productCart = new List<ChiTietGioHang_User>();
 
+            try
+            {
+
+                const int ProductPerPage = 20;
+                int startPage = ProductPerPage * (page - 1);
+
+                using (SqlConnection sqlCon = new SqlConnection(SQLHelper.appConnectionStrings))
+                {
+                    sqlCon.Open();
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
+                      
+                         cmd.CommandText = @"select GH.MSanPham,SP.TenSanPham,SP.Picture,GH.GioSoLuong,GBSP.GiaBan
+
+                                            from GioHang GH
+                                            inner join SanPham SP on GH.MSanPham =SP.MSanPham
+                                            inner join GiaBanSanPham GBSP on SP.MSanPham = GBSP.MSanPham
+                                            where idUser=@idUser
+                                             ORDER BY ID_GioHang
+                                             OFFSET @StartPage ROWS
+                                             FETCH NEXT @ProductPerPage ROWS ONLY;";
+                        cmd.Parameters.AddWithValue("@idUser", idUser);
+                        cmd.Parameters.AddWithValue("@StartPage", startPage);
+                        cmd.Parameters.AddWithValue("@ProductPerPage", ProductPerPage);
+                        cmd.Connection = sqlCon;
+
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ChiTietGioHang_User item = new ChiTietGioHang_User();
+                                item.MSanPham = reader.GetString(0);
+                                item.TenSanPham = reader.GetString(1);
+                                string picture = reader.GetString(2);
+                                if (picture.EndsWith(".jpg") || picture.EndsWith(".png") || picture.EndsWith(".gif"))
+                                {
+                                    item.Picture = "https://localhost:7177/" + reader.GetString(2);
+                                }
+                                else
+                                {
+                                    item.Picture = reader.GetString(2);
+                                }
+                                item.GioSoLuong = reader.GetInt32(3);
+                                if (!reader.IsDBNull(4))
+                                {
+                                    // Chuyển đổi từ decimal sang int sử dụng Convert.ToInt32()
+                                    item.GiaBan = Convert.ToInt32(reader.GetDecimal(4)); // Lấy giá trị từ cột có index là 4 trong reader và chuyển đổi sang kiểu int
+                                }
+
+
+
+                                productCart.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                result.Status = 1;
+                result.Data = productCart;
+            }
+            catch (Exception ex)
+            {
+                result.Status = 0;
+                result.Message = ex.Message;
+                throw;
+
+            }
+
+            return result;
+        }
         public BaseResultMOD ThemSP_Gio(ThemSP_Gio item)
         {
             string Picture;

@@ -147,20 +147,19 @@ namespace CT.Controllers.SanPham
                 else return NotFound();
             }
         }
-  
-
-        
-        [HttpPost]
-        [Route("ChiTietSP {msp}")]
+        [HttpGet]
+        [Route("GioHangUser")]
         [AllowAnonymous]
-        public IActionResult ChiTietSP(string msp)
+        public IActionResult GioHangUser(int page,int iduser)
         {
-            if (msp == null || msp == " ") return BadRequest();
-            var Result = new SanPhamBUS().ChiTSP(msp);
-            if (Result != null) return Ok(Result);
-            else return NotFound();
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new GioHangBUS().GioHangUserBUS(page, iduser);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
         }
 
-     
     }
 }

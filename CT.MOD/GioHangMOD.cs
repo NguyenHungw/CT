@@ -21,4 +21,13 @@ namespace CT.MOD
 
 
     }
+    public class ChiTietGioHang_User
+    {
+      
+        public string MSanPham { get; set; }
+        public string TenSanPham { get; set; }
+        public string Picture { get; set; } 
+        public int GioSoLuong { get; set; }
+        public int GiaBan { get; set; }
+    }
 }
