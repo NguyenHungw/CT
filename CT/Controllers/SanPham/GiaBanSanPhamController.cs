@@ -21,7 +21,18 @@ namespace CT.Controllers.SanPham
                 else return NotFound();
             }
         }
-
+        [HttpGet]
+        [Route("DanhSachSPChuapGia")]
+        public IActionResult DanhSachSPChuapGia(int page)
+        {
+            if (page < 1) return BadRequest();
+            else
+            {
+                var Result = new GiaBanSanPhamBUS().DanhSachSanPhamChuaApGia(page);
+                if (Result != null) return Ok(Result);
+                else return NotFound();
+            }
+        }
         [HttpPut]
         [Route("SuaGiaBan")]
         public IActionResult SuaLoaiSP([FromBody] ThemGiaBanSanPham item)

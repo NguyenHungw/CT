@@ -68,5 +68,16 @@ namespace CT.MOD
 
         
     }
+    public class SanPhamChuaApGia
+    {
+        public string MSanPham { get; set; }
+        public string Picture { get; set; }
+        public string TenSP { get; set;}
+        public int ID_LoaiSanPham { get; set;}
+        public string TenLoaiSanPham { get; set;}
+        public int ID_DonVi { get; set; }
+        public string TenDonVi { get; set; }
+        public int GiaBan { get; set; }
+    }
     
 }

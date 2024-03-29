@@ -42,6 +42,37 @@ namespace CT.BUS
             return Result;
         }
 
+        public BaseResultMOD DanhSachSanPhamChuaApGia(int page)
+
+
+        {
+            var Result = new BaseResultMOD();
+            try
+            {
+                if (page == 0)
+                {
+                    Result.Status = 0;
+                    Result.Message = "Vui lòng nhập số trang";
+
+                }
+                else
+                {
+
+                    Result = new GiaBanSanPhamDAL().DanhSachChuaApGia(page);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Result.Status = -1;
+                Result.Data = null;
+                Result.Message = ULT.Constant.API_Error_System;
+
+            }
+            return Result;
+        }
+
+
         public BaseResultMOD SuaDonGiaBan([FromBody]ThemGiaBanSanPham item)
         {
             var Result = new BaseResultMOD();

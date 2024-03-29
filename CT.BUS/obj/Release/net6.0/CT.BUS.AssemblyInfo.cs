@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CT.BUS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f107c097088795e4c416af6e745c87c43c8edd4f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01a318987523c508b4a02db96b015f5f0206b067")]
 [assembly: System.Reflection.AssemblyProductAttribute("CT.BUS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CT.BUS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

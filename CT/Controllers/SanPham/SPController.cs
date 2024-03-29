@@ -54,9 +54,6 @@ namespace CT.Controllers.SanPham
                     return NotFound();
                 }
             }
-
-
-
             else
             {
 

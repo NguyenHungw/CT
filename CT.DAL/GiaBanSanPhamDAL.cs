@@ -40,8 +40,9 @@ namespace CT.DAL
 					SqlDataReader read = cmd.ExecuteReader();
 					while (read.Read())
 					{
-                        GiaBanSanPhamMOD item = new GiaBanSanPhamMOD();
-						item.ID_GiaBan = read.GetInt32(0);
+						GiaBanSanPhamMOD item = new GiaBanSanPhamMOD();
+                    
+                        item.ID_GiaBan = read.GetInt32(0);
 						item.MSanPham = read.GetString(1);
 						item.NgayBatDau = read.GetDateTime(2);
 						item.GiaBan = read.GetDecimal(3);
@@ -62,7 +63,108 @@ namespace CT.DAL
 			}
 			return result;
 		}
-		public BaseResultMOD SuaGiaBan(ThemGiaBanSanPham item)
+        public BaseResultMOD DanhSachChuaApGia(int page)
+        {
+            var result = new BaseResultMOD();
+            List<SanPhamChuaApGia> productList = new List<SanPhamChuaApGia>();
+
+            try
+            {
+
+                const int ProductPerPage = 20;
+                int startPage = ProductPerPage * (page - 1);
+
+                using (SqlConnection sqlCon = new SqlConnection(SQLHelper.appConnectionStrings))
+                {
+                    sqlCon.Open();
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.Text;
+                        //cmd.CommandText = "v1_SanPham_DanhSach";
+                        cmd.CommandText = @"SELECT SP.MSanPham, SP.Picture, SP.TenSanPham, SP.ID_LoaiSanPham ,lsp.TenLoaiSP, SP.ID_DonVi,dvt.TenDonVi, GBSP.GiaBan
+											FROM SanPham SP
+											LEFT JOIN GiaBanSanPham GBSP ON SP.MSanPham = GBSP.MSanPham
+											LEFT JOIN LoaiSanPham lsp on sp.ID_LoaiSanPham = lsp.ID_LoaiSanPham
+											LEFT JOIN DonViTinh dvt on sp.ID_DonVi = dvt.ID_DonVi
+											WHERE GBSP.MSanPham IS NULL
+											ORDER BY SP.id
+											OFFSET @startpage ROWS
+											FETCH NEXT @ProductPerPage ROWS ONLY";
+                        cmd.Parameters.AddWithValue("@StartPage", startPage);
+                        cmd.Parameters.AddWithValue("@ProductPerPage", ProductPerPage);
+                        cmd.Connection = sqlCon;
+
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SanPhamChuaApGia item = new SanPhamChuaApGia();
+                                item.MSanPham = reader.GetString(0);
+                                string picture = reader.GetString(1);
+                                if (picture.EndsWith(".jpg") || picture.EndsWith(".png") || picture.EndsWith(".gif"))
+                                {
+                                    item.Picture = "https://localhost:7177/" + reader.GetString(1);
+                                }
+                                else
+                                {
+                                    // nếu ko phải là kiểu ảnh thì là base64
+                                    item.Picture = reader.GetString(1);
+                                }
+                                //item.Picture =  reader.GetString(1);
+                                if (!reader.IsDBNull(2))
+								{
+                                    item.TenSP = reader.GetString(2);
+                                }
+                                    
+                                if (!reader.IsDBNull(3))
+                                {
+                                    item.ID_LoaiSanPham = reader.GetInt32(3);
+                                }
+                                if (!reader.IsDBNull(4))
+                                {
+                                    item.TenLoaiSanPham = reader.GetString(4);
+                                }
+
+                                if (!reader.IsDBNull(5))
+                                {
+                                    item.ID_DonVi = reader.GetInt32(5);
+                                }
+                                if (!reader.IsDBNull(6))
+                                {
+                                    item.TenDonVi = reader.GetString(6);
+                                }
+                                if (!reader.IsDBNull(7))
+                                {
+                                    item.GiaBan = reader.GetInt32(7);
+
+                                }
+
+
+                                productList.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                result.Status = 1;
+                result.Data = productList;
+            }
+            catch (Exception ex)
+            {
+                result.Status = 0;
+                result.Message = ex.Message;
+                throw;
+
+            }
+
+            return result;
+        }
+
+
+        public BaseResultMOD SuaGiaBan(ThemGiaBanSanPham item)
 		{
 			var result = new BaseResultMOD();
 			try
@@ -163,6 +265,7 @@ namespace CT.DAL
 			}
 			return result;
 		}
+
 		public BaseResultMOD XoaGiaBan(int id)
 		{
 			var result = new BaseResultMOD();
