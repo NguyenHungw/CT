@@ -72,15 +72,17 @@ namespace CT.Controllers.Paypal
 
                 // Kiểm tra trạng thái của đơn hàng
                 var isPaid = order.Status == "COMPLETED";
+                var status = isPaid ? 1 : 0;
+
                 var statusMessage = isPaid ? "Đơn hàng đã được thanh toán" : "Đơn hàng chưa được thanh toán";
 
-                return new BaseResultMOD { Status = 1, Message = statusMessage };
+                return new BaseResultMOD { Status = status, Message = statusMessage };
             }
             catch (Exception ex)
             {
                 // Xử lý ngoại lệ
                 Console.WriteLine(ex.Message);
-                return new BaseResultMOD { Status = 0, Message = "An error occurred while processing the request" };
+                return new BaseResultMOD { Status = -1, Message = "An error occurred while processing the request" };
             }
         }
 
