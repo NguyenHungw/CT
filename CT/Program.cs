@@ -115,10 +115,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
                       {
-                          builder.WithOrigins("http://localhost:3000")
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod()
-                                 .AllowCredentials(); // Bổ sung AllowCredentials nếu bạn cần chấp nhận cookie từ client
+                          builder.WithOrigins("http://localhost:3000") // Thiết lập nguồn gốc của Frontend của bạn
+                   .AllowCredentials()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .WithExposedHeaders("Set-Cookie") // Cho phép Set-Cookie header được gửi về
+                   .SetIsOriginAllowedToAllowWildcardSubdomains() // Cho phép subdomains
+
+                   .SetIsOriginAllowed(_ => true);
+                 
+                  
                       });
 });
 // JWT Authentication Configuration

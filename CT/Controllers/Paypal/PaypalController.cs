@@ -129,7 +129,15 @@ public class PaymentController : ControllerBase
 
                 // Lưu thông tin đơn hàng vào cookie
                 var orderJson = JsonConvert.SerializeObject(order);
-                Response.Cookies.Append("Order", orderJson);
+
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(1), // Thời gian hết hạn của cookie
+                    IsEssential = true, // Đảm bảo cookie được gửi kèm với mọi yêu cầu
+                    Domain = ".localhost" // Thiết lập Domain của cookie
+                };
+
+                Response.Cookies.Append("Order", orderJson, cookieOptions);
 
                 var orderResponse = await payPalService.CreateOrder(order.TotalAmount, DefaultCurrencyCode);
 
@@ -141,6 +149,7 @@ public class PaymentController : ControllerBase
             return BadRequest(new { Message = ex.Message });
         }
     }
+
 
 
     [AllowAnonymous]
