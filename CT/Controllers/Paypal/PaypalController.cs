@@ -382,8 +382,77 @@ public class PaymentController : ControllerBase
             databaseHelper.UpdatePaymentStatus(orderId, "Completed");
 
             // Xóa thông tin đơn hàng từ cookie sau khi xử lý thành công
-            Response.Cookies.Delete("Order");
 
+            return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
+    }
+    [HttpPost("capture-order/{orderId}-normal")]
+    public async Task<IActionResult> CaptureOrderNormal(string orderId)
+    {
+        try
+        {
+            var captureResult = await payPalService.CaptureOrder(orderId);
+
+            if (captureResult)
+            {
+
+                // Cập nhật trạng thái thanh toán cho đơn hàng thành công
+                databaseHelper.UpdatePaymentStatus(orderId, "Completed");
+
+                return Ok(new
+                {
+                    Status = 1,
+                    Message = "Payment captured successfully"
+                });
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    Status = 0,
+                    Message = "Payment capture failed"
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                Status = -1,
+                Message = CT.ULT.Constant.API_Error_System
+            });
+        }
+
+
+    }
+    [HttpPost("SaveOrderDetails_TruSoLuongSP_XoaCart/-normal")]
+    public async Task<IActionResult> CheckOrder2([FromBody]ChiTietDonHang item)
+    {
+        try
+        {
+            var orderStatusResult = await payPalService.IsOrderPaid(item.OrderId);
+          
+
+            // Kiểm tra xem đơn hàng đã được thanh toán hay chưa
+            if (orderStatusResult.Status == 0)
+            {
+                return BadRequest("Order has not been paid yet");
+            }
+    
+                // Gọi phương thức trong repository để lưu chi tiết đơn hàng vào cơ sở dữ liệu
+                databaseHelper.SaveOrderDetail(item.OrderId, item.MSanPham, item.SoLuong, item.DonGia, (item.TrietKhau != null) ? item.TrietKhau : 0, item.ThanhTien = item.SoLuong*item.DonGia);
+
+                // Giảm số lượng sản phẩm trong kho
+                databaseHelper.TruSoLuongSanPham(item.MSanPham, item.SoLuong);
+
+                // Xóa sản phẩm khỏi giỏ hàng
+                databaseHelper.RemoveProductFromCart(item.idUser);
+           
             return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
         }
         catch (Exception ex)
