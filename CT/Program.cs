@@ -74,6 +74,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = "Facebook";
 })
 .AddCookie()
+
 .AddOAuth("Facebook", options =>
 {
     options.ClientId = "275201555380486";//app id
@@ -215,6 +216,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+app.UseCors(MyAllowSpecificOrigins);
 
 if (app.Environment.IsDevelopment())
 {

@@ -333,6 +333,7 @@ public class PaymentController : ControllerBase
             return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
         }
     }
+
     [HttpPost("check-order/{orderId}-cookie")]
     public async Task<IActionResult> CheckOrderCookie(string orderId)
     {
@@ -429,6 +430,52 @@ public class PaymentController : ControllerBase
         }
 
 
+    }
+    [HttpPost("TraVeCookieDeCode")]
+    public async Task<IActionResult> TraVeCookie()
+    {
+        try
+        {
+          
+            // Đọc thông tin đơn hàng từ cookie
+            var orderJson = Request.Cookies["Order"];
+            if (orderJson == null)
+            {
+                return BadRequest("Order information not found in cookie");
+            }
+            var order = JsonConvert.DeserializeObject<Order1>(HttpUtility.UrlDecode(orderJson));
+
+
+            return Ok(order);
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
+    }
+    [HttpPost("TraVeCookieKhongDeCode")]
+    public async Task<IActionResult> TraVeCookieKhongDeCode()
+    {
+        try
+        {
+
+            // Đọc thông tin đơn hàng từ cookie
+            var orderJson = Request.Cookies["Order"];
+            if (orderJson == null)
+            {
+                return BadRequest("Order information not found in cookie");
+            }
+            
+
+
+            return Ok(orderJson);
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
     }
     [HttpPost("SaveOrderDetails_TruSoLuongSP_XoaCart/-normal")]
     public async Task<IActionResult> CheckOrder2([FromBody]ChiTietDonHang item)
