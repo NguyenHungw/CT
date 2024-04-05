@@ -99,7 +99,6 @@ public class PaymentController : ControllerBase
     {
         try
         {
-            // Lấy thông tin sản phẩm trong giỏ hàng từ cơ sở dữ liệu
             if (idUser <= 0)
             {
                 return BadRequest("ID không hợp lệ");
@@ -107,7 +106,6 @@ public class PaymentController : ControllerBase
             else
             {
                 var cartItems = databaseHelper.GetCartItems(idUser);
-                // Kiểm tra xem giỏ hàng có sản phẩm không
                 if (cartItems == null || cartItems.Count == 0)
                 {
                     return BadRequest(new { Message = "Giỏ hàng trống" });
@@ -137,11 +135,19 @@ public class PaymentController : ControllerBase
                     Domain = ".localhost" // Thiết lập Domain của cookie
                 };
 
-                Response.Cookies.Append("Order", orderJson, cookieOptions);
+                Response.Cookies.Append("Order", WebUtility.UrlEncode(orderJson), cookieOptions);
 
                 var orderResponse = await payPalService.CreateOrder(order.TotalAmount, DefaultCurrencyCode);
 
-                return Ok(new { OrderId = orderResponse.Id, Items = order.Items });
+                var response = new
+                {
+                    OrderId = orderResponse.Id,
+                    Items = order.Items,
+                    // chuyển đổi orderJson sang dạng đã encode
+                    Cookie = "Order=" + WebUtility.UrlEncode(orderJson)
+                };
+
+                return Ok(response);
             }
         }
         catch (Exception ex)
@@ -149,6 +155,9 @@ public class PaymentController : ControllerBase
             return BadRequest(new { Message = ex.Message });
         }
     }
+
+
+
 
 
 
@@ -195,6 +204,8 @@ public class PaymentController : ControllerBase
             if (captureResult)
             {
                 //var order = databaseHelper.GetCartItems();
+                //            var order = HttpContext.Session.GetObjectFromJson<Order1>("Order");
+
                 var order = HttpContext.Session.GetObjectFromJson<Order1>("Order");
 
                 // Kiểm tra xem session có tồn tại hay không
@@ -401,6 +412,109 @@ public class PaymentController : ControllerBase
             return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
         }
     }
+    [HttpPost("check-order/{orderId}-cookie-decode")]
+    public async Task<IActionResult> CheckOrderCookiedecode(string orderId, [FromBody] string decodedCookie)
+    {
+        try
+        {
+            var orderStatusResult = await payPalService.IsOrderPaid(orderId);
+
+            // Kiểm tra xem cookie đã giải mã có null hay không
+            if (string.IsNullOrEmpty(decodedCookie))
+            {
+                return BadRequest("Order information not found in cookie");
+            }
+
+            Order1 order;
+
+            try
+            {
+                // Đọc thông tin đơn hàng từ cookie đã giải mã
+                order = JsonConvert.DeserializeObject<Order1>(decodedCookie);
+            }
+            catch (JsonSerializationException ex)
+            {
+                // Xử lý ngoại lệ khi không thể deserialize chuỗi JSON
+                return BadRequest("Invalid order information in cookie");
+            }
+
+            // Kiểm tra xem đơn hàng đã được thanh toán hay chưa
+            if (orderStatusResult.Status == 0)
+            {
+                return BadRequest("Order has not been paid yet");
+            }
+
+            // Lặp qua từng sản phẩm trong đơn hàng và xử lý
+            foreach (var product in order.Items)
+            {
+                var chitietdonhang = new ChiTietDonHang
+                {
+                    idUser = product.idUser,
+                    OrderId = orderId,
+                    MSanPham = product.ProductId,
+                    SoLuong = product.Quantity,
+                    DonGia = product.Price, // Giá mặc định hoặc lấy từ sản phẩm
+                    TrietKhau = 0, // Triết khấu mặc định hoặc tính toán từ sản phẩm
+                    ThanhTien = product.Quantity * product.Price,
+                    // Cập nhật các thông tin khác nếu cần
+                };
+
+                // Gọi phương thức trong repository để lưu chi tiết đơn hàng vào cơ sở dữ liệu
+                databaseHelper.SaveOrderDetail(orderId, chitietdonhang.MSanPham, chitietdonhang.SoLuong, chitietdonhang.DonGia, chitietdonhang.TrietKhau, chitietdonhang.ThanhTien);
+
+                // Giảm số lượng sản phẩm trong kho
+                databaseHelper.TruSoLuongSanPham(chitietdonhang.MSanPham, chitietdonhang.SoLuong);
+
+                // Xóa sản phẩm khỏi giỏ hàng
+                databaseHelper.RemoveProductFromCart(product.idUser);
+            }
+
+            // Cập nhật trạng thái thanh toán cho đơn hàng thành công
+            databaseHelper.UpdatePaymentStatus(orderId, "Completed");
+
+            // Xóa thông tin đơn hàng từ cookie sau khi xử lý thành công
+
+            return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
+    }
+
+    [HttpPost("check-order/{orderId}-cookie2")]
+    public async Task<IActionResult> CheckOrderCookie([FromRoute] string orderId, [FromBody] string urlCookie)
+    {
+        try
+        {
+            var orderStatusResult = await payPalService.IsOrderPaid(orderId);
+
+            // Đọc thông tin đơn hàng từ cookie
+            var orderJson = Request.Cookies[urlCookie];
+            if (orderJson == null)
+            {
+                return BadRequest("Order information not found in cookie");
+            }
+            var order = JsonConvert.DeserializeObject<Order1>(HttpUtility.UrlDecode(orderJson));
+
+            // Kiểm tra xem đơn hàng đã được thanh toán hay chưa
+            if (orderStatusResult.Status == 0)
+            {
+                return BadRequest("Order has not been paid yet");
+            }
+
+            // Các bước xử lý tiếp theo
+
+            return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
+    }
+
     [HttpPost("capture-order/{orderId}-normal")]
     public async Task<IActionResult> CaptureOrderNormal(string orderId)
     {
@@ -440,52 +554,7 @@ public class PaymentController : ControllerBase
 
 
     }
-    [HttpPost("TraVeCookieDeCode")]
-    public async Task<IActionResult> TraVeCookie()
-    {
-        try
-        {
-          
-            // Đọc thông tin đơn hàng từ cookie
-            var orderJson = Request.Cookies["Order"];
-            if (orderJson == null)
-            {
-                return BadRequest("Order information not found in cookie");
-            }
-            var order = JsonConvert.DeserializeObject<Order1>(HttpUtility.UrlDecode(orderJson));
-
-
-            return Ok(order);
-        }
-        catch (Exception ex)
-        {
-            // Xử lý ngoại lệ
-            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
-        }
-    }
-    [HttpPost("TraVeCookieKhongDeCode")]
-    public async Task<IActionResult> TraVeCookieKhongDeCode()
-    {
-        try
-        {
-
-            // Đọc thông tin đơn hàng từ cookie
-            var orderJson = Request.Cookies["Order"];
-            if (orderJson == null)
-            {
-                return BadRequest("Order information not found in cookie");
-            }
-            
-
-
-            return Ok(orderJson);
-        }
-        catch (Exception ex)
-        {
-            // Xử lý ngoại lệ
-            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
-        }
-    }
+  
     [HttpPost("SaveOrderDetails_TruSoLuongSP_XoaCart/-normal")]
     public async Task<IActionResult> CheckOrder2([FromBody]ChiTietDonHang item)
     {
@@ -507,8 +576,34 @@ public class PaymentController : ControllerBase
                 databaseHelper.TruSoLuongSanPham(item.MSanPham, item.SoLuong);
 
                 // Xóa sản phẩm khỏi giỏ hàng
-                databaseHelper.RemoveProductFromCart(item.idUser);
+              ///  databaseHelper.RemoveProductFromCart(item.idUser);
            
+            return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
+        }
+        catch (Exception ex)
+        {
+            // Xử lý ngoại lệ
+            return StatusCode(500, new { Status = false, Message = "An error occurred while processing the request" });
+        }
+    }
+
+    [HttpPost("XoaCart/-normal")]
+    public async Task<IActionResult> XoaCart([FromBody] ChiTietDonHang item)
+    {
+        try
+        {
+            var orderStatusResult = await payPalService.IsOrderPaid(item.OrderId);
+
+
+            // Kiểm tra xem đơn hàng đã được thanh toán hay chưa
+            if (orderStatusResult.Status == 0)
+            {
+                return BadRequest("Order has not been paid yet");
+            }
+
+            // Xóa sản phẩm khỏi giỏ hàng
+            databaseHelper.RemoveProductFromCart(item.idUser);
+
             return Ok(new { Status = orderStatusResult.Status, Message = orderStatusResult.Message });
         }
         catch (Exception ex)
