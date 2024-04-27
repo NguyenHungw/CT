@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.BUS\\CT.BUS.csproj": {}
+    "D:\\Code\\C#\\CT\\CT.BUS\\CT.BUS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.BUS\\CT.BUS.csproj": {
+    "D:\\Code\\C#\\CT\\CT.BUS\\CT.BUS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.BUS\\CT.BUS.csproj",
+        "projectUniqueName": "D:\\Code\\C#\\CT\\CT.BUS\\CT.BUS.csproj",
         "projectName": "CT.BUS",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.BUS\\CT.BUS.csproj",
+        "projectPath": "D:\\Code\\C#\\CT\\CT.BUS\\CT.BUS.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.BUS\\obj\\",
+        "outputPath": "D:\\Code\\C#\\CT\\CT.BUS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj"
+              "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj": {
+                "projectPath": "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj"
               },
-              "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
-                "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
+              "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
+                "projectPath": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
               }
             }
           }
@@ -110,14 +110,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj": {
+    "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
+        "projectUniqueName": "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
         "projectName": "CT.DAL",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
+        "projectPath": "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\obj\\",
+        "outputPath": "D:\\Code\\C#\\CT\\CT.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -134,11 +134,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
-                "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
+              "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
+                "projectPath": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
               },
-              "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
-                "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj"
+              "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
+                "projectPath": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj"
               }
             }
           }
@@ -226,14 +226,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
+    "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
+        "projectUniqueName": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
         "projectName": "CT.MOD",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
+        "projectPath": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\obj\\",
+        "outputPath": "D:\\Code\\C#\\CT\\CT.MOD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -329,14 +329,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
+    "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
+        "projectUniqueName": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
         "projectName": "CT.ULT",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
+        "projectPath": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\obj\\",
+        "outputPath": "D:\\Code\\C#\\CT\\CT.ULT\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

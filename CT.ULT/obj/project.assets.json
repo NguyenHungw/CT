@@ -1688,11 +1688,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
+      "projectUniqueName": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
       "projectName": "CT.ULT",
-      "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
+      "projectPath": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\obj\\",
+      "outputPath": "D:\\Code\\C#\\CT\\CT.ULT\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

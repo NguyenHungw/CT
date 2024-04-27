@@ -7743,11 +7743,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
+      "projectUniqueName": "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
       "projectName": "CT.DAL",
-      "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
+      "projectPath": "D:\\Code\\C#\\CT\\CT.DAL\\CT.DAL.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.DAL\\obj\\",
+      "outputPath": "D:\\Code\\C#\\CT\\CT.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7764,11 +7764,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
-              "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
+            "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj": {
+              "projectPath": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj"
             },
-            "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
-              "projectPath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.ULT\\CT.ULT.csproj"
+            "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
+              "projectPath": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj"
             }
           }
         }
@@ -7872,16 +7872,6 @@
       "level": "Warning",
       "warningLevel": 1,
       "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.32.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
-      "libraryId": "System.IdentityModel.Tokens.Jwt",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.32.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g9c-28fc-mcx2",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net6.0"

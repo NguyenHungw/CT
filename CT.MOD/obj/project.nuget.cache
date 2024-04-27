@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D+gIbVxznK0tK1Aa9z2xJZ2yZXK9G5g51lZrKZ5mt9kzJ4uU0tvoNrz1CdX1ZP24O7FZFwnVjst4qLgl/huVXA==",
+  "dgSpecHash": "xRGLWS7xzAhJDo2uRrTjS7TdkNfmTglFA5FyVUKcnfrsP94nNqr++h0Jy6FH6im74sbMBYfUlyxgFK29QYLuZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Máy tính\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
+  "projectFilePath": "D:\\Code\\C#\\CT\\CT.MOD\\CT.MOD.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\epplus\\7.0.0\\epplus.7.0.0.nupkg.sha512",
@@ -70,16 +70,6 @@
       "level": "Warning",
       "warningLevel": 1,
       "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.32.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
-      "libraryId": "System.IdentityModel.Tokens.Jwt",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.32.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g9c-28fc-mcx2",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net6.0"

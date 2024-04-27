@@ -13,3 +13,33 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\ref\CT.MOD.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.runtimeconfig.json
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.sourcelink.json
+D:\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.deps.json
+D:\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.runtimeconfig.json
+D:\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.dll
+D:\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.pdb
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.AssemblyReference.cache
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfoInputs.cache
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfo.cs
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.CoreCompileInputs.cache
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.sourcelink.json
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.dll
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\refint\CT.MOD.dll
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.pdb
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.genruntimeconfig.cache
+D:\C#\CT\CT.MOD\obj\Debug\net6.0\ref\CT.MOD.dll
+D:\Code\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.deps.json
+D:\Code\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.runtimeconfig.json
+D:\Code\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.dll
+D:\Code\C#\CT\CT.MOD\bin\Debug\net6.0\CT.MOD.pdb
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.AssemblyReference.cache
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfoInputs.cache
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.AssemblyInfo.cs
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.csproj.CoreCompileInputs.cache
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.sourcelink.json
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.dll
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\refint\CT.MOD.dll
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.pdb
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\CT.MOD.genruntimeconfig.cache
+D:\Code\C#\CT\CT.MOD\obj\Debug\net6.0\ref\CT.MOD.dll

@@ -11,3 +11,29 @@ C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.ULT\obj\Debug\net6.0\refint\CT.ULT.d
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.pdb
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.ULT\obj\Debug\net6.0\ref\CT.ULT.dll
 C:\Users\Admin\OneDrive\Máy tính\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.sourcelink.json
+D:\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.deps.json
+D:\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.dll
+D:\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.pdb
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.csproj.AssemblyReference.cache
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.AssemblyInfoInputs.cache
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.AssemblyInfo.cs
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.csproj.CoreCompileInputs.cache
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.sourcelink.json
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.dll
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\refint\CT.ULT.dll
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.pdb
+D:\C#\CT\CT.ULT\obj\Debug\net6.0\ref\CT.ULT.dll
+D:\Code\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.deps.json
+D:\Code\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.dll
+D:\Code\C#\CT\CT.ULT\bin\Debug\net6.0\CT.ULT.pdb
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.csproj.AssemblyReference.cache
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.AssemblyInfoInputs.cache
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.AssemblyInfo.cs
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.csproj.CoreCompileInputs.cache
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.sourcelink.json
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.dll
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\refint\CT.ULT.dll
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\CT.ULT.pdb
+D:\Code\C#\CT\CT.ULT\obj\Debug\net6.0\ref\CT.ULT.dll
