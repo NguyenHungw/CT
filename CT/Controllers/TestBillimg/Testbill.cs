@@ -55,7 +55,10 @@ public class TextOnImageController : ControllerBase
     [Route("TestBill")]
     public IActionResult AddTextToImage([FromBody] List<TextModel> textModels)
     {
-        string fontPath = "D:\\Font\\SF Pro Display\\SF Pro Display\\SF-Pro-Display\\SF-Pro-Display-Black.otf";
+        //string fontPath = "D:\\Font\\SF Pro Display\\SF Pro Display\\SF-Pro-Display\\SF-Pro-Display-Black.otf";
+        string fontPath = "D:\\Font\\SF Pro Display\\SF Pro Display\\SF-Pro-Display\\SF-Pro-Display-Regular.otf";
+        string fontSF = "D:\\Font\\SF Pro Display\\SF Pro Display\\SF-Pro-Display";
+        string fontRoboto = "D:\\Font\\font\\A - Z\\Roboto-Regular.ttf";
         using (var backgroundImage = Image.FromFile(_backgroundImagePath))
         {
             using (var graphics = Graphics.FromImage(backgroundImage))
@@ -126,15 +129,20 @@ public class TextOnImageController : ControllerBase
                         textColor7 = Color.Red;
                     }
                     // Thiết lập font chữ với chế độ Bold và Strong
-                    using (var font = new Font("Arial", textModel.TextSize, FontStyle.Bold))
+                    //using (var font = new Font("Arial", textModel.TextSize, FontStyle.Bold ))
+                    using (PrivateFontCollection privateFonts = new PrivateFontCollection())
                     {
+                        privateFonts.AddFontFile(fontPath);
                         // Kiểm tra xem vị trí đã được cung cấp không
-                        if (textModel.Position != null)
+                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize, FontStyle.Bold))
                         {
-                            // Vẽ văn bản tại vị trí đã chỉ định với kích thước, font chữ và màu sắc tương ứng
-                            using (var brush = new SolidBrush(textColor))
+                            if (textModel.Position != null)
                             {
-                                graphics.DrawString(textModel.Gio, font, brush, textModel.Position);
+                                // Vẽ văn bản tại vị trí đã chỉ định với kích thước, font chữ và màu sắc tương ứng
+                                using (var brush = new SolidBrush(textColor))
+                                {
+                                    graphics.DrawString(textModel.Gio, font, brush, textModel.Position);
+                                }
                             }
                         }
                     }
@@ -144,7 +152,7 @@ public class TextOnImageController : ControllerBase
                     {
                         privateFonts.AddFontFile(fontPath);
 
-                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize2))
+                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize2, FontStyle.Bold))
                         {
                             if (textModel.Position2 != null)
                             {
@@ -187,7 +195,7 @@ public class TextOnImageController : ControllerBase
                     {
                         privateFonts.AddFontFile(fontPath);
 
-                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize4))
+                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize4, FontStyle.Bold))
                         {
                             if (textModel.Position4 != null)
                             {
@@ -208,7 +216,7 @@ public class TextOnImageController : ControllerBase
                     {
                         privateFonts.AddFontFile(fontPath);
 
-                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize5))
+                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize5, FontStyle.Bold))
                         {
                             if (textModel.Position5 != null)
                             {
@@ -250,7 +258,7 @@ public class TextOnImageController : ControllerBase
                     {
                         privateFonts.AddFontFile(fontPath);
 
-                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize7))
+                        using (var font = new Font(privateFonts.Families[0], textModel.TextSize7, FontStyle.Bold))
                         {
                             if (textModel.Position7 != null)
                             {
