@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CT.MOD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60629710eed3ebf2e1e97d7112946c8e43b99611")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70f6cdedbc0522f3b65aac4816769fcf1257320b")]
 [assembly: System.Reflection.AssemblyProductAttribute("CT.MOD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CT.MOD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

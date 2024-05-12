@@ -128,6 +128,19 @@ public class TextOnImageController : ControllerBase
                     {
                         textColor7 = Color.Red;
                     }
+                    // Kiểm tra kích thước của ảnh
+                    int imageWidth = backgroundImage.Width;
+                    int imageHeight = backgroundImage.Height;
+
+                    // Kiểm tra và điều chỉnh vị trí và kích thước của văn bản
+                    if (textModel.Position.Y + textModel.TextSize > imageHeight)
+                    {
+                        // Tạo một đối tượng PointF mới với vị trí Y đã điều chỉnh
+                        PointF adjustedPosition = new PointF(textModel.Position.X, imageHeight - textModel.TextSize);
+
+                        // Gán lại giá trị mới cho thuộc tính Position
+                        textModel.Position = adjustedPosition;
+                    }
                     // Thiết lập font chữ với chế độ Bold và Strong
                     //using (var font = new Font("Arial", textModel.TextSize, FontStyle.Bold ))
                     using (PrivateFontCollection privateFonts = new PrivateFontCollection())
