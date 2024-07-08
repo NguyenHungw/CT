@@ -5,6 +5,8 @@ using System.Drawing;
 using System.IO;
 using System.Drawing.Text;
 using System.Globalization;
+using System.Text;
+using Encoder = System.Drawing.Imaging.Encoder;
 
 public class TextModel
 {
@@ -72,6 +74,9 @@ public class TextOnImageController : ControllerBase
     {
         string fontPath = "C:\\Windows\\Fonts\\Roboto-Regular.ttf";
         string HinhAnhPath = "C:\\Users\\Admin\\OneDrive\\Máy tính\\c-Sharp.png";
+        string randomString = GenerateRandomString('A', 'Z');
+        char randomChar = GenerateRandomChar();
+
 
         using (var backgroundImage = Image.FromFile(_backgroundImagePath))
         {
@@ -85,6 +90,8 @@ public class TextOnImageController : ControllerBase
                     DefaultScaleX(textModel);
                     DefaultScaleY(textModel);
                     DefaultDay(textModel);
+
+                    textModel.LoiNhan = GenerateRandomString('A','Z');
                     ConvertTienToWords(textModel);
 
                     Color textColor = !string.IsNullOrWhiteSpace(textModel.ColorHex) ? ColorTranslator.FromHtml(textModel.ColorHex) : Color.Red;
@@ -107,7 +114,7 @@ public class TextOnImageController : ControllerBase
                         using (var font6 = new Font(privateFonts.Families[0], textModel.TextSize6 ?? 0.00f))
                         using (var font7 = new Font(privateFonts.Families[0], textModel.TextSize7 ?? 0.00f, FontStyle.Bold))
                         {
-                            ApplyScaleTransform(graphics, textModel.ScaleX, textModel.ScaleY);
+                             ApplyScaleTransform(graphics, textModel.ScaleX, textModel.ScaleY);
                             DrawText(graphics, textModel.Gio, font1, textColor, textModel.Position);
                             ApplyScaleTransform(graphics, textModel.ScaleX2, textModel.ScaleY2);
                             DrawText(graphics, textModel.Tien, font2, textColor2, textModel.Position2);
@@ -457,6 +464,40 @@ public class TextOnImageController : ControllerBase
         }
 
         return output + " đồng";
+    }
+    public static char GenerateRandomChar()
+    {
+        Random random = new Random();
+        int num = random.Next(0, 26); // Sinh số ngẫu nhiên từ 0 đến 25
+
+        // Chuyển đổi số nguyên thành ký tự 'A' đến 'Z'
+        char randomChar = (char)('A' + num);
+
+        return randomChar;
+    }
+    public static string GenerateRandomString(char prefix,char suffix)
+    {
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+        result.Append(prefix);
+
+        // Sinh số ngẫu nhiên từ 1 đến 9 và nối vào chuỗi kết quả
+        for (int i = 0; i < 6; i++)
+        {
+            int digit = random.Next(1, 10);
+            result.Append(digit);
+        }
+        result.Append(prefix);
+ 
+
+      /*  // Lấy ký tự đầu từ chuỗi số ngẫu nhiên
+        char firstChar = result[0];
+
+        // Thêm ký tự đầu vào đầu chuỗi kết quả
+        result.Insert(0, firstChar);*/
+
+        return result.ToString();
+
     }
 
     private void ConvertTienToWords(TextModel textModel)
