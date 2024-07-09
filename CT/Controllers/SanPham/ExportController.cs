@@ -11,7 +11,7 @@ public class ExcelExportController : ControllerBase
 {
  
 
-    private readonly string strcon = "Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100"; // Thay thế bằng chuỗi kết nối của bạn
+    private readonly string strcon = "Data Source=DESKTOP-BBQKCNB\\HUNGW;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100"; // Thay thế bằng chuỗi kết nối của bạn
 
     [HttpGet("export")]
     public IActionResult ExportToExcel(int page)

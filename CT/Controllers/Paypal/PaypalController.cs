@@ -32,7 +32,7 @@ public class PaymentController : ControllerBase
     {
         // Khởi tạo PayPalService và DatabaseHelper với các thông số cần thiết.
         this.payPalService = new PayPalService("AUGz-LsUJYmCrwMprlEBzVb8h1YqPYOy6SHxSiMwQ267_252ijLgL0zFMP5bPejg0C2VnaS-JgmBchkP", "EN0hJnc1RiX4UHz4lsduRWJ7ve1jh7aMZZ9NHZlaEhjTOX61L2uGNUt4xsJGqN8E4HAcA5tFQiPAZu-S");
-        this.databaseHelper = new DatabaseHelper1("Data Source=DESKTOP-PMRM3DP\\SQLEXPRESS;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100");
+        this.databaseHelper = new DatabaseHelper1("Data Source=DESKTOP-BBQKCNB\\HUNGW;Initial Catalog=CT;Persist Security Info=True;User ID=Hungw;Password=123456;Trusted_Connection=True;Max Pool Size=100");
         _httpContextAccessor = httpContextAccessor;
 
     }

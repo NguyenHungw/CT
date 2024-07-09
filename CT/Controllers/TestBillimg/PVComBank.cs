@@ -10,7 +10,7 @@ using Encoder = System.Drawing.Imaging.Encoder;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Sockets;
 
-public class PVCombankModel
+public class MBBankModel
 {
     public string Gio { get; set; }
     public PointF Position { get; set; }
@@ -67,15 +67,15 @@ public class PVCombankModel
 [ApiController]
 [Route("api/[controller]")]
 [AllowAnonymous]
-public class PvcombankController : ControllerBase
+public class mBBankModelController : ControllerBase
 {
-    private readonly string _backgroundImagePath = "C:\\Users\\DUY NGUYEN\\Desktop\\TemplatePVcombank_Permie.jpg";
+    private readonly string _backgroundImagePath = "D:\\PHOTO BILL\\02.07\\37.jpg";
 
     [HttpPost]
-    [Route("PVbank")]
-    public IActionResult AddTextToImage([FromBody] List<PVCombankModel> pVCombankModels)
+    [Route("MBBank")]
+    public IActionResult AddTextToImage([FromBody] List<MBBankModel> mBBankModels)
     {
-        string fontPath = "D:\\PHOTO BILL\\Font\\SFUIText-Regular.ttf";
+        string fontPath = "C:\\Users\\DUY NGUYEN\\AppData\\Local\\Microsoft\\Windows\\Fonts\\AvertaStd Semibold.otf";
         string HinhAnhPath = "C:\\Users\\Admin\\OneDrive\\Máy tính\\c-Sharp.png";
         string randomString = GenerateRandomString('A', 'Z');
         char randomChar = GenerateRandomChar();
@@ -85,60 +85,60 @@ public class PvcombankController : ControllerBase
         {
             using (var graphics = Graphics.FromImage(backgroundImage))
             {
-                foreach (var pvcombank in pVCombankModels)
+                foreach (var mBBankModel in mBBankModels)
                 {
-                    CanLeTrai(pvcombank);
-                    LockTextSize(pvcombank);
-                    DefaultColor(pvcombank);
-                    DefaultScaleX(pvcombank);
-                    DefaultScaleY(pvcombank);
-                    DefaultDay(pvcombank);
-                    DefaultQuality(pvcombank);
-                    DefaultText(pvcombank);
+                    CanLeTrai(mBBankModel);
+                    LockTextSize(mBBankModel);
+                    DefaultColor(mBBankModel);
+                    DefaultScaleX(mBBankModel);
+                    DefaultScaleY(mBBankModel);
+                    DefaultDay(mBBankModel);
+                    DefaultQuality(mBBankModel);
+                    DefaultText(mBBankModel);
 
-                    pvcombank.LoiNhan = GenerateRandomString('A','Z');
-                    ConvertTienToWords(pvcombank);
+                    mBBankModel.LoiNhan = GenerateRandomString('A','Z');
+                    ConvertTienToWords(mBBankModel);
 
-                    Color textColor = !string.IsNullOrWhiteSpace(pvcombank.ColorHex) ? ColorTranslator.FromHtml(pvcombank.ColorHex) : Color.Red;
-                    Color textColor2 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex2) ? ColorTranslator.FromHtml(pvcombank.ColorHex2) : Color.Red;
-                    Color textColor3 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex3) ? ColorTranslator.FromHtml(pvcombank.ColorHex3) : Color.Red;
-                    Color textColor4 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex4) ? ColorTranslator.FromHtml(pvcombank.ColorHex4) : Color.Red;
-                    Color textColor5 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex5) ? ColorTranslator.FromHtml(pvcombank.ColorHex5) : Color.Red;
-                    Color textColor6 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex6) ? ColorTranslator.FromHtml(pvcombank.ColorHex6) : Color.Red;
-                    Color textColor7 = !string.IsNullOrWhiteSpace(pvcombank.ColorHex7) ? ColorTranslator.FromHtml(pvcombank.ColorHex7) : Color.Red;
+                    Color textColor = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex) ? ColorTranslator.FromHtml(mBBankModel.ColorHex) : Color.Red;
+                    Color textColor2 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex2) ? ColorTranslator.FromHtml(mBBankModel.ColorHex2) : Color.Red;
+                    Color textColor3 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex3) ? ColorTranslator.FromHtml(mBBankModel.ColorHex3) : Color.Red;
+                    Color textColor4 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex4) ? ColorTranslator.FromHtml(mBBankModel.ColorHex4) : Color.Red;
+                    Color textColor5 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex5) ? ColorTranslator.FromHtml(mBBankModel.ColorHex5) : Color.Red;
+                    Color textColor6 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex6) ? ColorTranslator.FromHtml(mBBankModel.ColorHex6) : Color.Red;
+                    Color textColor7 = !string.IsNullOrWhiteSpace(mBBankModel.ColorHex7) ? ColorTranslator.FromHtml(mBBankModel.ColorHex7) : Color.Red;
 
                     using (PrivateFontCollection privateFonts = new PrivateFontCollection())
                     {
                         privateFonts.AddFontFile(fontPath);
 
-                        using (var font1 = new Font(privateFonts.Families[0], pvcombank.TextSize ?? 0.00f, FontStyle.Bold))
-                        using (var font2 = new Font(privateFonts.Families[0], pvcombank.TextSize2 ?? 0.00f, FontStyle.Bold))
-                        using (var font3 = new Font(privateFonts.Families[0], pvcombank.TextSize3 ?? 0.00f,FontStyle.Regular))
-                        using (var font4 = new Font(privateFonts.Families[0], pvcombank.TextSize4 ?? 0.00f, FontStyle.Bold))
-                        using (var font5 = new Font(privateFonts.Families[0], pvcombank.TextSize5 ?? 0.00f, FontStyle.Bold))
-                        using (var font6 = new Font(privateFonts.Families[0], pvcombank.TextSize6 ?? 0.00f))
-                        using (var font7 = new Font(privateFonts.Families[0], pvcombank.TextSize7 ?? 0.00f, FontStyle.Bold))
+                        using (var font1 = new Font(privateFonts.Families[0], mBBankModel.TextSize ?? 0.00f, FontStyle.Bold))
+                        using (var font2 = new Font(privateFonts.Families[0], mBBankModel.TextSize2 ?? 0.00f, FontStyle.Bold))
+                        using (var font3 = new Font(privateFonts.Families[0], mBBankModel.TextSize3 ?? 0.00f,FontStyle.Regular))
+                        using (var font4 = new Font(privateFonts.Families[0], mBBankModel.TextSize4 ?? 0.00f, FontStyle.Bold))
+                        using (var font5 = new Font(privateFonts.Families[0], mBBankModel.TextSize5 ?? 0.00f, FontStyle.Bold))
+                        using (var font6 = new Font(privateFonts.Families[0], mBBankModel.TextSize6 ?? 0.00f))
+                        using (var font7 = new Font(privateFonts.Families[0], mBBankModel.TextSize7 ?? 0.00f, FontStyle.Bold))
                         {
-                             ApplyScaleTransform(graphics, pvcombank.ScaleX, pvcombank.ScaleY);
-                            DrawText(graphics, pvcombank.Gio, font1, textColor, pvcombank.Position);
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX2, pvcombank.ScaleY2);
-                            DrawText(graphics, pvcombank.Tien, font2, textColor2, pvcombank.Position2) ;
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX3, pvcombank.ScaleY3);
-                            DrawText(graphics, pvcombank.ThongTinChiTiet, font3, textColor3, pvcombank.Position3);
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX4, pvcombank.ScaleY4);
-                            DrawText(graphics, pvcombank.LoiNhan, font4, textColor4, pvcombank.Position4);
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX5, pvcombank.ScaleY5);
-                            DrawText(graphics, pvcombank.NgayThucHien, font5, textColor5, pvcombank.Position5);
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX6, pvcombank.ScaleY6);
-                            DrawText(graphics, pvcombank.MaGiaoDich, font6, textColor6, pvcombank.Position6);
-                            ApplyScaleTransform(graphics, pvcombank.ScaleX7, pvcombank.ScaleY7);
-                            DrawText(graphics, pvcombank.MaThamChieu, font7, textColor7, pvcombank.Position7);
+                             ApplyScaleTransform(graphics, mBBankModel.ScaleX, mBBankModel.ScaleY);
+                            DrawText(graphics, mBBankModel.Gio, font1, textColor, mBBankModel.Position);
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX2, mBBankModel.ScaleY2);
+                            DrawText(graphics, mBBankModel.Tien, font2, textColor2, mBBankModel.Position2) ;
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX3, mBBankModel.ScaleY3);
+                            DrawText(graphics, mBBankModel.ThongTinChiTiet, font3, textColor3, mBBankModel.Position3);
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX4, mBBankModel.ScaleY4);
+                            DrawText(graphics, mBBankModel.LoiNhan, font4, textColor4, mBBankModel.Position4);
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX5, mBBankModel.ScaleY5);
+                            DrawText(graphics, mBBankModel.NgayThucHien, font5, textColor5, mBBankModel.Position5);
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX6, mBBankModel.ScaleY6);
+                            DrawText(graphics, mBBankModel.MaGiaoDich, font6, textColor6, mBBankModel.Position6);
+                            ApplyScaleTransform(graphics, mBBankModel.ScaleX7, mBBankModel.ScaleY7);
+                            DrawText(graphics, mBBankModel.MaThamChieu, font7, textColor7, mBBankModel.Position7);
 
                             try
                             {
                                 using (var hinhAnh = Image.FromFile(HinhAnhPath))
                                 {
-                                    graphics.DrawImage(hinhAnh, pvcombank.HinhAnhPosition);
+                                    graphics.DrawImage(hinhAnh, mBBankModel.HinhAnhPosition);
                                 }
                             }
                             catch (Exception ex)
@@ -153,7 +153,7 @@ public class PvcombankController : ControllerBase
             using (var stream = new MemoryStream())
             {
                 var encoderParams = new EncoderParameters(1);
-                encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, pVCombankModels[0].Quality);
+                encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, mBBankModels[0].Quality);
                 var jpegCodecInfo = ImageCodecInfo.GetImageEncoders().FirstOrDefault(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
                 backgroundImage.Save(stream, jpegCodecInfo, encoderParams);
                 return File(stream.ToArray(), "image/jpeg");
@@ -161,74 +161,74 @@ public class PvcombankController : ControllerBase
         }
     }
 
-    private void CanLeTrai(PVCombankModel pvcombank)
+    private void CanLeTrai(MBBankModel mBBankModel)
     {
-        pvcombank.Position = new PointF(31, pvcombank.Position.Y);
-        //pvcombank.Position2 = new PointF(200, pvcombank.Position2.Y);
-        //pvcombank.Position2 = new PointF(200, 500);
-        pvcombank.Position2 = new PointF(pvcombank.Position2.X,pvcombank.Position2.Y);
-        pvcombank.Position3 = new PointF(31, pvcombank.Position3.Y);
-        pvcombank.Position4 = new PointF(31, pvcombank.Position4.Y);
-        pvcombank.Position5 = new PointF(31, pvcombank.Position5.Y);
-        pvcombank.Position6 = new PointF(31, pvcombank.Position6.Y);
-        pvcombank.Position7 = new PointF(31, pvcombank.Position7.Y);
+        mBBankModel.Position = new PointF(31, mBBankModel.Position.Y);
+        //mBBankModel.Position2 = new PointF(200, mBBankModel.Position2.Y);
+        //mBBankModel.Position2 = new PointF(200, 500);
+        mBBankModel.Position2 = new PointF(mBBankModel.Position2.X,mBBankModel.Position2.Y);
+        mBBankModel.Position3 = new PointF(31, mBBankModel.Position3.Y);
+        mBBankModel.Position4 = new PointF(31, mBBankModel.Position4.Y);
+        mBBankModel.Position5 = new PointF(31, mBBankModel.Position5.Y);
+        mBBankModel.Position6 = new PointF(31, mBBankModel.Position6.Y);
+        mBBankModel.Position7 = new PointF(31, mBBankModel.Position7.Y);
     }
-    private void DefaultText(PVCombankModel pvcombank)
+    private void DefaultText(MBBankModel mBBankModel)
     {
-        pvcombank.Tien = "25,713,096";
-    }
-
-    private void LockTextSize(PVCombankModel pvcombank)
-    {
-        pvcombank.TextSize = 30;
-        //pvcombank.TextSize2 = 30;
-        pvcombank.TextSize3 = 30;
-        pvcombank.TextSize4 = 30;
-        pvcombank.TextSize5 = 30;
-        pvcombank.TextSize6 = 30;
-        pvcombank.TextSize7 = 30;
+        mBBankModel.Tien = "257,130,960 VND";
     }
 
-    private void DefaultColor(PVCombankModel pvcombank)
+    private void LockTextSize(MBBankModel mBBankModel)
     {
-        pvcombank.ColorHex = "";
-        pvcombank.ColorHex2 = "";
-        pvcombank.ColorHex3 = "";
-        pvcombank.ColorHex4 = "";
-        pvcombank.ColorHex5 = "";
-        pvcombank.ColorHex6 = "";
-        pvcombank.ColorHex7 = "";
+        mBBankModel.TextSize = 30;
+        //mBBankModel.TextSize2 = 30;
+        mBBankModel.TextSize3 = 30;
+        mBBankModel.TextSize4 = 30;
+        mBBankModel.TextSize5 = 30;
+        mBBankModel.TextSize6 = 30;
+        mBBankModel.TextSize7 = 30;
     }
 
-    private void DefaultScaleX(PVCombankModel pvcombank, int p = 1)
+    private void DefaultColor(MBBankModel mBBankModel)
     {
-        pvcombank.ScaleX = p;
-     //   pvcombank.ScaleX2 = pvcombank.ScaleX2;
-        pvcombank.ScaleX3 = p;
-        pvcombank.ScaleX4 = p;
-        pvcombank.ScaleX5 = p;
-        pvcombank.ScaleX6 = p;
-        pvcombank.ScaleX7 = p;
+        mBBankModel.ColorHex = "";
+        mBBankModel.ColorHex2 = "";
+        mBBankModel.ColorHex3 = "";
+        mBBankModel.ColorHex4 = "";
+        mBBankModel.ColorHex5 = "";
+        mBBankModel.ColorHex6 = "";
+        mBBankModel.ColorHex7 = "";
     }
 
-    private void DefaultScaleY(PVCombankModel pvcombank, int p = 1)
+    private void DefaultScaleX(MBBankModel mBBankModel, int p = 1)
     {
-        pvcombank.ScaleY = p;
-      //  pvcombank.ScaleY2 = pvcombank.ScaleY2;
-        pvcombank.ScaleY3 = p;
-        pvcombank.ScaleY4 = p;
-        pvcombank.ScaleY5 = p;
-        pvcombank.ScaleY6 = p;
-        pvcombank.ScaleY7 = p;
+        mBBankModel.ScaleX = p;
+     //   mBBankModel.ScaleX2 = mBBankModel.ScaleX2;
+        mBBankModel.ScaleX3 = p;
+        mBBankModel.ScaleX4 = p;
+        mBBankModel.ScaleX5 = p;
+        mBBankModel.ScaleX6 = p;
+        mBBankModel.ScaleX7 = p;
     }
 
-    private void DefaultDay(PVCombankModel pvcombank)
+    private void DefaultScaleY(MBBankModel mBBankModel, int p = 1)
     {
-        pvcombank.NgayThucHien = DateTime.Now.ToString("dddd 'Ngày' dd 'tháng' MM 'năm' yyyy", new CultureInfo("vi-VN"));
+        mBBankModel.ScaleY = p;
+      //  mBBankModel.ScaleY2 = mBBankModel.ScaleY2;
+        mBBankModel.ScaleY3 = p;
+        mBBankModel.ScaleY4 = p;
+        mBBankModel.ScaleY5 = p;
+        mBBankModel.ScaleY6 = p;
+        mBBankModel.ScaleY7 = p;
     }
-    private void DefaultQuality(PVCombankModel pvcombank) 
+
+    private void DefaultDay(MBBankModel mBBankModel)
     {
-        pvcombank.Quality = 100;
+        mBBankModel.NgayThucHien = DateTime.Now.ToString("dddd 'Ngày' dd 'tháng' MM 'năm' yyyy", new CultureInfo("vi-VN"));
+    }
+    private void DefaultQuality(MBBankModel mBBankModel) 
+    {
+        mBBankModel.Quality = 100;
     }
 
     private void ApplyScaleTransform(Graphics graphics, float scaleX, float scaleY)
@@ -515,11 +515,11 @@ public class PvcombankController : ControllerBase
 
     }
 
-    private void ConvertTienToWords(PVCombankModel pvcombank)
+    private void ConvertTienToWords(MBBankModel mBBankModel)
     {
-        if (long.TryParse(pvcombank.Tien, out long number))
+        if (long.TryParse(mBBankModel.Tien, out long number))
         {
-            pvcombank.Tien = ConvertNumberToWords(number);
+            mBBankModel.Tien = ConvertNumberToWords(number);
         }
     }
 }

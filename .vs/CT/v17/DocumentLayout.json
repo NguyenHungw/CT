@@ -3,8 +3,52 @@
   "WorkspaceRootPath": "D:\\C#\\CT.API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5E79882B-DBF7-4F71-A42E-B27E1C492BEF}|CT.DAL\\CT.DAL.csproj|d:\\c#\\ct.api\\ct.dal\\donvidal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E79882B-DBF7-4F71-A42E-B27E1C492BEF}|CT.DAL\\CT.DAL.csproj|solutionrelative:ct.dal\\donvidal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\sanpham\\exportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\controllers\\sanpham\\exportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\paypal\\paypalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\controllers\\paypal\\paypalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\phanquyenvataikhoan\\uacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\controllers\\phanquyenvataikhoan\\uacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|d:\\c#\\ct.api\\ct.ult\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|solutionrelative:ct.ult\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|d:\\c#\\ct.api\\ct.ult\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|solutionrelative:ct.ult\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|d:\\c#\\ct.api\\ct.ult\\enum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|solutionrelative:ct.ult\\enum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|d:\\c#\\ct.api\\ct.ult\\constant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B31AE665-6922-4D8C-A353-5032B29B4B4C}|CT.ULT\\CT.ULT.csproj|solutionrelative:ct.ult\\constant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\testbillimg\\pvcombank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\controllers\\testbillimg\\pvcombank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\testbillimg\\vcb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|solutionrelative:ct\\controllers\\testbillimg\\vcb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C547FD85-53A3-4414-BFB0-C2AD67197A56}|CT\\CT.csproj|d:\\c#\\ct.api\\ct\\controllers\\testbillimg\\testbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +78,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,7 +90,150 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DonViDAL.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT.DAL\\DonViDAL.cs",
+              "RelativeDocumentMoniker": "CT.DAL\\DonViDAL.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT.DAL\\DonViDAL.cs",
+              "RelativeToolTip": "CT.DAL\\DonViDAL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T09:39:29.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UAController.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\PhanQuyenVaTaiKhoan\\UAController.cs",
+              "RelativeDocumentMoniker": "CT\\Controllers\\PhanQuyenVaTaiKhoan\\UAController.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\Controllers\\PhanQuyenVaTaiKhoan\\UAController.cs",
+              "RelativeToolTip": "CT\\Controllers\\PhanQuyenVaTaiKhoan\\UAController.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAowDsAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:55:04.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "PaypalController.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\Paypal\\PaypalController.cs",
+              "RelativeDocumentMoniker": "CT\\Controllers\\Paypal\\PaypalController.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\Controllers\\Paypal\\PaypalController.cs",
+              "RelativeToolTip": "CT\\Controllers\\Paypal\\PaypalController.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAiwCIAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:55:00.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ExportController.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\SanPham\\ExportController.cs",
+              "RelativeDocumentMoniker": "CT\\Controllers\\SanPham\\ExportController.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\Controllers\\SanPham\\ExportController.cs",
+              "RelativeToolTip": "CT\\Controllers\\SanPham\\ExportController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:54:57.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\appsettings.json",
+              "RelativeDocumentMoniker": "CT\\appsettings.json",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\appsettings.json",
+              "RelativeToolTip": "CT\\appsettings.json",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAvwBgAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-09T08:53:43.855Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT.ULT\\Utils.cs",
+              "RelativeDocumentMoniker": "CT.ULT\\Utils.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT.ULT\\Utils.cs",
+              "RelativeToolTip": "CT.ULT\\Utils.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:53:19.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Enum.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT.ULT\\Enum.cs",
+              "RelativeDocumentMoniker": "CT.ULT\\Enum.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT.ULT\\Enum.cs",
+              "RelativeToolTip": "CT.ULT\\Enum.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:53:15.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Constant.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT.ULT\\Constant.cs",
+              "RelativeDocumentMoniker": "CT.ULT\\Constant.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT.ULT\\Constant.cs",
+              "RelativeToolTip": "CT.ULT\\Constant.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:53:12.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SQLHelper.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT.ULT\\SQLHelper.cs",
+              "RelativeDocumentMoniker": "CT.ULT\\SQLHelper.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT.ULT\\SQLHelper.cs",
+              "RelativeToolTip": "CT.ULT\\SQLHelper.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T08:53:10.314Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "CT\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\Properties\\launchSettings.json",
+              "RelativeToolTip": "CT\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-09T08:52:56.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VCB.cs",
+              "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\VCB.cs",
+              "RelativeDocumentMoniker": "CT\\Controllers\\TestBillimg\\VCB.cs",
+              "ToolTip": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\VCB.cs",
+              "RelativeToolTip": "CT\\Controllers\\TestBillimg\\VCB.cs",
+              "ViewState": "AQIAAKIAAAAAAAAAAADwv7YAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T02:27:40.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "GioHangController.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\SanPham\\GioHangController.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\SanPham\\GioHangController.cs",
@@ -59,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "TrangChu_DSSP_Controller.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\TrangChuView\\TrangChu_DSSP_Controller.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\TrangChuView\\TrangChu_DSSP_Controller.cs",
@@ -72,20 +259,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "PVComBank.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\PVComBank.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\TestBillimg\\PVComBank.cs",
               "ToolTip": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\PVComBank.cs",
               "RelativeToolTip": "CT\\Controllers\\TestBillimg\\PVComBank.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAkwIEAAABgAAAA",
+              "ViewState": "AQIAADcAAAAAAAAAAAAowEwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-09T00:51:58.181Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 14,
               "Title": "ChiTietNhapController.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\SanPham\\ChiTietNhapController.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\SanPham\\ChiTietNhapController.cs",
@@ -98,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "TestNum.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\TestNum.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\TestBillimg\\TestNum.cs",
@@ -111,7 +298,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 12,
               "Title": "Testbill.cs",
               "DocumentMoniker": "D:\\C#\\CT.API\\CT\\Controllers\\TestBillimg\\Testbill.cs",
               "RelativeDocumentMoniker": "CT\\Controllers\\TestBillimg\\Testbill.cs",
