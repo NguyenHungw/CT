@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {}
+    "D:\\C#\\CT.API\\CT.ULT\\CT.ULT.csproj": {}
   },
   "projects": {
-    "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj": {
+    "D:\\C#\\CT.API\\CT.ULT\\CT.ULT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
+        "projectUniqueName": "D:\\C#\\CT.API\\CT.ULT\\CT.ULT.csproj",
         "projectName": "CT.ULT",
-        "projectPath": "D:\\Code\\C#\\CT\\CT.ULT\\CT.ULT.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Code\\C#\\CT\\CT.ULT\\obj\\",
+        "projectPath": "D:\\C#\\CT.API\\CT.ULT\\CT.ULT.csproj",
+        "packagesPath": "C:\\Users\\DUY NGUYEN\\.nuget\\packages\\",
+        "outputPath": "D:\\C#\\CT.API\\CT.ULT\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DUY NGUYEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -77,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }

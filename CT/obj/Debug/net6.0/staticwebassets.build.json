@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e2fEAL/lkyiS9bBT0jKEBu0hJ7siHgowSJDenLDQb+I=",
+  "Hash": "iGq2LRqdG93LZU/74m64V07J2CAfdzxSOzhbul6zkjw=",
   "Source": "CT",
   "BasePath": "_content/CT",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CT\\wwwroot",
       "Source": "CT",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/1_Anh-Avatar-den-600x600.jpg",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\1_Anh-Avatar-den-600x600.jpg"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\2_2.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\2_2.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/2_2.gif",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\2_2.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\2_anh-3d-thien-nhien.jpeg",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\2_anh-3d-thien-nhien.jpeg",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/2_anh-3d-thien-nhien.jpeg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\2_anh-3d-thien-nhien.jpeg"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\2_sk2.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\2_sk2.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/2_sk2.gif",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\2_sk2.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\33_33.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\33_33.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/33_33.gif",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\33_33.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\333_33.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\333_33.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/333_33.gif",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\333_33.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\333_anh-3d-thien-nhien.jpeg",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\333_anh-3d-thien-nhien.jpeg",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/333_anh-3d-thien-nhien.jpeg",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\333_anh-3d-thien-nhien.jpeg"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\3333_33.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\3333_33.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/3333_33.gif",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\3333_33.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\665_anh-3d-thien-nhien.jpeg",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\665_anh-3d-thien-nhien.jpeg",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/665_anh-3d-thien-nhien.jpeg",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\665_anh-3d-thien-nhien.jpeg"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\888_11.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\888_11.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/888_11.gif",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\888_11.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\888_1235.png",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\888_1235.png",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/888_1235.png",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\888_1235.png"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\898_anh-3d-thien-nhien.jpeg",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\898_anh-3d-thien-nhien.jpeg",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/898_anh-3d-thien-nhien.jpeg",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\898_anh-3d-thien-nhien.jpeg"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\898_body_gi_2.png",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\898_body_gi_2.png",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/898_body_gi_2.png",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\898_body_gi_2.png"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\898_napyy.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\898_napyy.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/898_napyy.gif",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\898_napyy.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\9898_body_gi_2.png",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\9898_body_gi_2.png",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/9898_body_gi_2.png",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\9898_body_gi_2.png"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\temp\\2.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\temp\\2.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/temp/2.gif",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\temp\\2.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/temp/a_e78b6c0464e4f27fd0cf92324cb97096.gif",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\temp\\a_e78b6c0464e4f27fd0cf92324cb97096.gif"
     },
     {
-      "Identity": "D:\\Code\\C#\\CT\\CT\\wwwroot\\upload\\test11_11.gif",
+      "Identity": "D:\\C#\\CT.API\\CT\\wwwroot\\upload\\test11_11.gif",
       "SourceId": "CT",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Code\\C#\\CT\\CT\\wwwroot\\",
+      "ContentRoot": "D:\\C#\\CT.API\\CT\\wwwroot\\",
       "BasePath": "_content/CT",
       "RelativePath": "upload/test11_11.gif",
       "AssetKind": "All",

@@ -8,7 +8,7 @@ namespace CT.Controllers.TestBillimg
         public string Tien { get; set; }
     }
 
-        [Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TestNum : ControllerBase
     {
